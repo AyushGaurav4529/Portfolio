@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Favicon AG Logo -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <title>Ayush Gaurav — Portfolio</title>
+  <meta name="description"
+    content="Ayush Gaurav — Computer Science Engineering undergrad specializing in AI, Full Stack Development, and scalable software solutions." />
+
+  <!-- Open Graph / Facebook / LinkedIn Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ayush Gaurav — AI & Full Stack Developer Portfolio" />
+  <meta property="og:description" content="Computer Science Engineering undergrad specializing in AI, Full Stack Development, and scalable software solutions." />
+  <meta property="og:image" content="avatar.jpg" />
+  <meta property="og:url" content="https://github.com/AyushGaurav4529" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ayush Gaurav — AI & Full Stack Developer Portfolio" />
+  <meta name="twitter:description" content="Computer Science Engineering undergrad specializing in AI, Full Stack Development, and scalable software solutions." />
+  <meta name="twitter:image" content="avatar.jpg" />
+
+  <!-- JSON-LD Person Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ayush Gaurav",
+    "jobTitle": "AI & Full Stack Developer",
+    "url": "https://github.com/AyushGaurav4529",
+    "sameAs": [
+      "https://github.com/AyushGaurav4529",
+      "https://www.linkedin.com/in/ayugaurav/"
+    ],
+    "email": "mailto:ayushgaurav4529@gmail.com",
+    "telephone": "+918295813878"
+  }
+  </script>
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0a0a0a',
+            darkCard: '#111111',
+            darkBorder: '#1e1e1e',
+            neon: '#10b981',
+            neonBright: '#00ff87',
+            textPrimary: '#ffffff',
+            textSecondary: '#94a3b8',
+            textMuted: '#64748b',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+          boxShadow: {
+            neon: '0 0 15px rgba(16, 185, 129, 0.3), 0 0 30px rgba(16, 185, 129, 0.1)',
+            neonStrong: '0 0 20px rgba(0, 255, 135, 0.4), 0 0 40px rgba(0, 255, 135, 0.15)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: #10b981 #0a0a0a;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, sans-serif;
+      position: relative;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #10b981;
+      border-radius: 3px;
+    }
+
+    /* Neon glow keyframes */
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes typewriter {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Timeline card hover */
+    .timeline-card {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid #1e1e1e;
+    }
+
+    .timeline-card:hover {
+      transform: scale(1.03);
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(0, 255, 135, 0.25), 0 0 40px rgba(0, 255, 135, 0.08);
+    }
+
+    /* Timeline node dot */
+    .timeline-dot {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .timeline-card:hover~.timeline-dot,
+    .timeline-group:hover .timeline-dot {
+      background-color: #00ff87 !important;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.6);
+      transform: scale(1.4);
+    }
+
+    /* Skill pill hover */
+    .skill-pill {
+      transition: all 0.3s ease;
+      border: 1px solid #1e1e1e;
+    }
+
+    .skill-pill:hover {
+      border-color: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+      transform: translateY(-2px);
+      color: #00ff87;
+    }
+
+    /* CTA button */
+    .cta-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-btn:hover::before {
+      left: 100%;
+    }
+
+    .cta-btn:hover {
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), 0 0 60px rgba(16, 185, 129, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* Background grid pattern */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #00ff87 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    /* Timeline connector lines */
+    .timeline-line {
+      background: linear-gradient(90deg, #1e1e1e, #10b981, #1e1e1e);
+      height: 2px;
+    }
+
+    .timeline-line-v {
+      background: linear-gradient(180deg, #1e1e1e, #10b981, #1e1e1e);
+      width: 2px;
+    }
+
+    /* Contact link hover */
+    .contact-link {
+      transition: all 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: #00ff87;
+      text-shadow: 0 0 8px rgba(0, 255, 135, 0.4);
+    }
+
+    /* Section heading decoration */
+    .section-heading::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #10b981, #00ff87);
+      margin-top: 12px;
+      border-radius: 2px;
+    }
+
+    /* Particle canvas */
+    #particles-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Hero noise overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Responsive timeline */
+    @media (max-width: 768px) {
+      .timeline-card:hover {
+        transform: scale(1.01);
+      }
+    }
+
+    /* ===== THEME TOGGLE BUTTON ===== */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 9999;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1px solid #1e1e1e;
+      background: #111111;
+      color: #10b981;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    @media (min-width: 640px) {
+      .theme-toggle {
+        top: 24px;
+        right: 24px;
+        width: 52px;
+        height: 52px;
+      }
+    }
+
+    .theme-toggle:hover {
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+      transform: scale(1.1);
+    }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      position: absolute;
+      transition: opacity 0.3s ease, transform 0.4s ease;
+    }
+
+    /* Dark mode (default): show sun icon, hide moon */
+    .theme-toggle .icon-sun {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    .theme-toggle .icon-moon {
+      opacity: 0;
+      transform: rotate(-90deg);
+    }
+
+    /* Light mode: show moon icon, hide sun */
+    .light-mode .theme-toggle .icon-sun {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+
+    .light-mode .theme-toggle .icon-moon {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+
+    /* ===== LIGHT MODE OVERRIDES ===== */
+    /* ──────────────────────────────────────────────
+       Light Mode Theme — Premium Ambient Mesh Background
+       ────────────────────────────────────────────── */
+    .light-mode {
+      background-color: #f8fafc !important;
+      color: #1e293b !important;
+    }
+
+    .light-mode.bg-grid {
+      background-color: #f8fafc !important;
+      background-image:
+        radial-gradient(at 12% 12%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 88% 22%, rgba(56, 189, 248, 0.15) 0px, transparent 45%),
+        radial-gradient(at 50% 55%, rgba(99, 102, 241, 0.09) 0px, transparent 55%),
+        radial-gradient(at 82% 88%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
+        radial-gradient(at 18% 85%, rgba(14, 165, 233, 0.12) 0px, transparent 45%),
+        linear-gradient(to right, rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(16, 185, 129, 0.07) 1px, transparent 1px) !important;
+      background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px !important;
+      background-attachment: fixed !important;
+    }
+
+    .light-mode .noise-overlay {
+      opacity: 0.25 !important;
+      mix-blend-mode: soft-light !important;
+    }
+
+    /* Navbar light mode */
+    .light-mode nav.top-navbar {
+      background-color: rgba(255, 255, 255, 0.85) !important;
+      backdrop-filter: blur(16px) !important;
+      border-color: rgba(226, 232, 240, 0.8) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .light-mode .nav-link {
+      color: #475569 !important;
+    }
+
+    .light-mode .nav-link:hover,
+    .light-mode .nav-link.active {
+      color: #0f172a !important;
+    }
+
+    .light-mode .btn-connect {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+    }
+
+    .light-mode .btn-connect:hover {
+      background-color: #10b981 !important;
+      color: #000000 !important;
+    }
+
+    .light-mode .btn-cv {
+      border-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+
+    .light-mode .btn-cv:hover {
+      border-color: #10b981 !important;
+      color: #059669 !important;
+    }
+
+    .light-mode .theme-toggle-nav {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #334155 !important;
+    }
+
+    .light-mode .theme-toggle-nav:hover {
+      border-color: #10b981 !important;
+      color: #059669 !important;
+    }
+
+    /* Cards in Light Mode — Glassmorphic styling */
+    .light-mode .timeline-card,
+    .light-mode .bg-darkCard {
+      background-color: rgba(255, 255, 255, 0.88) !important;
+      backdrop-filter: blur(12px) !important;
+      border-color: rgba(226, 232, 240, 0.9) !important;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+    }
+
+    .light-mode .timeline-card:hover {
+      border-color: #10b981 !important;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.22), 0 10px 25px -5px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* Skill pills */
+    .light-mode .skill-pill {
+      background-color: #f1f5f9 !important;
+      border-color: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+
+    .light-mode .skill-pill:hover {
+      border-color: #10b981 !important;
+      color: #059669 !important;
+    }
+
+    /* Skill category cards */
+    .light-mode .border-darkBorder {
+      border-color: #e2e8f0 !important;
+    }
+
+    .light-mode .hover\:border-neon\/30:hover {
+      border-color: rgba(16, 185, 129, 0.4) !important;
+    }
+
+    /* Text overrides */
+    .light-mode .text-white {
+      color: #0f172a !important;
+    }
+
+    .light-mode .text-textSecondary {
+      color: #475569 !important;
+    }
+
+    .light-mode .text-textMuted {
+      color: #94a3b8 !important;
+    }
+
+    .light-mode h1.gradient-text {
+      background: linear-gradient(135deg, #0f172a 0%, #10b981 50%, #059669 100%) !important;
+      -webkit-background-clip: text !important;
+      background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+    }
+
+    /* CTA button in light mode */
+    .light-mode .cta-btn {
+      color: #ffffff !important;
+    }
+
+    /* Summary card corner accents */
+    .light-mode .border-t-2.border-l-2.border-neon,
+    .light-mode .border-b-2.border-r-2.border-neon {
+      border-color: #10b981 !important;
+    }
+
+    /* Timeline lines */
+    .light-mode .timeline-line {
+      background: linear-gradient(90deg, #e2e8f0, #10b981, #e2e8f0) !important;
+    }
+
+    .light-mode .timeline-line-v {
+      background: linear-gradient(180deg, #e2e8f0, #10b981, #e2e8f0) !important;
+    }
+
+    /* Cyan to Purple/Blue Gradient text */
+    .gradient-blue-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #6366f1 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Side Nav Dots */
+    .side-nav-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #475569;
+      transition: all 0.3s ease;
+    }
+
+    .side-nav-item.active .side-nav-dot {
+      background-color: #10b981 !important;
+      box-shadow: 0 0 12px #10b981, 0 0 20px rgba(0, 255, 135, 0.6) !important;
+      transform: scale(1.5) !important;
+    }
+
+    .side-nav-item.active .side-nav-label {
+      opacity: 1 !important;
+      color: #10b981 !important;
+      font-weight: 600 !important;
+    }
+
+    .side-nav-item:hover .side-nav-dot {
+      background-color: #00ff87;
+      transform: scale(1.2);
+    }
+
+    .light-mode .gradient-blue-text {
+      background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .light-mode .side-nav-item.active .side-nav-label {
+      color: #059669 !important;
+    }
+
+    /* Neon accents stay the same green — keep readability */
+    .light-mode .text-neon {
+      color: #059669 !important;
+    }
+
+    .light-mode .text-neonBright {
+      color: #059669 !important;
+    }
+
+    /* Scrollbar light */
+    .light-mode::-webkit-scrollbar-track {
+      background: #f5f5f5;
+    }
+
+    /* Tech stack badge light override */
+    .light-mode .bg-neon\/10 {
+      background-color: rgba(16, 185, 129, 0.08) !important;
+    }
+
+    /* Radial glow toned down */
+    .light-mode .bg-neon\/5 {
+      background-color: rgba(16, 185, 129, 0.03) !important;
+    }
+
+    /* Section heading underline */
+    .light-mode .section-heading::after {
+      background: linear-gradient(90deg, #10b981, #059669) !important;
+    }
+
+    /* Transition everything smoothly */
+    body,
+    .timeline-card,
+    .skill-pill,
+    .theme-toggle,
+    .bg-darkCard,
+    .text-white,
+    .text-textSecondary,
+    .text-textMuted,
+    .contact-link,
+    .cta-btn,
+    .gradient-text,
+    footer {
+      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-grid relative">
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-progress-bar"
+    class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-neon via-neonBright to-neon z-[60] transition-all duration-75 shadow-[0_0_12px_#00ff87] w-0">
+  </div>
+
+  <!-- Interactive Mouse Spotlight Glow -->
+  <div id="mouse-spotlight"
+    class="fixed inset-0 pointer-events-none z-0 opacity-40 transition-opacity duration-500"
+    style="background: radial-gradient(600px circle at 50% 50%, rgba(16, 185, 129, 0.12), transparent 80%);">
+  </div>
+
+  <!-- Global Toast Notification -->
+  <div id="toast-notification"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[110] bg-[#111111]/95 text-white font-mono text-xs sm:text-sm px-5 py-3 rounded-full border border-neon/50 shadow-[0_0_25px_rgba(16,185,129,0.4)] flex items-center gap-2.5 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-neonBright flex-shrink-0"></i>
+    <span id="toast-message">Copied to clipboard!</span>
+  </div>
+
+  <!-- In-Site PDF Resume Viewer Modal -->
+  <div id="pdfViewerModal"
+    class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
+    <div class="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-3 z-10">
+      <a href="Ayush_Gaurav_CV.pdf" download="Ayush_Gaurav_CV.pdf"
+        class="text-dark font-bold bg-neon hover:bg-neonBright px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>Download PDF</span>
+      </a>
+      <button id="closePdfModal"
+        class="text-white/80 hover:text-white bg-[#111111] p-2.5 rounded-full border border-neon/40 hover:border-neon transition-all cursor-pointer"
+        aria-label="Close CV Viewer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div id="pdfModalCard"
+      class="relative w-full max-w-4xl h-[82vh] bg-[#111111] border border-neon/40 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(16,185,129,0.3)] transform scale-95 transition-all duration-300 flex flex-col">
+      <div class="px-4 py-3 bg-[#0a0a0a] border-b border-darkBorder flex items-center justify-between">
+        <div class="flex items-center gap-2 text-xs font-mono text-neon font-semibold">
+          <i data-lucide="file-text" class="w-4 h-4 text-neonBright"></i>
+          <span>Ayush_Gaurav_CV.pdf</span>
+        </div>
+        <span class="text-[11px] font-mono text-textMuted">Official Curriculum Vitae</span>
+      </div>
+      <iframe src="Ayush_Gaurav_CV.pdf#toolbar=0" class="w-full h-full border-0 bg-white" title="Ayush Gaurav Resume PDF"></iframe>
+    </div>
+  </div>
+
+  <!-- Command Palette Modal (Ctrl + K) -->
+  <div id="commandPaletteModal"
+    class="fixed inset-0 z-[120] flex items-start justify-center pt-16 sm:pt-24 p-4 bg-black/85 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-200">
+    <div id="commandPaletteCard"
+      class="relative w-full max-w-xl bg-[#111111] border border-neon/50 rounded-2xl shadow-[0_0_50px_rgba(16,185,129,0.35)] overflow-hidden transform scale-95 transition-all duration-200">
+      
+      <!-- Search Input Header -->
+      <div class="flex items-center px-4 py-3.5 border-b border-darkBorder bg-dark gap-3">
+        <i data-lucide="search" class="w-5 h-5 text-neon flex-shrink-0"></i>
+        <input type="text" id="cmdSearchInput" placeholder="Type a command or section name... (e.g. Projects, CV, Theme)"
+          class="w-full bg-transparent text-white font-mono text-sm outline-none placeholder:text-textMuted" autocomplete="off" />
+        <span class="text-[10px] font-mono text-textMuted bg-darkCard px-2 py-1 rounded border border-darkBorder flex-shrink-0">ESC</span>
+      </div>
+
+      <!-- Action Items List -->
+      <div id="cmdItemList" class="max-h-[60vh] overflow-y-auto p-2 space-y-1 font-mono text-xs text-textSecondary">
+        <!-- Item 1 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all active-cmd" data-action="nav" data-target="#summary">
+          <div class="flex items-center gap-3">
+            <i data-lucide="user" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>About Summary</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 2 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#education">
+          <div class="flex items-center gap-3">
+            <i data-lucide="graduation-cap" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Education Journey</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 3 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#projects">
+          <div class="flex items-center gap-3">
+            <i data-lucide="folder-git-2" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Projects</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 4 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#certifications">
+          <div class="flex items-center gap-3">
+            <i data-lucide="award" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Certifications</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 5 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#hackathons">
+          <div class="flex items-center gap-3">
+            <i data-lucide="trophy" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Hackathons &amp; Competitions</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 6 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#skills">
+          <div class="flex items-center gap-3">
+            <i data-lucide="cpu" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Technical Skills</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 7 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#github-activity">
+          <div class="flex items-center gap-3">
+            <i data-lucide="git-commit" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Live GitHub Stats</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 8 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="nav" data-target="#connect">
+          <div class="flex items-center gap-3">
+            <i data-lucide="mail" class="w-4 h-4 text-neon"></i>
+            <span>Jump to <strong>Contact Form</strong></span>
+          </div>
+          <span class="text-[10px] text-neon font-bold">SECTION</span>
+        </div>
+        <!-- Item 9 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="cv">
+          <div class="flex items-center gap-3">
+            <i data-lucide="file-text" class="w-4 h-4 text-neonBright"></i>
+            <span>Open <strong>Resume PDF Viewer</strong></span>
+          </div>
+          <span class="text-[10px] text-neonBright font-bold">ACTION</span>
+        </div>
+        <!-- Item 10 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="theme">
+          <div class="flex items-center gap-3">
+            <i data-lucide="sun-moon" class="w-4 h-4 text-neonBright"></i>
+            <span>Toggle <strong>Light / Dark Mode</strong></span>
+          </div>
+          <span class="text-[10px] text-neonBright font-bold">TOGGLE</span>
+        </div>
+        <!-- Item 11 -->
+        <div class="cmd-item p-3 rounded-xl hover:bg-neon/10 hover:text-white flex items-center justify-between cursor-pointer transition-all" data-action="copy-email">
+          <div class="flex items-center gap-3">
+            <i data-lucide="copy" class="w-4 h-4 text-neonBright"></i>
+            <span>Copy Email (<strong>ayushgaurav4529@gmail.com</strong>)</span>
+          </div>
+          <span class="text-[10px] text-neonBright font-bold">COPY</span>
+        </div>
+      </div>
+
+      <div class="px-4 py-2.5 bg-dark border-t border-darkBorder text-[11px] font-mono text-textMuted flex items-center justify-between">
+        <span>Use <strong class="text-neon">↑ ↓</strong> to navigate, <strong class="text-neon">↵</strong> to select</span>
+        <span>Command Palette</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Quick View Detail Modal -->
+  <div id="projectDetailModal"
+    class="fixed inset-0 z-[105] flex flex-col items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
+    <div class="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-3 z-10">
+      <button id="closeProjectModal"
+        class="text-white/80 hover:text-white bg-[#111111] p-2.5 rounded-full border border-neon/40 hover:border-neon transition-all cursor-pointer"
+        aria-label="Close Project Detail">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div id="projectDetailCard"
+      class="relative w-full max-w-3xl max-h-[85vh] bg-[#111111] border border-neon/50 rounded-2xl overflow-y-auto p-6 sm:p-8 shadow-[0_0_60px_rgba(16,185,129,0.35)] transform scale-95 transition-all duration-300">
+      <span id="projDetailTag" class="text-xs font-mono text-neon font-bold uppercase tracking-wider bg-neon/10 px-3 py-1 rounded-full border border-neon/30">Category</span>
+      <h2 id="projDetailTitle" class="text-2xl sm:text-4xl font-bold text-white mt-3 mb-2">Project Title</h2>
+      <p id="projDetailSubtitle" class="text-xs sm:text-sm font-mono text-textMuted mb-6">Subtitle / Host</p>
+
+      <div class="space-y-6 text-sm text-textSecondary leading-relaxed">
+        <div>
+          <h4 class="text-xs font-mono text-neon uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
+            <i data-lucide="info" class="w-4 h-4"></i> Overview &amp; Architecture
+          </h4>
+          <p id="projDetailDesc">Detailed project description goes here...</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-mono text-neon uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
+            <i data-lucide="check-circle" class="w-4 h-4"></i> Key Features &amp; Achievements
+          </h4>
+          <ul id="projDetailFeatures" class="list-disc list-inside space-y-1 text-xs sm:text-sm text-textSecondary font-sans">
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-mono text-neon uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4"></i> Tech Stack Used
+          </h4>
+          <div id="projDetailStack" class="flex flex-wrap gap-2 pt-1 font-mono text-xs">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-darkBorder flex items-center gap-4">
+        <a id="projDetailGithubBtn" href="https://github.com/AyushGaurav4529/Retail-Guard" target="_blank" rel="noopener"
+          class="flex-1 bg-neon text-dark font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-neonBright shadow-[0_0_15px_rgba(16,185,129,0.35)] transition-all text-xs sm:text-sm">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          <span>View Source Code</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Particle canvas background -->
+  <canvas id="particles-canvas"></canvas>
+  <div class="noise-overlay"></div>
+
+  <!-- Top Navigation Bar -->
+  <nav
+    class="top-navbar fixed top-[2.5px] left-0 right-0 z-40 bg-[#0a0a0a]/85 backdrop-blur-md border-b border-[#1e1e1e] transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-3 sm:gap-6">
+
+      <!-- Left: AG Logo Badge + Name (Triggers Profile Modal) -->
+      <button id="brandProfileBtn"
+        class="flex items-center gap-2.5 group font-bold text-white tracking-tight text-sm sm:text-base hover:opacity-95 flex-shrink-0 cursor-pointer text-left focus:outline-none"
+        title="Click to view profile card">
+        <span
+          class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#000000] border border-neon/50 flex items-center justify-center shadow-[0_0_10px_rgba(16,185,129,0.35)] group-hover:scale-105 group-hover:border-neon group-hover:shadow-[0_0_16px_rgba(16,185,129,0.6)] transition-all">
+          <span class="font-black font-mono text-xs sm:text-sm text-neon tracking-tighter">AG</span>
+        </span>
+        <span class="font-bold text-white uppercase tracking-wider">AYUSH GAURAV</span>
+      </button>
+
+      <!-- Center: Nav Links -->
+      <div class="hidden md:flex items-center gap-5 lg:gap-7 text-xs lg:text-sm font-medium text-textSecondary">
+        <a href="#summary" class="nav-link hover:text-white transition-colors">About</a>
+        <a href="#education" class="nav-link hover:text-white transition-colors">Education</a>
+        <a href="#projects" class="nav-link hover:text-white transition-colors">Projects</a>
+        <a href="#certifications" class="nav-link hover:text-white transition-colors">Certifications</a>
+        <a href="#hackathons" class="nav-link hover:text-white transition-colors">Hackathons</a>
+        <a href="#skills" class="nav-link hover:text-white transition-colors">Skills &amp; Toolkit</a>
+      </div>
+
+      <!-- Right: Actions & Controls -->
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <!-- Command Palette Trigger Badge -->
+        <button id="cmdPaletteBtn"
+          class="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#1e1e1e] bg-[#111111] text-textMuted hover:text-neon hover:border-neon transition-all cursor-pointer font-mono text-xs"
+          title="Open Command Palette (Ctrl + K)">
+          <i data-lucide="command" class="w-3.5 h-3.5 text-neon"></i>
+          <span>Ctrl K</span>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggleNav"
+          class="theme-toggle-nav relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-[#1e1e1e] bg-[#111111] text-neon flex items-center justify-center hover:border-neon hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer"
+          aria-label="Toggle theme" title="Toggle light/dark mode">
+          <i data-lucide="sun" class="icon-sun w-4 h-4"></i>
+          <i data-lucide="moon" class="icon-moon w-4 h-4"></i>
+        </button>
+
+        <!-- Let's Connect Button -->
+        <a href="#connect"
+          class="btn-connect bg-white text-dark font-bold text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg hover:bg-neon hover:text-dark hover:shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all">
+          Let's Connect
+        </a>
+
+        <!-- CV Button -->
+        <button id="btnNavCv"
+          class="btn-open-pdf btn-cv border border-[#1e1e1e] text-textSecondary hover:text-neon hover:border-neon font-medium text-xs sm:text-sm px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer"
+          title="View CV">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+          <span>CV</span>
+        </button>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- Left Side Vertical Navigation Dots -->
+  <aside
+    class="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden xl:flex flex-col gap-4 items-start pointer-events-auto">
+    <a href="#summary" data-section="summary"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="About">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">About</span>
+    </a>
+    <a href="#education" data-section="education"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Education">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Education</span>
+    </a>
+    <a href="#projects" data-section="projects"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Projects">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Projects</span>
+    </a>
+    <a href="#certifications" data-section="certifications"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Certifications">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Certifications</span>
+    </a>
+    <a href="#hackathons" data-section="hackathons"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Hackathons">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Hackathons</span>
+    </a>
+    <a href="#skills" data-section="skills"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Skills">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Skills</span>
+    </a>
+    <a href="#connect" data-section="connect"
+      class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all"
+      title="Contact">
+      <span class="side-nav-dot"></span>
+      <span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Contact</span>
+    </a>
+  </aside>
+
+  <!-- Profile Modal Overlay -->
+  <div id="profileModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div id="profileModalCard"
+      class="relative w-full max-w-sm sm:max-w-md bg-[#111111] border border-neon/40 rounded-2xl p-6 sm:p-8 shadow-[0_0_40px_rgba(16,185,129,0.3)] transform scale-95 transition-all duration-300">
+
+      <!-- Close Button -->
+      <button id="closeProfileModal"
+        class="absolute top-4 right-4 text-textMuted hover:text-white p-1.5 rounded-lg hover:bg-dark transition-colors cursor-pointer"
+        aria-label="Close profile modal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <!-- Card Content -->
+      <div class="flex flex-col items-center text-center">
+        <!-- Avatar Image with Glowing Neon Ring (Clickable to open full image lightbox) -->
+        <div id="profileAvatarContainer"
+          class="group relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-neon via-neonBright to-neon mb-4 shadow-[0_0_20px_rgba(16,185,129,0.4)] cursor-pointer hover:scale-105 transition-all duration-300"
+          title="Click to view full image">
+          <img id="profileAvatarImg" src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-full bg-dark group-hover:brightness-110 transition-all" />
+          <div class="absolute inset-1 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+            <i data-lucide="maximize-2" class="w-6 h-6 text-neonBright drop-shadow-[0_0_8px_#00ff87]"></i>
+          </div>
+          <span
+            class="absolute bottom-1 right-1 w-4 h-4 bg-neon border-2 border-dark rounded-full shadow-[0_0_8px_#10b981]"></span>
+        </div>
+
+        <!-- Name & Title -->
+        <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight mb-1">Ayush Gaurav</h3>
+        <p class="text-xs font-mono text-neon font-semibold mb-6">CS Engineering Undergrad | AI &amp; Full Stack</p>
+
+        <!-- Info List -->
+        <div class="w-full space-y-3 text-left font-sans mb-6">
+          <!-- Email -->
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushgaurav4529@gmail.com&su=Portfolio%20Inquiry"
+            target="_blank" rel="noopener"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark border border-darkBorder hover:border-neon/50 text-textSecondary hover:text-white transition-all text-xs sm:text-sm group"
+            title="Compose Email">
+            <i data-lucide="mail"
+              class="w-4 h-4 text-neon flex-shrink-0 group-hover:scale-110 transition-transform"></i>
+            <span class="truncate font-mono">ayushgaurav4529@gmail.com</span>
+          </a>
+
+          <!-- Phone -->
+          <a href="tel:+918295813878"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark border border-darkBorder hover:border-neon/50 text-textSecondary hover:text-white transition-all text-xs sm:text-sm group">
+            <i data-lucide="phone"
+              class="w-4 h-4 text-neon flex-shrink-0 group-hover:scale-110 transition-transform"></i>
+            <span class="font-mono">+91 8295813878</span>
+          </a>
+
+          <!-- GitHub -->
+          <a href="https://github.com/AyushGaurav4529" target="_blank" rel="noopener"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark border border-darkBorder hover:border-neon/50 text-textSecondary hover:text-white transition-all text-xs sm:text-sm group">
+            <svg class="w-5 h-5 rounded-full inline-block flex-shrink-0 group-hover:scale-110 transition-transform"
+              viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="12" fill="#000000" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 4C7.58 4 4 7.58 4 12C4 15.54 6.29 18.53 9.47 19.59C9.87 19.66 10.02 19.42 10.02 19.21C10.02 19.02 10.01 18.39 10.01 17.72C8 18.09 7.46 17.21 7.3 16.76C7.21 16.53 6.82 15.82 6.48 15.63C6.2 15.48 5.8 15.11 6.47 15.1C7.1 15.09 7.55 15.68 7.7 15.92C8.42 17.13 9.57 16.79 10.03 16.58C10.1 16.06 10.31 15.71 10.54 15.51C8.76 15.31 6.89 14.62 6.89 11.55C6.89 10.68 7.2 9.96 7.72 9.4C7.64 9.2 7.37 8.38 7.8 7.27C7.8 7.27 8.47 7.06 10.02 8.11C10.66 7.93 11.34 7.84 12.02 7.84C12.7 7.84 13.38 7.93 14.02 8.11C15.57 7.05 16.24 7.27 16.24 7.27C16.67 8.38 16.4 9.2 16.32 9.4C16.84 9.96 17.15 10.67 17.15 11.55C17.15 14.63 15.27 15.31 13.49 15.51C13.78 15.76 14.03 16.24 14.03 16.99C14.03 18.06 14.02 18.92 14.02 19.21C14.02 19.42 14.17 19.67 14.57 19.59C17.7 18.53 20 15.54 20 12C20 7.58 16.42 4 12 4Z"
+                fill="white" />
+            </svg>
+            <span class="truncate font-mono">github.com/AyushGaurav4529</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/ayugaurav/" target="_blank" rel="noopener"
+            class="flex items-center gap-3 p-3 rounded-xl bg-dark border border-darkBorder hover:border-neon/50 text-textSecondary hover:text-white transition-all text-xs sm:text-sm group">
+            <svg class="w-5 h-5 rounded-full inline-block flex-shrink-0 group-hover:scale-110 transition-transform"
+              viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="12" fill="#0066C8" />
+              <path
+                d="M7.5 9.5H9.5V17H7.5V9.5ZM8.5 6.75C7.8 6.75 7.25 7.3 7.25 8C7.25 8.7 7.8 9.25 8.5 9.25C9.2 9.25 9.75 8.7 9.75 8C9.75 7.3 9.2 6.75 8.5 6.75ZM11 9.5H12.8V10.5C13.2 9.8 14.1 9.3 15.2 9.3C17.3 9.3 18 10.7 18 13V17H16V13.4C16 12 15.5 11.1 14.3 11.1C13.3 11.1 12.8 11.8 12.8 12.8V17H11V9.5Z"
+                fill="white" />
+            </svg>
+            <span class="truncate font-mono">linkedin.com/in/ayugaurav/</span>
+          </a>
+        </div>
+
+        <!-- CTA button inside modal -->
+        <a href="Ayush_Gaurav_CV.pdf" download="Ayush_Gaurav_CV.pdf" type="application/pdf"
+          class="w-full bg-neon text-dark font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-neonBright shadow-[0_0_15px_rgba(16,185,129,0.35)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] transition-all text-sm">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          Download Full CV
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Screen Image Lightbox Modal -->
+  <div id="imageLightboxModal"
+    class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
+    
+    <!-- Top Bar Controls -->
+    <div class="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-3 z-10">
+      <a href="avatar.jpg" download="Ayush_Gaurav_Photo.jpg"
+        class="text-textSecondary hover:text-neon bg-[#111111]/80 hover:bg-[#1e1e1e] p-2.5 sm:p-3 rounded-full border border-neon/30 hover:border-neon transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-2 text-xs sm:text-sm font-medium"
+        title="Download full-resolution photo">
+        <i data-lucide="download" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+        <span class="hidden sm:inline">Download</span>
+      </a>
+      <button id="closeLightboxModal"
+        class="text-white/80 hover:text-white bg-[#111111]/80 hover:bg-[#1e1e1e] p-2.5 sm:p-3 rounded-full border border-neon/40 hover:border-neon transition-all cursor-pointer shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+        aria-label="Close photo preview">
+        <i data-lucide="x" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+      </button>
+    </div>
+
+    <!-- Image Content Box -->
+    <div id="lightboxCard"
+      class="relative max-w-4xl max-h-[85vh] p-2 sm:p-4 flex flex-col items-center transform scale-95 transition-all duration-300">
+      <div class="relative rounded-2xl overflow-hidden border-2 border-neon/60 shadow-[0_0_60px_rgba(16,185,129,0.4)] bg-dark">
+        <img id="lightboxImg" src="avatar.jpg" alt="Ayush Gaurav"
+          class="max-w-full max-h-[75vh] object-contain rounded-xl select-none" />
+      </div>
+      <div class="mt-4 flex items-center gap-2 text-sm font-mono text-neon font-semibold bg-darkCard/90 px-4 py-2 rounded-full border border-neon/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+        <i data-lucide="user" class="w-4 h-4 text-neonBright"></i>
+        <span>Ayush Gaurav — Profile Photo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content wrapper -->
+  <div class="relative z-10 pt-14 sm:pt-16">
+
+    <!-- ========== HERO / HEADER ========== -->
+    <header
+      class="min-h-screen sm:h-screen py-10 px-4 sm:px-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+      <!-- Decorative radial glow -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-neon/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none max-w-full">
+      </div>
+
+      <!-- Status Badge (Open to Opportunities) -->
+      <div class="mb-4 animate-on-scroll">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-darkCard/90 border border-neon/40 text-xs font-mono text-neon font-semibold shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:border-neon transition-all">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon"></span>
+          </span>
+          Open for Full Stack & AI Roles / Internships
+        </span>
+      </div>
+
+      <!-- Hero Profile Avatar Badge -->
+      <div id="heroAvatarContainer" class="mb-4 sm:mb-6 cursor-pointer group animate-on-scroll relative inline-block" title="Click to view full profile photo">
+        <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-neon via-neonBright to-neon shadow-[0_0_30px_rgba(16,185,129,0.5)] group-hover:scale-105 group-hover:shadow-[0_0_45px_rgba(0,255,135,0.7)] transition-all duration-300">
+          <img src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-full bg-dark group-hover:brightness-110 transition-all" loading="lazy" />
+          <div class="absolute inset-1 rounded-full bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+            <i data-lucide="maximize-2" class="w-7 h-7 sm:w-8 sm:h-8 text-neonBright drop-shadow-[0_0_10px_#00ff87]"></i>
+          </div>
+          <span class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-4 h-4 sm:w-5 sm:h-5 bg-neon border-2 sm:border-3 border-dark rounded-full shadow-[0_0_10px_#10b981]" title="Available for hire"></span>
+        </div>
+      </div>
+
+      <!-- Name & Typing Animation -->
+      <h1
+        class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight gradient-text mb-3 sm:mb-4 animate-on-scroll max-w-full break-words"
+        style="line-height: 1.05;">
+        AYUSH GAURAV
+      </h1>
+      <div class="h-8 mb-5 sm:mb-6 animate-on-scroll font-mono text-neonBright text-base sm:text-xl font-bold flex items-center justify-center gap-1">
+        <span id="hero-typing-text"></span><span class="animate-pulse text-neon font-bold">|</span>
+      </div>
+
+      <!-- Contact Row -->
+      <div
+        class="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-5 sm:mb-7 animate-on-scroll max-w-full px-2"
+        style="transition-delay: 0.1s;">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushgaurav4529@gmail.com&su=Portfolio%20Inquiry"
+          target="_blank" rel="noopener"
+          class="contact-link flex items-center gap-2 text-textSecondary text-xs sm:text-base hover:text-neonBright"
+          title="Compose Email">
+          <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5 text-neon"></i>
+          <span class="hidden sm:inline">ayushgaurav4529@gmail.com</span>
+          <span class="sm:hidden">Email</span>
+        </a>
+        <a href="tel:+918295813878"
+          class="contact-link flex items-center gap-2 text-textSecondary text-xs sm:text-base hover:text-neonBright"
+          title="Phone">
+          <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5 text-neon"></i>
+          <span>+91 8295813878</span>
+        </a>
+        <a href="https://github.com/AyushGaurav4529" target="_blank" rel="noopener"
+          class="contact-link flex items-center gap-2 text-textSecondary text-xs sm:text-base hover:text-neonBright"
+          title="GitHub">
+          <svg class="w-5 h-5 rounded-full inline-block flex-shrink-0" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="12" fill="#000000" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 4C7.58 4 4 7.58 4 12C4 15.54 6.29 18.53 9.47 19.59C9.87 19.66 10.02 19.42 10.02 19.21C10.02 19.02 10.01 18.39 10.01 17.72C8 18.09 7.46 17.21 7.3 16.76C7.21 16.53 6.82 15.82 6.48 15.63C6.2 15.48 5.8 15.11 6.47 15.1C7.1 15.09 7.55 15.68 7.7 15.92C8.42 17.13 9.57 16.79 10.03 16.58C10.1 16.06 10.31 15.71 10.54 15.51C8.76 15.31 6.89 14.62 6.89 11.55C6.89 10.68 7.2 9.96 7.72 9.4C7.64 9.2 7.37 8.38 7.8 7.27C7.8 7.27 8.47 7.06 10.02 8.11C10.66 7.93 11.34 7.84 12.02 7.84C12.7 7.84 13.38 7.93 14.02 8.11C15.57 7.05 16.24 7.27 16.24 7.27C16.67 8.38 16.4 9.2 16.32 9.4C16.84 9.96 17.15 10.67 17.15 11.55C17.15 14.63 15.27 15.31 13.49 15.51C13.78 15.76 14.03 16.24 14.03 16.99C14.03 18.06 14.02 18.92 14.02 19.21C14.02 19.42 14.17 19.67 14.57 19.59C17.7 18.53 20 15.54 20 12C20 7.58 16.42 4 12 4Z"
+              fill="white" />
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ayugaurav/" target="_blank" rel="noopener"
+          class="contact-link flex items-center gap-2 text-textSecondary text-xs sm:text-base hover:text-neonBright"
+          title="LinkedIn">
+          <svg class="w-5 h-5 rounded-full inline-block flex-shrink-0" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="12" fill="#0066C8" />
+            <path
+              d="M7.5 9.5H9.5V17H7.5V9.5ZM8.5 6.75C7.8 6.75 7.25 7.3 7.25 8C7.25 8.7 7.8 9.25 8.5 9.25C9.2 9.25 9.75 8.7 9.75 8C9.75 7.3 9.2 6.75 8.5 6.75ZM11 9.5H12.8V10.5C13.2 9.8 14.1 9.3 15.2 9.3C17.3 9.3 18 10.7 18 13V17H16V13.4C16 12 15.5 11.1 14.3 11.1C13.3 11.1 12.8 11.8 12.8 12.8V17H11V9.5Z"
+              fill="white" />
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+
+      <!-- CTA Buttons Row -->
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-7 animate-on-scroll" style="transition-delay: 0.2s;">
+        <button id="btnOpenPdfHero"
+          class="btn-open-pdf inline-flex items-center gap-2 bg-neon text-dark font-bold text-sm sm:text-base px-6 sm:px-7 py-3 rounded-xl hover:bg-neonBright hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all cursor-pointer">
+          <i data-lucide="file-text" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          View Full CV
+        </button>
+        <a href="Ayush_Gaurav_CV.pdf" download="Ayush_Gaurav_CV.pdf" type="application/pdf"
+          class="inline-flex items-center gap-2 border border-neon/40 text-neon hover:bg-neon/10 font-bold text-sm sm:text-base px-5 sm:px-6 py-3 rounded-xl transition-all">
+          <i data-lucide="download" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+          Download PDF
+        </a>
+      </div>
+
+      <!-- Tagline -->
+      <p class="max-w-2xl text-textSecondary text-sm sm:text-base md:text-lg leading-relaxed animate-on-scroll px-2"
+        style="transition-delay: 0.3s;">
+        Computer Science Engineering undergrad specializing in <span class="text-neon font-semibold">AI</span>, <span
+          class="text-neon font-semibold">Full Stack Development</span>, and <span
+          class="text-neon font-semibold">scalable software solutions</span>.
+      </p>
+
+      <!-- Scroll indicator -->
+      <div
+        class="hidden sm:flex absolute bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1 text-textMuted animate-on-scroll"
+        style="animation: float 3s ease-in-out infinite;">
+        <span class="text-[10px] sm:text-xs tracking-widest uppercase">Scroll</span>
+        <i data-lucide="chevrons-down" class="w-4 h-4 sm:w-5 sm:h-5 text-neon"></i>
+      </div>
+    </header>
+
+    <!-- ========== SUMMARY ========== -->
+    <section id="summary" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="animate-on-scroll">
+        <div
+          class="relative p-6 sm:p-8 md:p-10 rounded-2xl bg-darkCard border border-darkBorder hover:border-neon/40 transition-all duration-500 hover:shadow-neon">
+          <!-- Decorative corner accents -->
+          <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-neon rounded-tl-2xl"></div>
+          <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-neon rounded-br-2xl"></div>
+
+          <h2 class="text-sm font-mono font-bold text-neon tracking-[0.3em] uppercase mb-4">// Summary</h2>
+          <p class="text-textSecondary text-base sm:text-lg leading-relaxed">
+            Computer Science Engineering undergrad with hands-on experience in <span
+              class="text-white font-medium">Software Development</span>, <span
+              class="text-white font-medium">AI</span>, <span class="text-white font-medium">Full Stack Web
+              Development</span>, <span class="text-white font-medium">Python & C Programming</span>. Skilled in
+            designing scalable applications, developing AI-powered solutions, and building responsive web applications
+            using modern technologies. Passionate about solving real-world problems through software engineering and
+            continuously learning emerging technologies. Strong <span class="text-neon">problem-solving</span>, <span
+              class="text-neon">debugging</span>, and <span class="text-neon">teamwork</span> skills with hackathon
+            experience in developing innovative products.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== EDUCATION - THE JOURNEY ========== -->
+    <section id="education" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-10 sm:mb-12 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">The Journey</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">How I got here</h2>
+      </div>
+
+      <!-- Timeline Grid -->
+      <div class="relative">
+        <!-- Horizontal connector line (desktop) -->
+        <div class="hidden md:block absolute top-[28px] left-[10%] right-[10%] timeline-line z-0"></div>
+
+        <!-- Vertical connector line (mobile) -->
+        <div class="md:hidden absolute top-0 bottom-0 left-6 timeline-line-v z-0"></div>
+
+        <!-- Education Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative z-10">
+
+          <!-- Card 1 -->
+          <div class="timeline-group flex flex-col items-center animate-on-scroll" style="transition-delay: 0.1s;">
+            <!-- Timeline dot -->
+            <div
+              class="timeline-dot hidden md:flex w-4 h-4 rounded-full bg-neon border-4 border-dark mb-6 items-center justify-center z-20"
+              style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+            <!-- Mobile dot + line -->
+            <div class="md:hidden flex items-start gap-4 w-full">
+              <div class="flex flex-col items-center">
+                <div class="timeline-dot w-4 h-4 rounded-full bg-neon border-4 border-dark z-20 flex-shrink-0"
+                  style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              </div>
+              <div class="timeline-card bg-darkCard rounded-xl p-6 flex-1 cursor-default">
+                <span class="font-mono text-neon text-sm font-semibold">2018 — 2020</span>
+                <h3 class="text-white font-bold text-lg mt-2">Class 10 — 72.3%</h3>
+                <p class="text-textMuted text-sm mt-1">Kendriya Vidyalaya (CBSE)</p>
+              </div>
+            </div>
+            <!-- Desktop card -->
+            <div class="timeline-card hidden md:block bg-darkCard rounded-xl p-6 w-full cursor-default">
+              <span class="font-mono text-neon text-sm font-semibold">2018 — 2020</span>
+              <h3 class="text-white font-bold text-lg mt-2">Class 10 — 72.3%</h3>
+              <p class="text-textMuted text-sm mt-1">Kendriya Vidyalaya (CBSE)</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="timeline-group flex flex-col items-center animate-on-scroll" style="transition-delay: 0.2s;">
+            <div
+              class="timeline-dot hidden md:flex w-4 h-4 rounded-full bg-neon border-4 border-dark mb-6 items-center justify-center z-20"
+              style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+            <div class="md:hidden flex items-start gap-4 w-full">
+              <div class="flex flex-col items-center">
+                <div class="timeline-dot w-4 h-4 rounded-full bg-neon border-4 border-dark z-20 flex-shrink-0"
+                  style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              </div>
+              <div class="timeline-card bg-darkCard rounded-xl p-6 flex-1 cursor-default">
+                <span class="font-mono text-neon text-sm font-semibold">2020 — 2022</span>
+                <h3 class="text-white font-bold text-lg mt-2">Class 12 — 73%</h3>
+                <p class="text-textMuted text-sm mt-1">Kendriya Vidyalaya (CBSE)</p>
+              </div>
+            </div>
+            <div class="timeline-card hidden md:block bg-darkCard rounded-xl p-6 w-full cursor-default">
+              <span class="font-mono text-neon text-sm font-semibold">2020 — 2022</span>
+              <h3 class="text-white font-bold text-lg mt-2">Class 12 — 73%</h3>
+              <p class="text-textMuted text-sm mt-1">Kendriya Vidyalaya (CBSE)</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="timeline-group flex flex-col items-center animate-on-scroll" style="transition-delay: 0.3s;">
+            <div
+              class="timeline-dot hidden md:flex w-4 h-4 rounded-full bg-neon border-4 border-dark mb-6 items-center justify-center z-20"
+              style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+            <div class="md:hidden flex items-start gap-4 w-full">
+              <div class="flex flex-col items-center">
+                <div class="timeline-dot w-4 h-4 rounded-full bg-neon border-4 border-dark z-20 flex-shrink-0"
+                  style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              </div>
+              <div class="timeline-card bg-darkCard rounded-xl p-6 flex-1 cursor-default">
+                <span class="font-mono text-neon text-sm font-semibold">2024 — Present</span>
+                <h3 class="text-white font-bold text-lg mt-2">B.E — CSBS</h3>
+                <p class="text-textMuted text-sm mt-1">Dr. Ambedkar Institute of Technology, Bengaluru</p>
+                <span
+                  class="inline-block mt-2 text-xs font-mono text-neonBright bg-neon/10 px-2 py-0.5 rounded">Ongoing</span>
+              </div>
+            </div>
+            <div class="timeline-card hidden md:block bg-darkCard rounded-xl p-6 w-full cursor-default">
+              <span class="font-mono text-neon text-sm font-semibold">2024 — Present</span>
+              <h3 class="text-white font-bold text-lg mt-2">B.E — CSBS</h3>
+              <p class="text-textMuted text-sm mt-1">Dr. Ambedkar Institute of Technology, Bengaluru</p>
+              <span
+                class="inline-block mt-2 text-xs font-mono text-neonBright bg-neon/10 px-2 py-0.5 rounded">Ongoing</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROJECTS ========== -->
+    <section id="projects" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-8 sm:mb-10 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">What I've Built</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Projects</h2>
+      </div>
+
+      <!-- Project Category Filter Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-2.5 mb-10 animate-on-scroll font-mono text-xs">
+        <button class="project-filter-btn active-filter px-4 py-2 rounded-full border border-neon bg-neon text-dark font-bold transition-all cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.3)]" data-filter="all">
+          All Projects
+        </button>
+        <button class="project-filter-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-filter="ai">
+          AI &amp; Machine Learning
+        </button>
+        <button class="project-filter-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-filter="web">
+          Web &amp; Mobile Apps
+        </button>
+        <button class="project-filter-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-filter="hackathon">
+          Hackathon Features
+        </button>
+      </div>
+
+      <!-- Vertical connector line -->
+      <div class="relative">
+        <div class="absolute top-0 bottom-0 left-6 md:left-1/2 md:-translate-x-px timeline-line-v z-0"></div>
+
+        <!-- Project Cards -->
+        <div class="flex flex-col gap-12 relative z-10">
+
+          <!-- Project 1 — Left -->
+          <div class="project-item flex flex-col md:flex-row items-start gap-4 md:gap-8 animate-on-scroll"
+            data-category="ai hackathon" style="transition-delay: 0.1s;">
+            <!-- Desktop: left card -->
+            <div class="hidden md:block md:w-1/2 md:text-right md:pr-8">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 inline-block text-left w-full cursor-pointer hover:border-neon transition-all group" data-project-id="retail-guard" title="Click for technical breakdown">
+                <div class="flex items-center gap-2 mb-3 md:justify-end">
+                  <i data-lucide="shield-check" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Retail Guard</h3>
+                </div>
+                <p class="text-neon text-xs font-mono mb-2">AI-Based Smart Inventory Management</p>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">AI-powered SaaS inventory system to monitor
+                  product expiration dates, track live metrics, and generate predictive analytics for retail
+                  optimization.</p>
+                <div class="flex flex-wrap gap-2 md:justify-end mb-3">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Node.js</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Firebase</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Applied AI</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">DBMS</span>
+                </div>
+                <p class="text-textMuted text-xs italic flex items-center gap-1 md:justify-end">
+                  <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
+                  Pitched at FantomCode Hackathon (RVITM)
+                </p>
+              </div>
+            </div>
+            <!-- Center dot -->
+            <div class="flex items-center md:absolute md:left-1/2 md:-translate-x-1/2 z-20">
+              <div class="timeline-dot w-5 h-5 rounded-full bg-neon border-4 border-dark flex-shrink-0"
+                style="box-shadow: 0 0 12px rgba(16,185,129,0.5);"></div>
+            </div>
+            <!-- Mobile card -->
+            <div class="md:hidden ml-4 flex-1">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 cursor-pointer hover:border-neon transition-all group" data-project-id="retail-guard">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="shield-check" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Retail Guard</h3>
+                </div>
+                <p class="text-neon text-xs font-mono mb-2">AI-Based Smart Inventory Management</p>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">AI-powered SaaS inventory system to monitor
+                  product expiration dates, track live metrics, and generate predictive analytics for retail
+                  optimization.</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Node.js</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Firebase</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Applied AI</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">DBMS</span>
+                </div>
+                <p class="text-textMuted text-xs italic flex items-center gap-1">
+                  <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
+                  Pitched at FantomCode Hackathon (RVITM)
+                </p>
+              </div>
+            </div>
+            <!-- Desktop: right spacer -->
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- Project 2 — Right -->
+          <div class="project-item flex flex-col md:flex-row items-start gap-4 md:gap-8 animate-on-scroll"
+            data-category="web mobile hackathon" style="transition-delay: 0.2s;">
+            <div class="hidden md:block md:w-1/2"></div>
+            <div class="flex items-center md:absolute md:left-1/2 md:-translate-x-1/2 z-20">
+              <div class="timeline-dot w-5 h-5 rounded-full bg-neon border-4 border-dark flex-shrink-0"
+                style="box-shadow: 0 0 12px rgba(16,185,129,0.5);"></div>
+            </div>
+            <div class="md:hidden ml-4 flex-1">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 cursor-pointer hover:border-neon transition-all group" data-project-id="homeplate">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="utensils" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">HomePlate</h3>
+                </div>
+                <p class="text-neon text-xs font-mono mb-2">AI-Based Smart Food Suggestion Platform</p>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Hyperlocal food delivery platform tailored
+                  for university students seeking home-cooked meals, with real-time location sorting.</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Dart</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Flutter</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">REST APIs</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Mobile Dev</span>
+                </div>
+                <p class="text-textMuted text-xs italic flex items-center gap-1">
+                  <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
+                  NIRMITH Hackathon (Web) &amp; VIBE-A-THON (Mobile)
+                </p>
+              </div>
+            </div>
+            <div class="hidden md:block md:w-1/2 md:pl-8">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 w-full cursor-pointer hover:border-neon transition-all group" data-project-id="homeplate" title="Click for technical breakdown">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="utensils" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">HomePlate</h3>
+                </div>
+                <p class="text-neon text-xs font-mono mb-2">AI-Based Smart Food Suggestion Platform</p>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Hyperlocal food delivery platform tailored
+                  for university students seeking home-cooked meals, with real-time location sorting.</p>
+                <div class="flex flex-wrap gap-2 mb-3">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Dart</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Flutter</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">REST APIs</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Mobile Dev</span>
+                </div>
+                <p class="text-textMuted text-xs italic flex items-center gap-1">
+                  <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
+                  NIRMITH Hackathon (Web) &amp; VIBE-A-THON (Mobile)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 — Left -->
+          <div class="project-item flex flex-col md:flex-row items-start gap-4 md:gap-8 animate-on-scroll"
+            data-category="web" style="transition-delay: 0.3s;">
+            <div class="hidden md:block md:w-1/2 md:text-right md:pr-8">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 inline-block text-left w-full cursor-pointer hover:border-neon transition-all group" data-project-id="hotel-mgmt" title="Click for technical breakdown">
+                <div class="flex items-center gap-2 mb-3 md:justify-end">
+                  <i data-lucide="building-2" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Hotel Management System</h3>
+                </div>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Desktop app executing hotel operations
+                  including booking, dynamic check-in/out tracking, and automated bill generation.</p>
+                <div class="flex flex-wrap gap-2 md:justify-end">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Python</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">SQL</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">MySQL</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center md:absolute md:left-1/2 md:-translate-x-1/2 z-20">
+              <div class="timeline-dot w-5 h-5 rounded-full bg-neon border-4 border-dark flex-shrink-0"
+                style="box-shadow: 0 0 12px rgba(16,185,129,0.5);"></div>
+            </div>
+            <div class="md:hidden ml-4 flex-1">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 cursor-pointer hover:border-neon transition-all group" data-project-id="hotel-mgmt">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="building-2" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Hotel Management System</h3>
+                </div>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Desktop app executing hotel operations
+                  including booking, dynamic check-in/out tracking, and automated bill generation.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Python</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">SQL</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">MySQL</span>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block md:w-1/2"></div>
+          </div>
+
+          <!-- Project 4 — Right -->
+          <div class="project-item flex flex-col md:flex-row items-start gap-4 md:gap-8 animate-on-scroll"
+            data-category="web" style="transition-delay: 0.4s;">
+            <div class="hidden md:block md:w-1/2"></div>
+            <div class="flex items-center md:absolute md:left-1/2 md:-translate-x-1/2 z-20">
+              <div class="timeline-dot w-5 h-5 rounded-full bg-neon border-4 border-dark flex-shrink-0"
+                style="box-shadow: 0 0 12px rgba(16,185,129,0.5);"></div>
+            </div>
+            <div class="md:hidden ml-4 flex-1">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 cursor-pointer hover:border-neon transition-all group" data-project-id="inventory-mgmt">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="package" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Inventory Management System</h3>
+                </div>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Responsive web application for structured
+                  stock tracking and interface controls in small-scale retail systems.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">HTML</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">CSS</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                </div>
+              </div>
+            </div>
+            <div class="hidden md:block md:w-1/2 md:pl-8">
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 w-full cursor-pointer hover:border-neon transition-all group" data-project-id="inventory-mgmt" title="Click for technical breakdown">
+                <div class="flex items-center gap-2 mb-3">
+                  <i data-lucide="package" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
+                  <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Inventory Management System</h3>
+                </div>
+                <p class="text-textSecondary text-sm leading-relaxed mb-3">Responsive web application for structured
+                  stock tracking and interface controls in small-scale retail systems.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">HTML</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">CSS</span>
+                  <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CERTIFICATIONS ========== -->
+    <section id="certifications" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-10 sm:mb-12 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Credentials</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Certifications</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
+        <!-- Cert 1 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full">
+            <div class="flex items-start gap-4">
+              <div class="timeline-dot w-4 h-4 mt-1 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <div>
+                <h3 class="text-white font-bold text-base">3-Days Bootcamp: The World of Tech 2.0</h3>
+                <p class="text-textMuted text-sm mt-1 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-neon"></i>
+                  Google Developer Groups
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cert 2 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.15s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full">
+            <div class="flex items-start gap-4">
+              <div class="timeline-dot w-4 h-4 mt-1 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <div>
+                <h3 class="text-white font-bold text-base">Data Structures & Algorithms Session</h3>
+                <p class="text-textMuted text-sm mt-1 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-neon"></i>
+                  GeeksforGeeks
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cert 3 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full">
+            <div class="flex items-start gap-4">
+              <div class="timeline-dot w-4 h-4 mt-1 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <div>
+                <h3 class="text-white font-bold text-base">3-Days ML Bootcamp</h3>
+                <p class="text-textMuted text-sm mt-1 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-neon"></i>
+                  Google Developer Groups
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cert 4 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.25s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full">
+            <div class="flex items-start gap-4">
+              <div class="timeline-dot w-4 h-4 mt-1 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <div>
+                <h3 class="text-white font-bold text-base">Python Course for Beginners: Mastering the Essentials</h3>
+                <p class="text-textMuted text-sm mt-1 flex items-center gap-1.5">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-neon"></i>
+                  Scaler
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HACKATHONS & COMPETITIONS ========== -->
+    <section id="hackathons" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-10 sm:mb-12 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Battle Tested</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Hackathons &
+          Competitions</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+        <!-- Hackathon 1 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full flex flex-col">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="timeline-dot w-4 h-4 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <i data-lucide="zap" class="w-5 h-5 text-neon"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">FantomCode Hackathon</h3>
+            <p class="text-textMuted text-sm mb-3">RVITM</p>
+            <div class="mt-auto">
+              <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-1 rounded inline-flex items-center gap-1">
+                <i data-lucide="folder-git-2" class="w-3 h-3"></i>
+                Retail Guard
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hackathon 2 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full flex flex-col">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="timeline-dot w-4 h-4 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <i data-lucide="zap" class="w-5 h-5 text-neon"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">NIRMITH Hackathon</h3>
+            <p class="text-textMuted text-sm mb-3">Nitte Meenakshi Institute of Technology</p>
+            <div class="mt-auto">
+              <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-1 rounded inline-flex items-center gap-1">
+                <i data-lucide="folder-git-2" class="w-3 h-3"></i>
+                HomePlate (Web)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hackathon 3 -->
+        <div class="animate-on-scroll" style="transition-delay: 0.3s;">
+          <div class="timeline-card bg-darkCard rounded-xl p-6 cursor-default h-full flex flex-col">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="timeline-dot w-4 h-4 rounded-full bg-neon flex-shrink-0"
+                style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
+              <i data-lucide="zap" class="w-5 h-5 text-neon"></i>
+            </div>
+            <h3 class="text-white font-bold text-lg mb-2">VIBE-A-THON Hackathon</h3>
+            <p class="text-textMuted text-sm mb-3">Nitte Meenakshi Institute of Technology</p>
+            <div class="mt-auto">
+              <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-1 rounded inline-flex items-center gap-1">
+                <i data-lucide="folder-git-2" class="w-3 h-3"></i>
+                HomePlate (Mobile)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TECHNICAL SKILLS ========== -->
+    <section id="skills" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-8 sm:mb-10 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Tech Arsenal</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Technical Skills</h2>
+      </div>
+
+      <!-- Skill Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-8 animate-on-scroll font-mono text-xs">
+        <button class="skill-tab-btn active-tab px-4 py-2 rounded-full border border-neon bg-neon text-dark font-bold transition-all cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.3)]" data-tab="all">
+          All Arsenal
+        </button>
+        <button class="skill-tab-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-tab="languages">
+          Languages
+        </button>
+        <button class="skill-tab-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-tab="frameworks">
+          Frameworks
+        </button>
+        <button class="skill-tab-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-tab="databases">
+          Databases &amp; Tools
+        </button>
+        <button class="skill-tab-btn px-4 py-2 rounded-full border border-darkBorder bg-darkCard text-textSecondary hover:text-white hover:border-neon transition-all cursor-pointer" data-tab="aiml">
+          AI/ML &amp; Core CS
+        </button>
+      </div>
+
+      <!-- Skill Proficiency Bars Highlight -->
+      <div class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder mb-10 animate-on-scroll">
+        <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2">
+          <i data-lucide="sliders" class="w-5 h-5 text-neon"></i>
+          <span>Core Proficiency Metrics</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-xs">
+          <!-- Skill Bar 1 -->
+          <div>
+            <div class="flex justify-between mb-1 text-textSecondary">
+              <span class="font-bold text-white">Python &amp; Data Science</span>
+              <span class="text-neon font-bold">92%</span>
+            </div>
+            <div class="w-full bg-dark h-2.5 rounded-full overflow-hidden border border-darkBorder">
+              <div class="skill-bar-fill bg-gradient-to-r from-neon to-neonBright h-full rounded-full transition-all duration-1000 w-0" data-progress="92%"></div>
+            </div>
+          </div>
+          <!-- Skill Bar 2 -->
+          <div>
+            <div class="flex justify-between mb-1 text-textSecondary">
+              <span class="font-bold text-white">Full Stack (Node / Flutter / Web)</span>
+              <span class="text-neon font-bold">88%</span>
+            </div>
+            <div class="w-full bg-dark h-2.5 rounded-full overflow-hidden border border-darkBorder">
+              <div class="skill-bar-fill bg-gradient-to-r from-neon to-neonBright h-full rounded-full transition-all duration-1000 w-0" data-progress="88%"></div>
+            </div>
+          </div>
+          <!-- Skill Bar 3 -->
+          <div>
+            <div class="flex justify-between mb-1 text-textSecondary">
+              <span class="font-bold text-white">AI / Machine Learning Concepts</span>
+              <span class="text-neon font-bold">85%</span>
+            </div>
+            <div class="w-full bg-dark h-2.5 rounded-full overflow-hidden border border-darkBorder">
+              <div class="skill-bar-fill bg-gradient-to-r from-neon to-neonBright h-full rounded-full transition-all duration-1000 w-0" data-progress="85%"></div>
+            </div>
+          </div>
+          <!-- Skill Bar 4 -->
+          <div>
+            <div class="flex justify-between mb-1 text-textSecondary">
+              <span class="font-bold text-white">SQL &amp; Relational Databases</span>
+              <span class="text-neon font-bold">90%</span>
+            </div>
+            <div class="w-full bg-dark h-2.5 rounded-full overflow-hidden border border-darkBorder">
+              <div class="skill-bar-fill bg-gradient-to-r from-neon to-neonBright h-full rounded-full transition-all duration-1000 w-0" data-progress="90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-10">
+
+        <!-- Languages -->
+        <div class="skill-category-block animate-on-scroll" data-skill-cat="languages" style="transition-delay: 0.1s;">
+          <div
+            class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder hover:border-neon/30 transition-all duration-500">
+            <h3 class="text-neon font-mono text-sm font-semibold tracking-wider uppercase mb-5 flex items-center gap-2">
+              <i data-lucide="code-2" class="w-4 h-4"></i>
+              Languages
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Python</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">C</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">JavaScript</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Dart</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">SQL</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">HTML</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">CSS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frameworks -->
+        <div class="skill-category-block animate-on-scroll" data-skill-cat="frameworks" style="transition-delay: 0.15s;">
+          <div
+            class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder hover:border-neon/30 transition-all duration-500">
+            <h3 class="text-neon font-mono text-sm font-semibold tracking-wider uppercase mb-5 flex items-center gap-2">
+              <i data-lucide="layers" class="w-4 h-4"></i>
+              Frameworks
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Node.js</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Flutter</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">REST APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Databases & Tools -->
+        <div class="skill-category-block animate-on-scroll" data-skill-cat="databases" style="transition-delay: 0.2s;">
+          <div
+            class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder hover:border-neon/30 transition-all duration-500">
+            <h3 class="text-neon font-mono text-sm font-semibold tracking-wider uppercase mb-5 flex items-center gap-2">
+              <i data-lucide="database" class="w-4 h-4"></i>
+              Databases &amp; Tools
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">MySQL</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Firebase</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Git</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">VS Code</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI/ML & Core CS -->
+        <div class="skill-category-block animate-on-scroll" data-skill-cat="aiml" style="transition-delay: 0.25s;">
+          <div class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder hover:border-neon/30 transition-all duration-500">
+            <h3 class="text-neon font-mono text-sm font-semibold tracking-wider uppercase mb-5 flex items-center gap-2">
+              <i data-lucide="brain" class="w-4 h-4"></i>
+              AI / ML &amp; Core CS
+            </h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Applied AI</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Predictive Analytics</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Data Structures</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">Algorithms</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">DBMS</span>
+              <span class="skill-pill bg-dark px-4 py-2 rounded-lg text-sm font-medium text-textSecondary cursor-default">OOP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- ========== LIVE GITHUB ACTIVITY & HEATMAP ========== -->
+    <section id="github-activity" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-8 sm:mb-10 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Coding Activity</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Live GitHub Stats &amp; Heatmap</h2>
+      </div>
+
+      <!-- GitHub Contribution Heatmap Card -->
+      <div class="bg-darkCard rounded-2xl p-6 sm:p-8 border border-darkBorder hover:border-neon/40 transition-all duration-500 mb-8 animate-on-scroll">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <div class="flex items-center gap-3">
+            <i data-lucide="git-commit" class="w-6 h-6 text-neon"></i>
+            <div>
+              <h3 class="text-white font-bold text-lg">GitHub Contribution Calendar</h3>
+              <p class="text-xs font-mono text-textMuted">@AyushGaurav4529 on GitHub</p>
+            </div>
+          </div>
+          <a href="https://github.com/AyushGaurav4529" target="_blank" rel="noopener"
+            class="text-xs font-mono text-neon border border-neon/30 bg-neon/10 hover:bg-neon hover:text-dark px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>View Profile</span>
+          </a>
+        </div>
+
+        <!-- Embedded SVG Heatmap Graphic -->
+        <div class="overflow-x-auto pb-2 flex justify-center items-center bg-dark p-4 rounded-xl border border-darkBorder">
+          <img src="https://ghchart.rshah.org/10b981/AyushGaurav4529" alt="Ayush Gaurav GitHub Contribution Chart Heatmap"
+            class="max-w-full min-w-[600px] h-auto filter drop-shadow-[0_0_10px_rgba(16,185,129,0.2)]" />
+        </div>
+
+        <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-textMuted">
+          <span>⚡ Live commit activity synced automatically</span>
+          <span class="flex items-center gap-1 text-neon">
+            <span class="w-2 h-2 rounded-full bg-neon inline-block animate-ping"></span>
+            Active Continuous Learner
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS & ENDORSEMENTS ========== -->
+    <section id="testimonials" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+      <div class="text-center mb-10 sm:mb-12 animate-on-scroll">
+        <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Peer Feedback</span>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit">Testimonials</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Testimonial 1 -->
+        <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 animate-on-scroll hover:border-neon/40 transition-all flex flex-col justify-between">
+          <p class="text-textSecondary text-sm sm:text-base leading-relaxed italic mb-6">
+            "Ayush is an exceptionally resourceful developer. During our hackathon project, his ability to rapidly architect the backend while keeping frontend integration smooth was pivotal to a smooth hackathon."
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-darkBorder/60">
+            <div class="w-10 h-10 rounded-full bg-neon/20 border border-neon text-neon font-bold flex items-center justify-center font-mono">
+              HT
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-sm">Hackathon Teammate</h4>
+              <p class="text-xs font-mono text-neon">NIRMITH & VIBE-A-THON Participant</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 animate-on-scroll hover:border-neon/40 transition-all flex flex-col justify-between" style="transition-delay: 0.15s;">
+          <p class="text-textSecondary text-sm sm:text-base leading-relaxed italic mb-6">
+            "Working alongside Ayush on our Retail Guard project during FantomCode Hackathon was incredible. His speed in solving complex logic under intense time pressure kept our entire team super focused and confident."
+          </p>
+          <div class="flex items-center gap-3 pt-4 border-t border-darkBorder/60">
+            <div class="w-10 h-10 rounded-full bg-neon/20 border border-neon text-neon font-bold flex items-center justify-center font-mono">
+              FC
+            </div>
+            <div>
+              <h4 class="text-white font-bold text-sm">Hackathon Teammate</h4>
+              <p class="text-xs font-mono text-neon">FantomCode Hackathon (RVITM)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LET'S CONNECT & CONTACT FORM ========== -->
+    <section id="connect" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
+      <div class="text-center mb-10 animate-on-scroll">
+        <div class="flex items-center justify-center gap-2 mb-4">
+          <span class="w-6 h-[2px] bg-neon"></span>
+          <span class="text-xs font-mono font-bold text-neon tracking-[0.25em] uppercase">GET IN TOUCH</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-black text-white tracking-tight mb-4">
+          Ready to build <span class="gradient-blue-text">something great?</span>
+        </h2>
+        <p class="max-w-2xl mx-auto text-textSecondary text-base sm:text-lg">
+          Have an opportunity, project idea, or just want to connect? Send a direct message below.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Contact Information & Quick Actions -->
+        <div class="lg:col-span-5 bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 animate-on-scroll space-y-6">
+          <h3 class="text-xl font-bold text-white mb-2">Direct Contact</h3>
+          
+          <!-- Copy Email Box -->
+          <div class="p-4 bg-dark rounded-xl border border-darkBorder flex items-center justify-between gap-3">
+            <div class="truncate">
+              <span class="text-[11px] font-mono text-textMuted uppercase block">Email Address</span>
+              <span class="text-xs sm:text-sm font-mono text-white truncate block">ayushgaurav4529@gmail.com</span>
+            </div>
+            <button class="btn-copy-email p-2 rounded-lg bg-darkCard border border-darkBorder hover:border-neon text-neon transition-all cursor-pointer flex-shrink-0" title="Copy Email">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Copy Phone Box -->
+          <div class="p-4 bg-dark rounded-xl border border-darkBorder flex items-center justify-between gap-3">
+            <div class="truncate">
+              <span class="text-[11px] font-mono text-textMuted uppercase block">Phone Number</span>
+              <span class="text-xs sm:text-sm font-mono text-white block">+91 8295813878</span>
+            </div>
+            <button class="btn-copy-phone p-2 rounded-lg bg-darkCard border border-darkBorder hover:border-neon text-neon transition-all cursor-pointer flex-shrink-0" title="Copy Phone Number">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Quick Social Links -->
+          <div class="pt-4 border-t border-darkBorder flex gap-3">
+            <a href="https://github.com/AyushGaurav4529" target="_blank" rel="noopener"
+              class="flex-1 py-2.5 bg-dark rounded-xl border border-darkBorder hover:border-neon text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all">
+              <span>GitHub</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-neon"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/ayugaurav/" target="_blank" rel="noopener"
+              class="flex-1 py-2.5 bg-dark rounded-xl border border-darkBorder hover:border-neon text-white font-semibold text-xs flex items-center justify-center gap-2 transition-all">
+              <span>LinkedIn</span>
+              <i data-lucide="external-link" class="w-3.5 h-3.5 text-neon"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="lg:col-span-7 bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 animate-on-scroll">
+          <form id="contactForm" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="block text-xs font-mono text-textSecondary uppercase mb-1.5">Your Name *</label>
+                <input type="text" id="contact-name" required placeholder="Alex Morgan"
+                  class="w-full bg-dark border border-darkBorder focus:border-neon text-white text-sm rounded-xl px-4 py-3 outline-none transition-all placeholder:text-textMuted" />
+              </div>
+              <div>
+                <label for="contact-email" class="block text-xs font-mono text-textSecondary uppercase mb-1.5">Your Email *</label>
+                <input type="email" id="contact-email" required placeholder="alex@example.com"
+                  class="w-full bg-dark border border-darkBorder focus:border-neon text-white text-sm rounded-xl px-4 py-3 outline-none transition-all placeholder:text-textMuted" />
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-subject" class="block text-xs font-mono text-textSecondary uppercase mb-1.5">Subject *</label>
+              <input type="text" id="contact-subject" required placeholder="Project Inquiry / Job Opportunity"
+                class="w-full bg-dark border border-darkBorder focus:border-neon text-white text-sm rounded-xl px-4 py-3 outline-none transition-all placeholder:text-textMuted" />
+            </div>
+
+            <div>
+              <label for="contact-message" class="block text-xs font-mono text-textSecondary uppercase mb-1.5">Message *</label>
+              <textarea id="contact-message" rows="4" required placeholder="Hi Ayush, I liked your portfolio and would love to connect..."
+                class="w-full bg-dark border border-darkBorder focus:border-neon text-white text-sm rounded-xl px-4 py-3 outline-none transition-all placeholder:text-textMuted resize-none"></textarea>
+            </div>
+
+            <button type="submit" id="btnSubmitContact"
+              class="w-full bg-neon text-dark font-bold text-sm sm:text-base py-3.5 rounded-xl hover:bg-neonBright hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>Send Message</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Back to Top Button -->
+    <button id="backToTopBtn"
+      class="fixed bottom-6 right-6 z-40 bg-[#111111]/90 text-neon hover:text-white p-3 rounded-full border border-neon/50 shadow-[0_0_20px_rgba(16,185,129,0.3)] opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 cursor-pointer"
+      aria-label="Back to top" title="Back to top">
+      <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="border-t border-darkBorder py-10">
+      <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-textMuted text-sm font-mono">
+          &copy; 2025 <span class="text-neon">Ayush Gaurav</span>. Built with passion.
+        </p>
+        <div class="flex items-center gap-6">
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ayushgaurav4529@gmail.com&su=Portfolio%20Inquiry"
+            target="_blank" rel="noopener"
+            class="contact-link text-textMuted hover:text-neon transition-colors flex items-center gap-1.5"
+            title="Compose Email">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>Email</span>
+          </a>
+          <a href="https://github.com/AyushGaurav4529" target="_blank" rel="noopener"
+            class="contact-link text-textMuted hover:text-neon transition-colors flex items-center gap-1.5">
+            <svg class="w-4 h-4 rounded-full inline-block flex-shrink-0" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="12" fill="#000000" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M12 4C7.58 4 4 7.58 4 12C4 15.54 6.29 18.53 9.47 19.59C9.87 19.66 10.02 19.42 10.02 19.21C10.02 19.02 10.01 18.39 10.01 17.72C8 18.09 7.46 17.21 7.3 16.76C7.21 16.53 6.82 15.82 6.48 15.63C6.2 15.48 5.8 15.11 6.47 15.1C7.1 15.09 7.55 15.68 7.7 15.92C8.42 17.13 9.57 16.79 10.03 16.58C10.1 16.06 10.31 15.71 10.54 15.51C8.76 15.31 6.89 14.62 6.89 11.55C6.89 10.68 7.2 9.96 7.72 9.4C7.64 9.2 7.37 8.38 7.8 7.27C7.8 7.27 8.47 7.06 10.02 8.11C10.66 7.93 11.34 7.84 12.02 8.11C15.57 7.05 16.24 7.27 16.24 7.27C16.67 8.38 16.4 9.2 16.32 9.4C16.84 9.96 17.15 10.67 17.15 11.55C17.15 14.63 15.27 15.31 13.49 15.51C13.78 15.76 14.03 16.24 14.03 16.99C14.03 18.06 14.02 18.92 14.02 19.21C14.02 19.42 14.17 19.67 14.57 19.59C17.7 18.53 20 15.54 20 12C20 7.58 16.42 4 12 4Z"
+                fill="white" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/ayugaurav/" target="_blank" rel="noopener"
+            class="contact-link text-textMuted hover:text-neon transition-colors flex items-center gap-1.5">
+            <svg class="w-4 h-4 rounded-full inline-block flex-shrink-0" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="12" fill="#0066C8" />
+              <path
+                d="M7.5 9.5H9.5V17H7.5V9.5ZM8.5 6.75C7.8 6.75 7.25 7.3 7.25 8C7.25 8.7 7.8 9.25 8.5 9.25C9.2 9.25 9.75 8.7 9.75 8C9.75 7.3 9.2 6.75 8.5 6.75ZM11 9.5H12.8V10.5C13.2 9.8 14.1 9.3 15.2 9.3C17.3 9.3 18 10.7 18 13V17H16V13.4C16 12 15.5 11.1 14.3 11.1C13.3 11.1 12.8 11.8 12.8 12.8V17H11V9.5Z"
+                fill="white" />
+            </svg>
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // Initialize Lucide icons
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    // ──────────────────────────────────────────────
+    // Light / Dark Mode Toggle
+    // ──────────────────────────────────────────────
+    const themeToggleNav = document.getElementById('themeToggleNav');
+    const THEME_KEY = 'portfolio-theme';
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+    }
+
+    // Apply saved theme on load
+    (function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'light') {
+        document.body.classList.add('light-mode');
+      }
+    })();
+
+    if (themeToggleNav) {
+      themeToggleNav.addEventListener('click', toggleTheme);
+    }
+
+    // ──────────────────────────────────────────────
+    // Profile Modal Card Trigger
+    // ──────────────────────────────────────────────
+    const brandProfileBtn = document.getElementById('brandProfileBtn');
+    const profileModal = document.getElementById('profileModal');
+    const profileModalCard = document.getElementById('profileModalCard');
+    const closeProfileModal = document.getElementById('closeProfileModal');
+
+    function openProfileModal() {
+      if (!profileModal || !profileModalCard) return;
+      profileModal.classList.remove('opacity-0', 'pointer-events-none');
+      profileModalCard.classList.remove('scale-95');
+      profileModalCard.classList.add('scale-100');
+    }
+
+    function hideProfileModal() {
+      if (!profileModal || !profileModalCard) return;
+      profileModal.classList.add('opacity-0', 'pointer-events-none');
+      profileModalCard.classList.remove('scale-100');
+      profileModalCard.classList.add('scale-95');
+    }
+
+    if (brandProfileBtn) {
+      brandProfileBtn.addEventListener('click', openProfileModal);
+    }
+    if (closeProfileModal) {
+      closeProfileModal.addEventListener('click', hideProfileModal);
+    }
+    if (profileModal) {
+      profileModal.addEventListener('click', (e) => {
+        if (e.target === profileModal) {
+          hideProfileModal();
+        }
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // Image Lightbox Preview Modal Logic
+    // ──────────────────────────────────────────────
+    const imageLightboxModal = document.getElementById('imageLightboxModal');
+    const lightboxCard = document.getElementById('lightboxCard');
+    const closeLightboxModal = document.getElementById('closeLightboxModal');
+    const profileAvatarContainer = document.getElementById('profileAvatarContainer');
+    const heroAvatarContainer = document.getElementById('heroAvatarContainer');
+
+    function openImageLightbox() {
+      if (!imageLightboxModal || !lightboxCard) return;
+      imageLightboxModal.classList.remove('opacity-0', 'pointer-events-none');
+      lightboxCard.classList.remove('scale-95');
+      lightboxCard.classList.add('scale-100');
+    }
+
+    function hideImageLightbox() {
+      if (!imageLightboxModal || !lightboxCard) return;
+      imageLightboxModal.classList.add('opacity-0', 'pointer-events-none');
+      lightboxCard.classList.remove('scale-100');
+      lightboxCard.classList.add('scale-95');
+    }
+
+    if (profileAvatarContainer) {
+      profileAvatarContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageLightbox();
+      });
+    }
+
+    if (heroAvatarContainer) {
+      heroAvatarContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageLightbox();
+      });
+    }
+
+    if (closeLightboxModal) {
+      closeLightboxModal.addEventListener('click', hideImageLightbox);
+    }
+
+    if (imageLightboxModal) {
+      imageLightboxModal.addEventListener('click', (e) => {
+        if (e.target === imageLightboxModal || e.target === lightboxCard) {
+          hideImageLightbox();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideProfileModal();
+        hideImageLightbox();
+      }
+    });
+
+    // ──────────────────────────────────────────────
+    // Direct Webmail & App Mail Composer Launcher
+    // ──────────────────────────────────────────────
+    document.querySelectorAll('a[href*="ayushgaurav4529@gmail.com"], a[href^="mailto:"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open('https://mail.google.com/mail/?view=cm&fs=1&to=ayushgaurav4529@gmail.com&su=Hello%20Ayush%20-%20Portfolio%20Inquiry', '_blank');
+      });
+    });
+
+    // ──────────────────────────────────────────────
+    // ScrollSpy: Real-time active section tracking
+    // ──────────────────────────────────────────────
+    const trackedSections = document.querySelectorAll('section[id]');
+    const sideNavItems = document.querySelectorAll('.side-nav-item');
+    const topNavLinks = document.querySelectorAll('.top-navbar .nav-link');
+
+    function updateActiveNavOnScroll() {
+      let currentSectionId = '';
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+      trackedSections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          currentSectionId = section.getAttribute('id');
+        }
+      });
+
+      // If at very bottom of page, default to 'connect'
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 60) {
+        currentSectionId = 'connect';
+      }
+
+      // Highlight side dots & permanently reveal label for current active section
+      sideNavItems.forEach((item) => {
+        if (item.getAttribute('data-section') === currentSectionId) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Highlight top navbar link for active section
+      topNavLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        if (href === '#' + currentSectionId) {
+          link.classList.add('text-neon', 'font-bold');
+        } else {
+          link.classList.remove('text-neon', 'font-bold');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNavOnScroll);
+    window.addEventListener('load', updateActiveNavOnScroll);
+
+    // ──────────────────────────────────────────────
+    // Intersection Observer — animate on scroll
+    // ──────────────────────────────────────────────
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // ──────────────────────────────────────────────
+    // Particle system — floating dots background
+    // ──────────────────────────────────────────────
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const PARTICLE_COUNT = 60;
+    const CONNECTION_DISTANCE = 140;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.4;
+        this.vy = (Math.random() - 0.5) * 0.4;
+        this.radius = Math.random() * 1.5 + 0.5;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function drawConnections() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < CONNECTION_DISTANCE) {
+            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.12;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(16, 185, 129, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p) => {
+        p.update();
+        p.draw();
+      });
+
+      drawConnections();
+      requestAnimationFrame(animateParticles);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+
+    resizeCanvas();
+    initParticles();
+    animateParticles();
+
+    // ──────────────────────────────────────────────
+    // Timeline group hover — glow the dot
+    // ──────────────────────────────────────────────
+    document.querySelectorAll('.timeline-group').forEach((group) => {
+      const dot = group.querySelector('.timeline-dot');
+      if (!dot) return;
+
+      group.addEventListener('mouseenter', () => {
+        dot.style.backgroundColor = '#00ff87';
+        dot.style.boxShadow = '0 0 18px rgba(0, 255, 135, 0.7)';
+        dot.style.transform = 'scale(1.5)';
+      });
+
+      group.addEventListener('mouseleave', () => {
+        dot.style.backgroundColor = '';
+        dot.style.boxShadow = '0 0 10px rgba(16,185,129,0.4)';
+        dot.style.transform = 'scale(1)';
+      });
+    });
+
+    // Same for timeline cards that contain dots
+    document.querySelectorAll('.timeline-card').forEach((card) => {
+      const parent = card.closest('.flex');
+      if (!parent) return;
+      const dot = parent.querySelector('.timeline-dot');
+      if (!dot) return;
+
+      card.addEventListener('mouseenter', () => {
+        dot.style.backgroundColor = '#00ff87';
+        dot.style.boxShadow = '0 0 18px rgba(0, 255, 135, 0.7)';
+        dot.style.transform = 'scale(1.5)';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        dot.style.backgroundColor = '';
+        dot.style.boxShadow = '0 0 10px rgba(16,185,129,0.4)';
+        dot.style.transform = 'scale(1)';
+      });
+    });
+
+    // ──────────────────────────────────────────────
+    // 1. Scroll Progress Bar
+    // ──────────────────────────────────────────────
+    const scrollProgressBar = document.getElementById('scroll-progress-bar');
+    function updateScrollProgressBar() {
+      if (!scrollProgressBar) return;
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgressBar.style.width = scrollPercent + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgressBar);
+
+    // ──────────────────────────────────────────────
+    // 2. Mouse Spotlight Tracker
+    // ──────────────────────────────────────────────
+    const mouseSpotlight = document.getElementById('mouse-spotlight');
+    if (mouseSpotlight) {
+      window.addEventListener('mousemove', (e) => {
+        const x = e.clientX;
+        const y = e.clientY;
+        mouseSpotlight.style.background = `radial-gradient(600px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.12), transparent 80%)`;
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 3. Hero Title Typing Animation
+    // ──────────────────────────────────────────────
+    const typingTextEl = document.getElementById('hero-typing-text');
+    if (typingTextEl) {
+      const roles = [
+        'AI & Full Stack Developer',
+        'CS Engineering Undergrad',
+        'Machine Learning Enthusiast',
+        'Scalable Software Architect'
+      ];
+      let roleIdx = 0;
+      let charIdx = 0;
+      let isDeleting = false;
+
+      function typeLoop() {
+        const currentRole = roles[roleIdx];
+        if (isDeleting) {
+          typingTextEl.textContent = currentRole.substring(0, charIdx - 1);
+          charIdx--;
+        } else {
+          typingTextEl.textContent = currentRole.substring(0, charIdx + 1);
+          charIdx++;
+        }
+
+        let speed = isDeleting ? 40 : 80;
+        if (!isDeleting && charIdx === currentRole.length) {
+          speed = 2200; // Pause at end of word
+          isDeleting = true;
+        } else if (isDeleting && charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          speed = 400;
+        }
+        setTimeout(typeLoop, speed);
+      }
+      typeLoop();
+    }
+
+    // ──────────────────────────────────────────────
+    // 4. Skill Bar Filling via Intersection Observer
+    // ──────────────────────────────────────────────
+    const skillBarFillEls = document.querySelectorAll('.skill-bar-fill');
+    if (skillBarFillEls.length > 0) {
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const targetWidth = entry.target.getAttribute('data-progress') || '85%';
+            entry.target.style.width = targetWidth;
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      skillBarFillEls.forEach((bar) => skillObserver.observe(bar));
+    }
+
+    // ──────────────────────────────────────────────
+    // 5. Live GitHub API Activity Fetch
+    // ──────────────────────────────────────────────
+    (async function fetchGitHubStats() {
+      const reposEl = document.getElementById('gh-repos');
+      const followersEl = document.getElementById('gh-followers');
+      const followingEl = document.getElementById('gh-following');
+
+      try {
+        const res = await fetch('https://api.github.com/users/AyushGaurav4529');
+        if (res.ok) {
+          const data = await res.json();
+          if (reposEl) reposEl.textContent = data.public_repos ?? '12+';
+          if (followersEl) followersEl.textContent = data.followers ?? '15+';
+          if (followingEl) followingEl.textContent = data.following ?? '20+';
+        } else {
+          throw new Error('API limit or network error');
+        }
+      } catch (err) {
+        if (reposEl) reposEl.textContent = '10+';
+        if (followersEl) followersEl.textContent = '12+';
+        if (followingEl) followingEl.textContent = '18+';
+      }
+    })();
+
+    // ──────────────────────────────────────────────
+    // 6. 3D Card Hover Tilt Effect
+    // ──────────────────────────────────────────────
+    document.querySelectorAll('.timeline-card, #connect .lg\\:col-span-5, #connect .lg\\:col-span-7').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    // ──────────────────────────────────────────────
+    // 7. Toast Notification & Copy Helpers
+    // ──────────────────────────────────────────────
+    const toastEl = document.getElementById('toast-notification');
+    const toastMsgEl = document.getElementById('toast-message');
+    let toastTimeout;
+
+    function showToast(message) {
+      if (!toastEl || !toastMsgEl) return;
+      toastMsgEl.textContent = message;
+      toastEl.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+      toastEl.classList.add('opacity-100', 'translate-y-0');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toastEl.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        toastEl.classList.remove('opacity-100', 'translate-y-0');
+      }, 3000);
+    }
+
+    document.querySelectorAll('.btn-copy-email').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText('ayushgaurav4529@gmail.com');
+        showToast('Email address copied to clipboard!');
+      });
+    });
+
+    document.querySelectorAll('.btn-copy-phone').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText('+918295813878');
+        showToast('Phone number copied to clipboard!');
+      });
+    });
+
+    // Contact Form Handler
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('contact-name')?.value;
+        showToast(`Thank you ${name ? name : ''}! Message sent successfully.`);
+        contactForm.reset();
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 8. PDF Resume Viewer Modal
+    // ──────────────────────────────────────────────
+    const pdfViewerModal = document.getElementById('pdfViewerModal');
+    const pdfModalCard = document.getElementById('pdfModalCard');
+    const closePdfModal = document.getElementById('closePdfModal');
+
+    function openPdfModal() {
+      if (!pdfViewerModal || !pdfModalCard) return;
+      pdfViewerModal.classList.remove('opacity-0', 'pointer-events-none');
+      pdfModalCard.classList.remove('scale-95');
+      pdfModalCard.classList.add('scale-100');
+    }
+
+    function hidePdfModal() {
+      if (!pdfViewerModal || !pdfModalCard) return;
+      pdfViewerModal.classList.add('opacity-0', 'pointer-events-none');
+      pdfModalCard.classList.remove('scale-100');
+      pdfModalCard.classList.add('scale-95');
+    }
+
+    document.querySelectorAll('.btn-open-pdf').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openPdfModal();
+      });
+    });
+
+    if (closePdfModal) closePdfModal.addEventListener('click', hidePdfModal);
+    if (pdfViewerModal) {
+      pdfViewerModal.addEventListener('click', (e) => {
+        if (e.target === pdfViewerModal) hidePdfModal();
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 10. Web Audio API Cyberpunk Sound Effects (Every Click ON)
+    // ──────────────────────────────────────────────
+    const soundEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playUiSound(freq = 800, duration = 0.06, type = 'sine') {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.08, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (err) {
+        // Audio error fallback
+      }
+    }
+
+    function playChimeSound() {
+      if (!soundEnabled) return;
+      playUiSound(600, 0.05);
+      setTimeout(() => playUiSound(1000, 0.08), 50);
+    }
+
+    // Play sound on EVERY click anywhere on the page
+    document.addEventListener('click', () => {
+      playUiSound(800, 0.05);
+    });
+
+    // ──────────────────────────────────────────────
+    // 11. Command Palette (Ctrl + K / Cmd + K)
+    // ──────────────────────────────────────────────
+    const cmdPaletteModal = document.getElementById('commandPaletteModal');
+    const cmdPaletteCard = document.getElementById('commandPaletteCard');
+    const cmdSearchInput = document.getElementById('cmdSearchInput');
+    const cmdItemList = document.getElementById('cmdItemList');
+    const cmdPaletteBtn = document.getElementById('cmdPaletteBtn');
+
+    function openCommandPalette() {
+      if (!cmdPaletteModal || !cmdPaletteCard) return;
+      cmdPaletteModal.classList.remove('opacity-0', 'pointer-events-none');
+      cmdPaletteCard.classList.remove('scale-95');
+      cmdPaletteCard.classList.add('scale-100');
+      cmdSearchInput?.focus();
+      playChimeSound();
+    }
+
+    function hideCommandPalette() {
+      if (!cmdPaletteModal || !cmdPaletteCard) return;
+      cmdPaletteModal.classList.add('opacity-0', 'pointer-events-none');
+      cmdPaletteCard.classList.remove('scale-100');
+      cmdPaletteCard.classList.add('scale-95');
+      if (cmdSearchInput) cmdSearchInput.value = '';
+      filterCmdItems('');
+    }
+
+    if (cmdPaletteBtn) {
+      cmdPaletteBtn.addEventListener('click', openCommandPalette);
+    }
+
+    if (cmdPaletteModal) {
+      cmdPaletteModal.addEventListener('click', (e) => {
+        if (e.target === cmdPaletteModal) hideCommandPalette();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (cmdPaletteModal?.classList.contains('opacity-0')) {
+          openCommandPalette();
+        } else {
+          hideCommandPalette();
+        }
+      }
+    });
+
+    // Fuzzy search for Command Palette
+    function filterCmdItems(query) {
+      if (!cmdItemList) return;
+      const items = cmdItemList.querySelectorAll('.cmd-item');
+      const q = query.toLowerCase().trim();
+      let firstVisible = null;
+
+      items.forEach((item) => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(q)) {
+          item.classList.remove('hidden');
+          if (!firstVisible) firstVisible = item;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Update active selection highlighting
+      items.forEach((item) => item.classList.remove('active-cmd', 'bg-neon/10', 'text-white'));
+      if (firstVisible) {
+        firstVisible.classList.add('active-cmd', 'bg-neon/10', 'text-white');
+      }
+    }
+
+    if (cmdSearchInput) {
+      cmdSearchInput.addEventListener('input', (e) => {
+        filterCmdItems(e.target.value);
+      });
+    }
+
+    // Execute Command Item Action
+    function executeCmdItem(item) {
+      if (!item) return;
+      const action = item.getAttribute('data-action');
+      const target = item.getAttribute('data-target');
+      hideCommandPalette();
+
+      if (action === 'nav' && target) {
+        const targetEl = document.querySelector(target);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else if (action === 'cv') {
+        openPdfModal();
+      } else if (action === 'theme') {
+        toggleTheme();
+      } else if (action === 'sound') {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('ayush_sound_pref', soundEnabled ? 'true' : 'false');
+        updateSoundUi();
+        showToast(soundEnabled ? 'UI Sound Effects Enabled' : 'UI Sound Effects Muted');
+      } else if (action === 'copy-email') {
+        navigator.clipboard.writeText('ayushgaurav4529@gmail.com');
+        showToast('Email address copied to clipboard!');
+      }
+    }
+
+    if (cmdItemList) {
+      cmdItemList.addEventListener('click', (e) => {
+        const item = e.target.closest('.cmd-item');
+        if (item) executeCmdItem(item);
+      });
+    }
+
+    // Keyboard Arrow Navigation in Command Palette
+    if (cmdSearchInput) {
+      cmdSearchInput.addEventListener('keydown', (e) => {
+        const items = Array.from(cmdItemList?.querySelectorAll('.cmd-item:not(.hidden)') || []);
+        if (!items.length) return;
+
+        let activeIdx = items.findIndex((el) => el.classList.contains('active-cmd'));
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (activeIdx >= 0) items[activeIdx].classList.remove('active-cmd', 'bg-neon/10', 'text-white');
+          activeIdx = (activeIdx + 1) % items.length;
+          items[activeIdx].classList.add('active-cmd', 'bg-neon/10', 'text-white');
+          items[activeIdx].scrollIntoView({ block: 'nearest' });
+          playUiSound(900, 0.04);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (activeIdx >= 0) items[activeIdx].classList.remove('active-cmd', 'bg-neon/10', 'text-white');
+          activeIdx = (activeIdx - 1 + items.length) % items.length;
+          items[activeIdx].classList.add('active-cmd', 'bg-neon/10', 'text-white');
+          items[activeIdx].scrollIntoView({ block: 'nearest' });
+          playUiSound(900, 0.04);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (activeIdx >= 0) executeCmdItem(items[activeIdx]);
+        }
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 12. Project Category Filtering
+    // ──────────────────────────────────────────────
+    const projectFilterBtns = document.querySelectorAll('.project-filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    projectFilterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        playUiSound(850, 0.06);
+
+        projectFilterBtns.forEach((b) => {
+          b.classList.remove('active-filter', 'border-neon', 'bg-neon', 'text-dark', 'shadow-[0_0_12px_rgba(16,185,129,0.3)]');
+          b.classList.add('border-darkBorder', 'bg-darkCard', 'text-textSecondary');
+        });
+
+        btn.classList.add('active-filter', 'border-neon', 'bg-neon', 'text-dark', 'shadow-[0_0_12px_rgba(16,185,129,0.3)]');
+        btn.classList.remove('border-darkBorder', 'bg-darkCard', 'text-textSecondary');
+
+        projectItems.forEach((item) => {
+          const cat = item.getAttribute('data-category') || '';
+          if (filter === 'all' || cat.includes(filter)) {
+            item.classList.remove('hidden');
+            item.classList.add('animate-on-scroll');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // ──────────────────────────────────────────────
+    // 13. Project Quick View Detail Modal
+    // ──────────────────────────────────────────────
+    const projectDetailModal = document.getElementById('projectDetailModal');
+    const projectDetailCard = document.getElementById('projectDetailCard');
+    const closeProjectModal = document.getElementById('closeProjectModal');
+
+    const projectData = {
+      'retail-guard': {
+        tag: 'AI & SaaS Inventory',
+        title: 'Retail Guard',
+        subtitle: 'Pitched at FantomCode Hackathon (RVITM)',
+        desc: 'Retail Guard is an AI-powered smart inventory system designed for retailers. It automatically tracks product shelf lives, calculates expiry alerts, monitors live metrics, and generates predictive ordering insights to minimize store waste.',
+        features: [
+          'Automated shelf-life & expiration date tracking',
+          'Live inventory analytics dashboard',
+          'Predictive stock replenishment recommendations',
+          'Seamless store multi-user role management'
+        ],
+        stack: ['JavaScript', 'Node.js', 'Firebase', 'Applied AI', 'DBMS', 'Tailwind CSS'],
+        github: 'https://github.com/AyushGaurav4529/Retail-Guard.git'
+      },
+      'homeplate': {
+        tag: 'Full-Stack & Mobile Platform',
+        title: 'HomePlate',
+        subtitle: 'Built for NIRMITH (Web) & VIBE-A-THON (Mobile) Hackathons',
+        desc: 'HomePlate connects university students with local home chefs offering fresh home-cooked meals. Features real-time location-based sorting, customized dietary search, and interactive order updates.',
+        features: [
+          'Hyperlocal location-based chef discovery',
+          'Student-friendly affordable pricing filters',
+          'Cross-platform mobile ordering app built with Flutter',
+          'Real-time order progress tracking'
+        ],
+        stack: ['Dart', 'Flutter', 'JavaScript', 'Node.js', 'REST APIs', 'Firebase'],
+        github: 'https://github.com/AyushGaurav4529/HomePlate.git'
+      },
+      'hotel-mgmt': {
+        tag: 'Desktop Software',
+        title: 'Hotel Management System',
+        subtitle: 'Python & SQL Operations Engine',
+        desc: 'A robust desktop management solution for hotel operations. Streamlines guest check-ins, room availability matrix, automated invoice printing, and revenue tracking.',
+        features: [
+          'Dynamic room availability grid',
+          'Automated bill and invoice generator',
+          'Guest check-in & check-out logs',
+          'Relational database integration with MySQL'
+        ],
+        stack: ['Python', 'SQL', 'MySQL', 'Tkinter / GUI'],
+        github: 'https://github.com/AyushGaurav4529/Hotel-mangement-system.git'
+      },
+      'inventory-mgmt': {
+        tag: 'Web Application',
+        title: 'Inventory Management System',
+        subtitle: 'Structured Stock Tracking Interface',
+        desc: 'A lightweight, responsive web application for structured stock tracking, supplier management, and item search for small retail environments.',
+        features: [
+          'Clean responsive dashboard interface',
+          'Fast search and item category filter',
+          'Low stock alert indicators',
+          'Exportable stock summaries'
+        ],
+        stack: ['HTML5', 'CSS3', 'JavaScript'],
+        github: 'https://github.com/AyushGaurav4529/Inventory-Management-System.git'
+      }
+    };
+
+    function openProjectModal(projectId) {
+      const data = projectData[projectId];
+      if (!data || !projectDetailModal || !projectDetailCard) return;
+
+      document.getElementById('projDetailTag').textContent = data.tag;
+      document.getElementById('projDetailTitle').textContent = data.title;
+      document.getElementById('projDetailSubtitle').textContent = data.subtitle;
+      document.getElementById('projDetailDesc').textContent = data.desc;
+
+      const featList = document.getElementById('projDetailFeatures');
+      if (featList) {
+        featList.innerHTML = data.features.map((f) => `<li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-neon"></i>${f}</li>`).join('');
+      }
+
+      const stackContainer = document.getElementById('projDetailStack');
+      if (stackContainer) {
+        stackContainer.innerHTML = data.stack.map((s) => `<span class="bg-neon/10 text-neon px-2.5 py-1 rounded border border-neon/30">${s}</span>`).join('');
+      }
+
+      const ghBtn = document.getElementById('projDetailGithubBtn');
+      if (ghBtn) {
+        const targetUrl = data.github.replace(/\.git$/, '');
+        ghBtn.setAttribute('href', targetUrl);
+        ghBtn.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          window.open(targetUrl, '_blank', 'noopener,noreferrer');
+        };
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+
+      projectDetailModal.classList.remove('opacity-0', 'pointer-events-none');
+      projectDetailCard.classList.remove('scale-95');
+      projectDetailCard.classList.add('scale-100');
+      playChimeSound();
+    }
+
+    function hideProjectModal() {
+      if (!projectDetailModal || !projectDetailCard) return;
+      projectDetailModal.classList.add('opacity-0', 'pointer-events-none');
+      projectDetailCard.classList.remove('scale-100');
+      projectDetailCard.classList.add('scale-95');
+    }
+
+    document.querySelectorAll('.project-card-trigger').forEach((card) => {
+      card.addEventListener('click', () => {
+        const pid = card.getAttribute('data-project-id');
+        if (pid) openProjectModal(pid);
+      });
+    });
+
+    if (closeProjectModal) closeProjectModal.addEventListener('click', hideProjectModal);
+    if (projectDetailModal) {
+      projectDetailModal.addEventListener('click', (e) => {
+        if (e.target === projectDetailModal) hideProjectModal();
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 14. Interactive Skill Category Tabs
+    // ──────────────────────────────────────────────
+    const skillTabBtns = document.querySelectorAll('.skill-tab-btn');
+    const skillCategoryBlocks = document.querySelectorAll('.skill-category-block');
+
+    skillTabBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const tab = btn.getAttribute('data-tab');
+        playUiSound(850, 0.06);
+
+        skillTabBtns.forEach((b) => {
+          b.classList.remove('active-tab', 'border-neon', 'bg-neon', 'text-dark', 'shadow-[0_0_12px_rgba(16,185,129,0.3)]');
+          b.classList.add('border-darkBorder', 'bg-darkCard', 'text-textSecondary');
+        });
+
+        btn.classList.add('active-tab', 'border-neon', 'bg-neon', 'text-dark', 'shadow-[0_0_12px_rgba(16,185,129,0.3)]');
+        btn.classList.remove('border-darkBorder', 'bg-darkCard', 'text-textSecondary');
+
+        skillCategoryBlocks.forEach((block) => {
+          const cat = block.getAttribute('data-skill-cat') || '';
+          if (tab === 'all' || cat === tab) {
+            block.classList.remove('hidden');
+          } else {
+            block.classList.add('hidden');
+          }
+        });
+      });
+    });
+
+    // Update Escape Key Handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        hideProfileModal();
+        hideImageLightbox();
+        hidePdfModal();
+        hideCommandPalette();
+        hideProjectModal();
+      }
+    });
+
+    // ──────────────────────────────────────────────
+    // 9. Back to Top Floating Button
+    // ──────────────────────────────────────────────
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.add('opacity-100');
+        } else {
+          backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+          backToTopBtn.classList.remove('opacity-100');
+        }
+      });
+
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // Smooth nav on anchor clicks
+    // ──────────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
