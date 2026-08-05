@@ -1145,8 +1145,14 @@
           <div class="w-6 h-6 rounded-md bg-neon/10 border border-neon/40 flex items-center justify-center text-neon flex-shrink-0 mt-0.5">
             <i data-lucide="bot" class="w-3.5 h-3.5"></i>
           </div>
-          <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-textSecondary">
-            Hi! I'm Ayush's AI Assistant. Ask me about his experience, AI/ML skills, full-stack projects, or how to contact him!
+          <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-textSecondary space-y-2">
+            <p>Hi! I'm <strong>Ayush's Neural AI Assistant</strong>. Ask me anything about his AI/ML research, full-stack projects, hackathon wins, or career goals!</p>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[10px] pt-1">
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="Tell me about top projects">🚀 Top Projects</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="Tell me about hackathon wins">🏆 Hackathons</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="What is your technical skill stack?">🛠️ Tech Stack</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="How can I contact or hire Ayush?">📬 Contact &amp; Hire</button>
+            </div>
           </div>
         </div>
       </div>
@@ -3991,7 +3997,7 @@
       if (window.lucide) window.lucide.createIcons();
     })();
 
-    // 3. AI Portfolio Assistant Chatbot
+    // 3. Supercharged AI Portfolio Neural Assistant
     (function initPortfolioAIAgent() {
       const toggleBtn = document.getElementById('aiChatToggleBtn');
       const closeBtn = document.getElementById('closeAiChatBtn');
@@ -4015,10 +4021,181 @@
       toggleBtn.addEventListener('click', toggleChat);
       if (closeBtn) closeBtn.addEventListener('click', toggleChat);
 
-      function handleSendMessage() {
-        const text = input.value.trim();
+      // Intelligent Query Intent Classifier & Response Generator
+      function generateAiReply(userText) {
+        const text = userText.toLowerCase().trim();
+
+        // 1. Retail Guard Project
+        if (text.includes('retail') || text.includes('guard') || text.includes('threat') || text.includes('vision') || text.includes('camera')) {
+          return `
+            <div class="space-y-2">
+              <p><strong>Retail Guard (AI Threat Detection)</strong></p>
+              <p class="text-textMuted">An intelligent computer vision system that monitors store inventory shelf-life, detects security threats, and automates predictive replenishment.</p>
+              <div class="flex flex-wrap gap-1 font-mono text-[10px] text-neon">
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Node.js</span>
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Computer Vision</span>
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Firebase</span>
+              </div>
+              <button onclick="toggleChat(); openProjectModal('retail-guard')" class="mt-2 text-xs font-mono text-neon font-bold underline hover:text-neonBright cursor-pointer flex items-center gap-1">
+                🔍 Open Retail Guard Modal <i data-lucide="external-link" class="w-3 h-3 inline"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        // 2. HomePlate Project
+        if (text.includes('homeplate') || text.includes('food') || text.includes('chef') || text.includes('student') || text.includes('flutter') || text.includes('delivery')) {
+          return `
+            <div class="space-y-2">
+              <p><strong>HomePlate (Web & Mobile Logistics Platform)</strong></p>
+              <p class="text-textMuted">Connects university students with local home chefs for fresh, affordable meals. Features real-time location sorting and a Flutter mobile ordering app.</p>
+              <div class="flex flex-wrap gap-1 font-mono text-[10px] text-neon">
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Flutter</span>
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Dart</span>
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">Node.js</span>
+                <span class="bg-neon/10 px-1.5 py-0.5 rounded border border-neon/30">REST APIs</span>
+              </div>
+              <button onclick="toggleChat(); openProjectModal('homeplate')" class="mt-2 text-xs font-mono text-neon font-bold underline hover:text-neonBright cursor-pointer flex items-center gap-1">
+                🔍 Open HomePlate Modal <i data-lucide="external-link" class="w-3 h-3 inline"></i>
+              </button>
+            </div>
+          `;
+        }
+
+        // 3. Projects General Overview
+        if (text.includes('project') || text.includes('work') || text.includes('portfolio') || text.includes('build')) {
+          return `
+            <div class="space-y-2">
+              <p>Ayush has engineered high-impact AI and Full-Stack applications:</p>
+              <ul class="list-disc list-inside text-textMuted space-y-1">
+                <li><strong>Retail Guard:</strong> AI threat detection & inventory monitoring</li>
+                <li><strong>HomePlate:</strong> Student home-cooked meal logistics app</li>
+                <li><strong>Hotel Management:</strong> Python & SQL Operations Engine</li>
+                <li><strong>Inventory Management:</strong> Structured stock tracking web app</li>
+              </ul>
+              <div class="pt-1 flex gap-2">
+                <button onclick="toggleChat(); document.querySelector('#projects').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                  Explore Projects Section ↓
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        // 4. Hackathons & Competitions
+        if (text.includes('hackathon') || text.includes('fantom') || text.includes('nirmith') || text.includes('vibe') || text.includes('competition') || text.includes('win') || text.includes('rvitm') || text.includes('nmit')) {
+          return `
+            <div class="space-y-2">
+              <p>🏆 <strong>Ayush's Hackathon Record:</strong></p>
+              <div class="space-y-1.5 text-textMuted">
+                <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
+                  <span class="text-white font-bold block">1. FantomCode Hackathon (RVITM)</span>
+                  <span class="text-[11px] block">Built <em>Retail Guard</em> • Issued April 2026</span>
+                </div>
+                <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
+                  <span class="text-white font-bold block">2. NIRMITH Hackathon (NMIT)</span>
+                  <span class="text-[11px] block">Built <em>HomePlate (Web)</em> • Issued April 2026</span>
+                </div>
+                <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
+                  <span class="text-white font-bold block">3. VIBE-A-THON Hackathon (NMIT)</span>
+                  <span class="text-[11px] block">Built <em>HomePlate (Mobile)</em> • Issued April 2026</span>
+                </div>
+              </div>
+              <button onclick="toggleChat(); document.querySelector('#hackathons').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                View Hackathons Section ↓
+              </button>
+            </div>
+          `;
+        }
+
+        // 5. Tech Stack & Skills
+        if (text.includes('skill') || text.includes('tech') || text.includes('stack') || text.includes('language') || text.includes('framework') || text.includes('python') || text.includes('javascript') || text.includes('c') || text.includes('dart') || text.includes('sql')) {
+          return `
+            <div class="space-y-2">
+              <p>🛠️ <strong>Ayush's Tech Stack:</strong></p>
+              <div class="space-y-1 text-textMuted text-[11px]">
+                <p><strong>Languages:</strong> Python, C, JavaScript, Dart, SQL, HTML, CSS</p>
+                <p><strong>Frameworks:</strong> Node.js, Express, Flutter, REST APIs</p>
+                <p><strong>Databases & Tools:</strong> MySQL, Firebase, Git, VS Code</p>
+                <p><strong>AI / Core CS:</strong> Applied AI, Predictive Analytics, DSA, DBMS, OOP</p>
+              </div>
+              <button onclick="toggleChat(); document.querySelector('#skills').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                View Skills &amp; Toolkit ↓
+              </button>
+            </div>
+          `;
+        }
+
+        // 6. Certifications & Bootcamps
+        if (text.includes('cert') || text.includes('bootcamp') || text.includes('gdg') || text.includes('google') || text.includes('scaler') || text.includes('gfg')) {
+          return `
+            <div class="space-y-2">
+              <p>📜 <strong>Verified Certifications:</strong></p>
+              <ul class="list-disc list-inside text-textMuted space-y-1 text-[11px]">
+                <li><strong>3-Days ML Bootcamp:</strong> Google Developer Groups</li>
+                <li><strong>3-days Bootcamp (World of Tech 2.0):</strong> Google Developer Groups</li>
+                <li><strong>Python Course for Beginners:</strong> Scaler</li>
+                <li><strong>DSA Session:</strong> GeeksforGeeks</li>
+              </ul>
+              <button onclick="toggleChat(); document.querySelector('#certifications').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                View Certifications Grid ↓
+              </button>
+            </div>
+          `;
+        }
+
+        // 7. Contact / Email / Phone / Resume / Hiring
+        if (text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('hire') || text.includes('reach') || text.includes('job') || text.includes('resume') || text.includes('cv') || text.includes('pdf')) {
+          return `
+            <div class="space-y-2">
+              <p>📬 <strong>Get in Touch with Ayush:</strong></p>
+              <div class="p-2.5 bg-dark/60 rounded-xl border border-darkBorder space-y-1 text-[11px]">
+                <p>📧 <strong>Email:</strong> <a href="mailto:ayushgaurav4529@gmail.com" class="text-neon underline">ayushgaurav4529@gmail.com</a></p>
+                <p>📞 <strong>Phone:</strong> +91 8295813878</p>
+                <p>📍 <strong>Location:</strong> Bengaluru, India</p>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <button onclick="toggleChat(); openPdfModal()" class="text-xs font-mono bg-neon text-dark font-bold px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                  📄 View PDF Resume
+                </button>
+                <button onclick="toggleChat(); document.querySelector('#connect').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
+                  ✍️ Open Contact Form
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        // 8. Greetings / Friendly Identity Response
+        if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('who') || text.includes('about') || text.includes('intro')) {
+          return `
+            <div class="space-y-2">
+              <p>Hello! I am <strong>Ayush Gaurav's Neural AI Assistant</strong>.</p>
+              <p class="text-textMuted">Ayush is a Computer Science Engineering student specializing in AI, Machine Learning, and Full-Stack engineering. He builds AI threat detection systems, mobile logistics apps, and scalable web solutions!</p>
+              <p class="text-textMuted">What would you like to explore today?</p>
+            </div>
+          `;
+        }
+
+        // 9. Dynamic Neural Default Fallback
+        return `
+          <div class="space-y-2">
+            <p>I understand you're asking about: "<em>${userText}</em>".</p>
+            <p class="text-textMuted">Here are the quick topics I can break down for you:</p>
+            <div class="flex flex-wrap gap-1.5 font-mono text-[10px] pt-1">
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="Tell me about top projects">🚀 Top Projects</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="Tell me about hackathon wins">🏆 Hackathons</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="What is your technical skill stack?">🛠️ Tech Stack</button>
+              <button class="ai-chip bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2 py-1 rounded-lg transition-all cursor-pointer" data-query="How can I contact or hire Ayush?">📬 Contact &amp; Hire</button>
+            </div>
+          </div>
+        `;
+      }
+
+      function processQuery(text) {
         if (!text) return;
 
+        // Render User Message
         const userMsg = document.createElement('div');
         userMsg.className = 'flex gap-2 items-start justify-end';
         userMsg.innerHTML = `
@@ -4030,20 +4207,34 @@
         input.value = '';
         messagesBox.scrollTop = messagesBox.scrollHeight;
 
+        // Render Animated Typing Indicator
+        const typingId = 'ai-typing-' + Date.now();
+        const typingMsg = document.createElement('div');
+        typingMsg.id = typingId;
+        typingMsg.className = 'flex gap-2 items-start';
+        typingMsg.innerHTML = `
+          <div class="w-6 h-6 rounded-md bg-neon/10 border border-neon/40 flex items-center justify-center text-neon flex-shrink-0 mt-0.5">
+            <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+          </div>
+          <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-neon font-mono text-[11px] flex items-center gap-1.5">
+            <span>Neural AI thinking</span>
+            <span class="inline-flex gap-0.5">
+              <span class="w-1 h-1 bg-neon rounded-full animate-bounce"></span>
+              <span class="w-1 h-1 bg-neon rounded-full animate-bounce [animation-delay:0.2s]"></span>
+              <span class="w-1 h-1 bg-neon rounded-full animate-bounce [animation-delay:0.4s]"></span>
+            </span>
+          </div>
+        `;
+        messagesBox.appendChild(typingMsg);
+        if (window.lucide) window.lucide.createIcons();
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+
+        // Delay for realism & replace typing indicator with AI response
         setTimeout(() => {
-          const query = text.toLowerCase();
-          let reply = "Ayush Gaurav is a Computer Science Engineering undergrad specializing in AI, Machine Learning, and Full-Stack web development!";
+          const indicator = document.getElementById(typingId);
+          if (indicator) indicator.remove();
 
-          if (query.includes('skill') || query.includes('tech') || query.includes('stack')) {
-            reply = "Ayush is proficient in Python, JavaScript, React, Node.js, PyTorch, OpenCV, Express, SQL, MongoDB, Git, and Firebase.";
-          } else if (query.includes('project') || query.includes('work') || query.includes('retail')) {
-            reply = "Ayush's top projects include 'Retail Guard' (AI Threat Detection), 'HomePlate' (Food Logistics App), and 'Hotel Management System'!";
-          } else if (query.includes('contact') || query.includes('email') || query.includes('hire') || query.includes('reach')) {
-            reply = "You can contact Ayush directly via email at ayushgaurav4529@gmail.com or call +91 8295813878. He is open for AI & Full Stack roles!";
-          } else if (query.includes('education') || query.includes('college') || query.includes('degree')) {
-            reply = "Ayush is pursuing his B.Tech degree in Computer Science Engineering with a focus on Artificial Intelligence and Software Engineering.";
-          }
-
+          const replyHtml = generateAiReply(text);
           const aiMsg = document.createElement('div');
           aiMsg.className = 'flex gap-2 items-start';
           aiMsg.innerHTML = `
@@ -4051,18 +4242,31 @@
               <i data-lucide="bot" class="w-3.5 h-3.5"></i>
             </div>
             <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-textSecondary max-w-[85%]">
-              ${reply}
+              ${replyHtml}
             </div>
           `;
           messagesBox.appendChild(aiMsg);
           if (window.lucide) window.lucide.createIcons();
           messagesBox.scrollTop = messagesBox.scrollHeight;
-        }, 400);
+        }, 500);
+      }
+
+      function handleSendMessage() {
+        processQuery(input.value.trim());
       }
 
       if (sendBtn) sendBtn.addEventListener('click', handleSendMessage);
       input.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') handleSendMessage();
+      });
+
+      // Event Delegation for Quick Action Suggestion Chips
+      messagesBox.addEventListener('click', (e) => {
+        const chip = e.target.closest('.ai-chip');
+        if (chip) {
+          const query = chip.getAttribute('data-query') || chip.textContent.trim();
+          processQuery(query);
+        }
       });
     })();
 
