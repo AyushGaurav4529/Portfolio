@@ -349,6 +349,112 @@
       z-index: 0;
     }
 
+    /* Custom Neon Cursor Follower */
+    #custom-cursor-dot {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background-color: #00ff87;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87;
+      transition: transform 0.05s ease-out, opacity 0.3s ease, background-color 0.2s ease;
+    }
+
+    #custom-cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(16, 185, 129, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+      transition: width 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                  height 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                  border-color 0.25s ease, 
+                  background-color 0.25s ease, 
+                  opacity 0.3s ease;
+    }
+
+    #custom-cursor-ring.active-hover {
+      width: 54px;
+      height: 54px;
+      border-color: #00ff87;
+      background-color: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 25px rgba(0, 255, 135, 0.4);
+    }
+
+    @media (pointer: coarse) {
+      #custom-cursor-dot,
+      #custom-cursor-ring {
+        display: none !important;
+      }
+    }
+
+    /* Interactive Spotlight & 3D Tilt Card Effect */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(0, 255, 135, 0.5),
+        transparent 40%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+    }
+
+    .spotlight-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(16, 185, 129, 0.12),
+        transparent 40%
+      );
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 1;
+    }
+
+    .spotlight-card:hover::before,
+    .spotlight-card:hover::after {
+      opacity: 1;
+    }
+
+    /* Magnetic hover button transition */
+    .magnetic-btn {
+      will-change: transform;
+      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
     /* Hero noise overlay */
     .noise-overlay {
       position: fixed;
@@ -889,6 +995,8 @@
 
   <!-- Particle canvas background -->
   <canvas id="particles-canvas"></canvas>
+  <div id="custom-cursor-dot"></div>
+  <div id="custom-cursor-ring"></div>
   <div class="noise-overlay"></div>
 
   <!-- Top Navigation Bar -->
@@ -3053,19 +3161,285 @@
     }
 
     // ──────────────────────────────────────────────
-    // Smooth nav on anchor clicks
+    // 15. Advanced Visual Effects & Interactive Animations
     // ──────────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+
+    // A. Interactive Canvas Particle Grid System
+    (function initParticleCanvas() {
+      const canvas = document.getElementById('particles-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      let mouse = { x: width / 2, y: height / 2, active: false };
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
       });
-    });
+      window.addEventListener('mouseleave', () => {
+        mouse.active = false;
+      });
+
+      const particleCount = width < 768 ? 35 : 75;
+      const particles = [];
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 0.6;
+          this.vy = (Math.random() - 0.5) * 0.6;
+          this.radius = Math.random() * 1.5 + 1;
+          this.alpha = Math.random() * 0.5 + 0.2;
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+
+          // Mouse influence
+          if (mouse.active) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              const force = (130 - dist) / 130;
+              this.x -= (dx / dist) * force * 1.8;
+              this.y -= (dy / dist) * force * 1.8;
+            }
+          }
+        }
+        draw(isLight) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = isLight
+            ? `rgba(5, 150, 105, ${this.alpha * 0.7})`
+            : `rgba(16, 185, 129, ${this.alpha})`;
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        const isLight = document.body.classList.contains('light-mode');
+
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw(isLight);
+
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 110) {
+              const opacity = (1 - dist / 110) * 0.25;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = isLight
+                ? `rgba(5, 150, 105, ${opacity})`
+                : `rgba(16, 185, 129, ${opacity})`;
+              ctx.lineWidth = 0.8;
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+    })();
+
+    // B. Custom Neon Cursor Follower
+    (function initCustomCursor() {
+      const dot = document.getElementById('custom-cursor-dot');
+      const ring = document.getElementById('custom-cursor-ring');
+      if (!dot || !ring) return;
+
+      let mouseX = -100, mouseY = -100;
+      let ringX = -100, ringY = -100;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+      });
+
+      function renderRing() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(renderRing);
+      }
+      renderRing();
+
+      const interactiveElements = document.querySelectorAll(
+        'a, button, input, textarea, select, .spotlight-card, .timeline-card, .skill-pill, .project-card-trigger, .cmd-item'
+      );
+
+      interactiveElements.forEach((el) => {
+        el.addEventListener('mouseenter', () => ring.classList.add('active-hover'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('active-hover'));
+      });
+    })();
+
+    // C. 3D Tilt Card & Dynamic Mouse Spotlight Tracker
+    (function init3DTiltAndSpotlight() {
+      const cards = document.querySelectorAll(
+        '.timeline-card, .project-card-trigger, .skill-category-block, .spotlight-card'
+      );
+
+      cards.forEach((card) => {
+        card.classList.add('spotlight-card');
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+
+          // 3D Tilt calculation
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = -((y - centerY) / centerY) * 6; // Max 6 deg
+          const rotateY = ((x - centerX) / centerX) * 6;   // Max 6 deg
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+    })();
+
+    // D. Hacker Text Scramble Effect
+    (function initTextScramble() {
+      const scrambleGlyphs = '!<>-_\\/[]{}—=+^?#________';
+
+      function scrambleText(element, finalText, duration = 600) {
+        if (!element) return;
+        let start = Date.now();
+
+        const timer = setInterval(() => {
+          const timePassed = Date.now() - start;
+          const progress = Math.min(timePassed / duration, 1);
+
+          let result = '';
+          for (let i = 0; i < finalText.length; i++) {
+            if (finalText[i] === ' ') {
+              result += ' ';
+            } else if (i < Math.floor(progress * finalText.length)) {
+              result += finalText[i];
+            } else {
+              result += scrambleGlyphs[Math.floor(Math.random() * scrambleGlyphs.length)];
+            }
+          }
+
+          element.textContent = result;
+          if (progress >= 1) clearInterval(timer);
+        }, 30);
+      }
+
+      // Apply on load and hover for headers
+      const headings = document.querySelectorAll('h1.gradient-text, h2.section-heading');
+      headings.forEach((heading) => {
+        const originalText = heading.textContent.trim();
+        heading.setAttribute('data-original', originalText);
+
+        heading.addEventListener('mouseenter', () => {
+          scrambleText(heading, originalText, 500);
+        });
+      });
+    })();
+
+    // E. Magnetic Hover Buttons
+    (function initMagneticButtons() {
+      const magneticTargets = document.querySelectorAll(
+        '.cta-btn, .btn-connect, #themeToggleNav, #brandProfileBtn, #cmdPaletteBtn, .magnetic-btn'
+      );
+
+      magneticTargets.forEach((btn) => {
+        btn.classList.add('magnetic-btn');
+
+        btn.addEventListener('mousemove', (e) => {
+          const rect = btn.getBoundingClientRect();
+          const x = e.clientX - (rect.left + rect.width / 2);
+          const y = e.clientY - (rect.top + rect.height / 2);
+
+          btn.style.transform = `translate3d(${x * 0.25}px, ${y * 0.25}px, 0)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+          btn.style.transform = 'translate3d(0, 0, 0)';
+        });
+      });
+    })();
+
+    // F. Dynamic Auto-Typing Role Switcher
+    (function initRoleTypewriter() {
+      const roleElement = document.getElementById('hero-typing-text');
+      if (!roleElement) return;
+
+      const roles = [
+        'AI & Machine Learning Developer',
+        'Full Stack Web Engineer',
+        'Scalable Software Developer',
+        'Problem Solver & Open Source Contributor'
+      ];
+
+      let roleIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      function typeLoop() {
+        const currentRole = roles[roleIndex];
+
+        if (isDeleting) {
+          charIndex--;
+          roleElement.textContent = currentRole.substring(0, charIndex);
+        } else {
+          charIndex++;
+          roleElement.textContent = currentRole.substring(0, charIndex);
+        }
+
+        let typeSpeed = isDeleting ? 40 : 80;
+
+        if (!isDeleting && charIndex === currentRole.length) {
+          typeSpeed = 2200; // Pause at full text
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          typeSpeed = 400; // Pause before typing next
+        }
+
+        setTimeout(typeLoop, typeSpeed);
+      }
+
+      typeLoop();
+    })();
   </script>
 </body>
 
