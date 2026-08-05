@@ -1084,19 +1084,19 @@
       </div>
 
       <div class="space-y-4 text-xs sm:text-sm font-sans text-textSecondary bg-dark p-4 rounded-xl border border-darkBorder">
-        <div class="flex justify-between items-center border-b border-darkBorder pb-2">
+        <div id="certModalIssuerRow" class="flex justify-between items-center border-b border-darkBorder pb-2">
           <span class="font-mono text-textMuted">Issuing Authority:</span>
           <span id="certModalIssuer" class="font-bold text-white">Authority Name</span>
         </div>
-        <div class="flex justify-between items-center border-b border-darkBorder pb-2">
+        <div id="certModalIdRow" class="flex justify-between items-center border-b border-darkBorder pb-2">
           <span class="font-mono text-textMuted">Credential ID:</span>
           <span id="certModalId" class="font-mono text-neonBright font-semibold">AG-2024-9981</span>
         </div>
-        <div class="flex justify-between items-center border-b border-darkBorder pb-2">
+        <div id="certModalDateRow" class="flex justify-between items-center border-b border-darkBorder pb-2">
           <span class="font-mono text-textMuted">Issue Date:</span>
           <span id="certModalDate" class="text-white">2024</span>
         </div>
-        <div>
+        <div id="certModalSkillsBlock">
           <span class="font-mono text-textMuted block mb-1">Validated Competencies:</span>
           <div id="certModalSkills" class="flex flex-wrap gap-1.5 font-mono text-[11px]"></div>
         </div>
@@ -3763,45 +3763,57 @@
       if (!modal || !card) return;
 
       const certData = {
-        'nptel-ai': {
-          title: 'NPTEL Artificial Intelligence Certification',
-          issuer: 'NPTEL / IIT Madras',
-          id: 'NPTEL24CS78S1928001',
-          date: '2024',
-          skills: ['Artificial Intelligence', 'Search Algorithms', 'Knowledge Representation', 'Logic Programming'],
-          url: 'https://nptel.ac.in/noc'
+        'bootcamp-tech': {
+          title: '3-days Bootcamp: The World of Tech 2.0',
+          issuer: 'Google Developer Groups',
+          id: '',
+          date: 'Feb 2025',
+          skills: [],
+          url: 'https://drive.google.com/file/d/1Xvy7CQftCCuANOdqVzBP4TpUc1lhBsor/view'
         },
-        'fullstack-web': {
-          title: 'Full-Stack Web Development Mastery',
-          issuer: 'Coursera / Industry Standard',
-          id: 'FS-WEB-2024-88719',
+        'dsa-gfg': {
+          title: 'Data Structures & Algorithms Session',
+          issuer: 'GeeksforGeeks',
+          id: '',
           date: '2024',
-          skills: ['React.js', 'Node.js', 'Express', 'MongoDB', 'REST APIs'],
-          url: 'https://coursera.org'
+          skills: ['Data Structures', 'Algorithms', 'Problem Solving'],
+          url: 'https://drive.google.com/file/d/1Xvy7CQftCCuANOdqVzBP4TpUc1lhBsor/view'
         },
-        'hackathon-winner': {
-          title: 'Hackathon Finalist / Competition Award',
-          issuer: 'National Engineering TechFest',
-          id: 'HACK-FINALIST-2024-09',
+        'python-scaler': {
+          title: 'Python Course for Beginners: Mastering the Essentials',
+          issuer: 'Scaler',
+          id: '',
           date: '2024',
-          skills: ['Rapid Prototyping', 'AI Model Integration', 'Full Stack Architecture', 'Pitch Presentation'],
-          url: 'https://github.com/AyushGaurav4529'
+          skills: ['Python', 'OOP', 'Data Analysis'],
+          url: 'https://drive.google.com/file/d/1Xvy7CQftCCuANOdqVzBP4TpUc1lhBsor/view'
         }
       };
 
       function openCertModal(certKey) {
-        const data = certData[certKey] || certData['nptel-ai'];
+        const data = certData[certKey] || certData['bootcamp-tech'];
         document.getElementById('certModalTitle').textContent = data.title;
         document.getElementById('certModalIssuer').textContent = data.issuer;
-        document.getElementById('certModalId').textContent = data.id;
         document.getElementById('certModalDate').textContent = data.date;
         document.getElementById('certVerifyBtn').setAttribute('href', data.url);
 
+        const idRow = document.getElementById('certModalIdRow');
+        const idElem = document.getElementById('certModalId');
+        if (data.id) {
+          idElem.textContent = data.id;
+          if (idRow) idRow.classList.remove('hidden');
+        } else if (idRow) {
+          idRow.classList.add('hidden');
+        }
+
+        const skillsBlock = document.getElementById('certModalSkillsBlock');
         const skillsContainer = document.getElementById('certModalSkills');
-        if (skillsContainer) {
+        if (data.skills && data.skills.length > 0) {
           skillsContainer.innerHTML = data.skills
             .map((s) => `<span class="bg-neon/10 text-neon px-2 py-0.5 rounded border border-neon/30">${s}</span>`)
             .join('');
+          if (skillsBlock) skillsBlock.classList.remove('hidden');
+        } else if (skillsBlock) {
+          skillsBlock.classList.add('hidden');
         }
 
         modal.classList.remove('opacity-0', 'pointer-events-none');
@@ -3827,7 +3839,7 @@
         
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const keys = ['nptel-ai', 'fullstack-web', 'hackathon-winner'];
+          const keys = ['bootcamp-tech', 'dsa-gfg', 'bootcamp-tech', 'python-scaler'];
           openCertModal(keys[index % keys.length]);
         });
 
