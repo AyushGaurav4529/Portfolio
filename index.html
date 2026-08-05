@@ -2893,14 +2893,58 @@
       });
     });
 
-    // Contact Form Handler
+    // Contact Form Handler (Real Email Submission via FormSubmit API + Mailto Fallback)
     const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', (e) => {
+    const submitBtn = document.getElementById('btnSubmitContact');
+    if (contactForm && submitBtn) {
+      contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const name = document.getElementById('contact-name')?.value;
-        showToast(`Thank you ${name ? name : ''}! Message sent successfully.`);
-        contactForm.reset();
+        
+        const name = document.getElementById('contact-name')?.value || '';
+        const email = document.getElementById('contact-email')?.value || '';
+        const subject = document.getElementById('contact-subject')?.value || 'Portfolio Contact Inquiry';
+        const message = document.getElementById('contact-message')?.value || '';
+
+        const originalBtnHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> <span>Sending Message...</span>`;
+        if (window.lucide) lucide.createIcons();
+
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/ayushgaurav4529@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              _subject: `[Portfolio Contact] ${subject} from ${name}`,
+              Name: name,
+              Email: email,
+              Subject: subject,
+              Message: message,
+              _template: 'table',
+              _captcha: 'false'
+            })
+          });
+
+          if (res.ok) {
+            showToast(`Thank you ${name}! Your message has been sent to Ayush's inbox.`);
+            playChimeSound();
+            contactForm.reset();
+          } else {
+            throw new Error('Server returned non-200 status');
+          }
+        } catch (err) {
+          // Fallback to mailto if API request fails
+          const mailtoUrl = `mailto:ayushgaurav4529@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+          window.location.href = mailtoUrl;
+          showToast(`Opening mail app to send your message to Ayush!`);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+          if (window.lucide) lucide.createIcons();
+        }
       });
     }
 
