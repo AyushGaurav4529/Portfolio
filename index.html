@@ -1892,7 +1892,7 @@
               <div class="timeline-dot w-4 h-4 mt-1 rounded-full bg-neon flex-shrink-0"
                 style="box-shadow: 0 0 10px rgba(16,185,129,0.4);"></div>
               <div>
-                <h3 class="text-white font-bold text-base">3-Days ML Bootcamp</h3>
+                <h3 class="text-white font-bold text-base">3-days Bootcamp: The World of Tech 2.0</h3>
                 <p class="text-textMuted text-sm mt-1 flex items-center gap-1.5">
                   <i data-lucide="award" class="w-3.5 h-3.5 text-neon"></i>
                   Google Developer Groups
@@ -3764,12 +3764,12 @@
 
       const certData = {
         'bootcamp-tech': {
-          title: '3-Days ML Bootcamp',
+          title: '3-days Bootcamp: The World of Tech 2.0',
           issuer: 'Google Developer Groups',
           id: '',
           date: 'Feb 2025',
           skills: [],
-          url: 'https://drive.google.com/file/d/166EiXmBg7qTiDnsVKPPQBY-EEvOXf12M/view'
+          url: 'https://drive.google.com/file/d/1Xvy7CQftCCuANOdqVzBP4TpUc1lhBsor/view'
         },
         'dsa-gfg': {
           title: 'Data Structures & Algorithms Session',
@@ -3778,6 +3778,14 @@
           date: '2024',
           skills: ['Data Structures', 'Algorithms', 'Problem Solving'],
           url: 'https://drive.google.com/file/d/1Xvy7CQftCCuANOdqVzBP4TpUc1lhBsor/view'
+        },
+        'bootcamp-ml': {
+          title: '3-Days ML Bootcamp',
+          issuer: 'Google Developer Groups',
+          id: '',
+          date: 'Feb 2025',
+          skills: [],
+          url: 'https://drive.google.com/file/d/166EiXmBg7qTiDnsVKPPQBY-EEvOXf12M/view'
         },
         'python-scaler': {
           title: 'Python Course for Beginners: Mastering the Essentials',
@@ -3832,15 +3840,29 @@
         if (e.target === modal) hideCertModal();
       });
 
-      document.querySelectorAll('#certifications .timeline-card, #hackathons .timeline-card').forEach((card, index) => {
+      document.querySelectorAll('#certifications .timeline-card').forEach((card, index) => {
         const btn = document.createElement('button');
         btn.className = 'mt-3 text-[11px] font-mono text-neon font-bold bg-neon/10 hover:bg-neon/20 px-3 py-1 rounded-lg border border-neon/40 flex items-center gap-1.5 transition-all cursor-pointer';
         btn.innerHTML = `<i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Verify Credential`;
         
         btn.addEventListener('click', (e) => {
           e.stopPropagation();
-          const keys = ['bootcamp-tech', 'dsa-gfg', 'bootcamp-tech', 'python-scaler'];
-          openCertModal(keys[index % keys.length]);
+          const certKeys = ['bootcamp-tech', 'dsa-gfg', 'bootcamp-ml', 'python-scaler'];
+          openCertModal(certKeys[index % certKeys.length]);
+        });
+
+        card.appendChild(btn);
+      });
+
+      document.querySelectorAll('#hackathons .timeline-card').forEach((card, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'mt-3 text-[11px] font-mono text-neon font-bold bg-neon/10 hover:bg-neon/20 px-3 py-1 rounded-lg border border-neon/40 flex items-center gap-1.5 transition-all cursor-pointer';
+        btn.innerHTML = `<i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Verify Credential`;
+        
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const hackKeys = ['bootcamp-tech', 'dsa-gfg', 'bootcamp-ml'];
+          openCertModal(hackKeys[index % hackKeys.length]);
         });
 
         card.appendChild(btn);
