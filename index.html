@@ -779,6 +779,29 @@
     footer {
       transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
+  
+    /* Hanging ICARD Pendulum Swing Animation */
+    @keyframes icardSwing {
+      0%, 100% {
+        transform: rotate(0deg) translateY(0px);
+      }
+      25% {
+        transform: rotate(2deg) translateY(3px);
+      }
+      75% {
+        transform: rotate(-2deg) translateY(-2px);
+      }
+    }
+
+    .hanging-icard-wrapper {
+      transform-origin: top center;
+      animation: icardSwing 7s ease-in-out infinite;
+    }
+
+    .hanging-icard-wrapper:hover {
+      animation-play-state: paused;
+    }
+
   </style>
 </head>
 
@@ -1442,14 +1465,76 @@
         </span>
       </div>
 
-      <!-- Hero Profile Avatar Badge -->
-      <div id="heroAvatarContainer" class="mb-4 sm:mb-6 cursor-pointer group animate-on-scroll relative inline-block" title="Click to view full profile photo">
-        <div class="relative w-28 h-28 sm:w-36 sm:h-36 rounded-full p-1 bg-gradient-to-tr from-neon via-neonBright to-neon shadow-[0_0_30px_rgba(16,185,129,0.5)] group-hover:scale-105 group-hover:shadow-[0_0_45px_rgba(0,255,135,0.7)] transition-all duration-300">
-          <img src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-full bg-dark group-hover:brightness-110 transition-all" loading="lazy" />
-          <div class="absolute inset-1 rounded-full bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-            <i data-lucide="maximize-2" class="w-7 h-7 sm:w-8 sm:h-8 text-neonBright drop-shadow-[0_0_10px_#00ff87]"></i>
+      <!-- Hanging ID Card Badge (ICARD) Hanging on Right Side -->
+      <div id="heroIcardWrapper" class="hanging-icard-wrapper absolute top-0 right-2 sm:right-6 md:right-12 lg:right-20 z-20 pointer-events-auto block">
+        <!-- Lanyard Strap hanging from top edge -->
+        <div class="flex flex-col items-center">
+          <div class="w-2 sm:w-2.5 h-12 sm:h-20 md:h-24 bg-gradient-to-b from-neon/90 via-neon/60 to-neon/40 shadow-[0_0_12px_rgba(16,185,129,0.6)] relative flex items-center justify-center overflow-hidden">
+            <div class="w-full h-full bg-[linear-gradient(45deg,rgba(0,0,0,0.35)_25%,transparent_25%,transparent_50%,rgba(0,0,0,0.35)_50%,rgba(0,0,0,0.35)_75%,transparent_75%,transparent)] bg-[length:6px_6px]"></div>
           </div>
-          <span class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-4 h-4 sm:w-5 sm:h-5 bg-neon border-2 sm:border-3 border-dark rounded-full shadow-[0_0_10px_#10b981]" title="Available for hire"></span>
+          <!-- Metal Connector Ring & Clip -->
+          <div class="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-neon/90 bg-[#1a1a1a] flex items-center justify-center -mt-1 shadow-[0_0_12px_rgba(16,185,129,0.5)] z-10">
+            <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-neonBright shadow-[0_0_8px_#00ff87]"></div>
+          </div>
+          <div class="w-8 sm:w-9 h-3 sm:h-3.5 bg-gradient-to-r from-gray-700 via-gray-400 to-gray-700 rounded-sm -mt-1 border border-neon/40 z-10 shadow-md"></div>
+        </div>
+
+        <!-- Hanging ICARD Badge -->
+        <div id="heroIcardBadge"
+          class="cursor-pointer group relative w-36 sm:w-44 md:w-48 bg-[#111111]/95 backdrop-blur-md border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] hover:border-neonBright hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] transition-all duration-300 transform hover:scale-[1.03]"
+          title="Click to view full photo & profile details">
+
+          <!-- Top Glowing Edge Line -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neon via-neonBright to-neon rounded-t-2xl"></div>
+
+          <!-- Lanyard Slot Cutout -->
+          <div class="w-6 sm:w-7 h-1.5 bg-[#0a0a0a] mx-auto rounded-full mb-2.5 border border-darkBorder shadow-inner"></div>
+
+          <!-- Badge Header Tag & Live Status -->
+          <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-mono mb-2 px-0.5">
+            <span class="text-neon font-bold tracking-wider uppercase flex items-center gap-1">
+              <i data-lucide="badge-check" class="w-3 h-3 text-neonBright"></i> DEV ID
+            </span>
+            <span class="flex items-center gap-1 text-textMuted font-mono">
+              <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-neon"></span>
+              </span>
+              ACTIVE
+            </span>
+          </div>
+
+          <!-- Badge Photo Frame -->
+          <div class="relative w-24 h-28 sm:w-32 sm:h-36 md:w-36 md:h-40 mx-auto rounded-xl p-0.5 bg-gradient-to-b from-neon/80 via-neonBright/40 to-neon/80 mb-2.5 shadow-[0_0_20px_rgba(16,185,129,0.35)] group-hover:shadow-[0_0_25px_rgba(0,255,135,0.6)] transition-all">
+            <img src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-lg bg-dark group-hover:brightness-105 transition-all" loading="lazy" />
+            <div class="absolute inset-0 rounded-lg bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+              <i data-lucide="maximize-2" class="w-6 h-6 text-neonBright drop-shadow-[0_0_10px_#00ff87]"></i>
+            </div>
+          </div>
+
+          <!-- Name & Title -->
+          <div class="text-center">
+            <h3 class="text-white font-black text-xs sm:text-sm tracking-tight group-hover:text-neonBright transition-colors uppercase">AYUSH GAURAV</h3>
+            <p class="text-[10px] font-mono text-neon font-semibold mt-0.5">CS Engineering</p>
+            <div class="mt-1">
+              <span class="inline-block text-[8px] sm:text-[9px] font-mono text-neonBright bg-neon/15 border border-neon/40 px-2 py-0.5 rounded-full font-bold">
+                AI &amp; Full Stack
+              </span>
+            </div>
+          </div>
+
+          <!-- Barcode Footer -->
+          <div class="mt-2.5 pt-2 border-t border-darkBorder/70 flex items-center justify-between opacity-75 group-hover:opacity-100 transition-opacity">
+            <div class="flex items-center gap-0.5 font-mono">
+              <div class="w-0.5 h-2.5 bg-neon"></div>
+              <div class="w-1 h-2.5 bg-textMuted"></div>
+              <div class="w-0.5 h-2.5 bg-neon"></div>
+              <div class="w-1.5 h-2.5 bg-neonBright"></div>
+              <div class="w-0.5 h-2.5 bg-textMuted"></div>
+              <div class="w-1 h-2.5 bg-neon"></div>
+            </div>
+            <span class="text-[8px] font-mono text-textMuted font-bold">ID: 2024-AG</span>
+          </div>
         </div>
       </div>
 
@@ -2496,6 +2581,13 @@
       });
     }
 
+    const heroIcardBadge = document.getElementById('heroIcardBadge');
+    if (heroIcardBadge) {
+      heroIcardBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageLightbox();
+      });
+    }
     if (heroAvatarContainer) {
       heroAvatarContainer.addEventListener('click', (e) => {
         e.stopPropagation();
