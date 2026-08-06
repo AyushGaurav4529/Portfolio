@@ -182,10 +182,10 @@ export const HangingIcard: React.FC<HangingIcardProps> = ({
                 <button
                   type="button"
                   onClick={toggleFlip}
-                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/40"
+                  className="flex items-center gap-1.5 font-mono text-xs font-black uppercase text-neutral-950 bg-emerald-400 hover:bg-emerald-300 transition-all px-3.5 py-1.5 rounded-full border border-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-105 cursor-pointer"
                 >
-                  <span>Flip Back</span>
-                  <RotateCw className="w-3 h-3 animate-spin-slow" />
+                  <span>FLIP CARD</span>
+                  <RotateCw className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -267,10 +267,10 @@ export const HangingIcard: React.FC<HangingIcardProps> = ({
                 <button
                   type="button"
                   onClick={toggleFlip}
-                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/40"
+                  className="flex items-center gap-1.5 font-mono text-xs font-black uppercase text-neutral-950 bg-emerald-400 hover:bg-emerald-300 transition-all px-3.5 py-1.5 rounded-full border border-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:scale-105 cursor-pointer"
                 >
-                  <span>Front Side</span>
-                  <RotateCw className="w-3 h-3" />
+                  <span>FRONT SIDE</span>
+                  <RotateCw className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
