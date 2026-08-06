@@ -867,10 +867,47 @@
       transform: translateY(0) !important;
     }
 
+    /* Preloader Overlay Anti-FOUC */
+    #cyber-preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      background-color: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #cyber-preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
   </style>
 </head>
 
 <body class="bg-grid relative">
+  <!-- System Startup Cyber Preloader -->
+  <div id="cyber-preloader">
+    <div class="relative flex flex-col items-center gap-4">
+      <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-neutral-900 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_35px_rgba(16,185,129,0.35)] animate-pulse">
+        <span class="font-mono font-bold text-xl sm:text-2xl text-emerald-400">AG</span>
+        <div class="absolute -inset-1 rounded-2xl border border-emerald-500/20 animate-ping opacity-40"></div>
+      </div>
+      <div class="flex flex-col items-center gap-2 font-mono text-center">
+        <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase">INITIALIZING SYSTEM</span>
+        <div class="w-44 sm:w-52 h-1.5 bg-neutral-900 rounded-full overflow-hidden border border-emerald-500/30">
+          <div id="preloader-bar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 w-0 transition-all duration-200"></div>
+        </div>
+        <span id="preloader-status" class="text-[10px] text-neutral-400 tracking-wider">LOADING ASSETS & STYLES...</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Cursor Spotlight Aura -->
   <div id="cursorSpotlight" class="fixed top-0 left-0 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.16)_0%,rgba(0,255,135,0.06)_45%,transparent_70%)] blur-[50px] pointer-events-none z-[60] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 opacity-0 hidden md:block"></div>
 
@@ -2628,9 +2665,42 @@
 
   <!-- ========== JAVASCRIPT ========== -->
   <script>
+    // 0. System Preloader & Anti-FOUC Controller
+    (function initPreloader() {
+      const preloader = document.getElementById('cyber-preloader');
+      const bar = document.getElementById('preloader-bar');
+      const status = document.getElementById('preloader-status');
+      if (!preloader) return;
+
+      let progress = 0;
+      const timer = setInterval(() => {
+        progress += Math.floor(Math.random() * 25) + 15;
+        if (bar) bar.style.width = Math.min(progress, 90) + '%';
+        if (progress >= 90) clearInterval(timer);
+      }, 40);
+
+      function hidePreloader() {
+        if (bar) bar.style.width = '100%';
+        if (status) status.textContent = 'SYSTEM READY';
+        setTimeout(() => {
+          preloader.classList.add('loaded');
+          if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+          }
+        }, 150);
+      }
+
+      if (document.readyState === 'complete') {
+        hidePreloader();
+      } else {
+        window.addEventListener('load', hidePreloader);
+        setTimeout(hidePreloader, 1000); // Max fallback 1.0s
+      }
+    })();
+
     // Initialize Lucide icons
     document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
+      if (window.lucide) lucide.createIcons();
     });
 
     // ──────────────────────────────────────────────
