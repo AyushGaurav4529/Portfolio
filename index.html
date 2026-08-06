@@ -80,6 +80,8 @@
 
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <!-- PDF.js for Cross-Platform PDF Viewer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
   <style>
     * {
@@ -420,6 +422,7 @@
         transparent 40%
       );
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
       mask-composite: exclude;
       pointer-events: none;
@@ -911,9 +914,23 @@
           <i data-lucide="file-text" class="w-4 h-4 text-neonBright"></i>
           <span>Ayush_Gaurav_CV.pdf</span>
         </div>
-        <span class="text-[11px] font-mono text-textMuted">Official Curriculum Vitae</span>
+        <div class="flex items-center gap-3">
+          <a href="Ayush_Gaurav_CV.pdf" target="_blank" class="text-xs font-mono text-neon hover:underline flex items-center gap-1">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Open in New Tab
+          </a>
+          <span class="text-[11px] font-mono text-textMuted hidden sm:inline">Official Curriculum Vitae</span>
+        </div>
       </div>
-      <iframe src="Ayush_Gaurav_CV.pdf#toolbar=0" class="w-full h-full border-0 bg-white" title="Ayush Gaurav Resume PDF"></iframe>
+      <div id="pdfCanvasWrapper" class="w-full h-full overflow-y-auto bg-[#141414] p-2 sm:p-4 flex flex-col items-center justify-start gap-4">
+        <object data="Ayush_Gaurav_CV.pdf" type="application/pdf" class="w-full h-full border-0 bg-white">
+          <iframe src="Ayush_Gaurav_CV.pdf#toolbar=0" class="w-full h-full border-0 bg-white" title="Ayush Gaurav Resume PDF">
+            <div class="p-8 text-center text-white flex flex-col items-center justify-center h-full gap-4">
+              <p class="text-gray-300">Unable to preview PDF directly in your browser.</p>
+              <a href="Ayush_Gaurav_CV.pdf" target="_blank" class="px-5 py-2.5 bg-neon text-dark font-bold rounded-lg shadow-lg">Open PDF in New Tab</a>
+            </div>
+          </iframe>
+        </object>
+      </div>
     </div>
   </div>
 
@@ -2706,13 +2723,6 @@
       });
     }
 
-    const heroIcardBadge = document.getElementById('heroIcardBadge');
-    if (heroIcardBadge) {
-      heroIcardBadge.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openImageLightbox();
-      });
-    }
     if (heroAvatarContainer) {
       heroAvatarContainer.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -3176,12 +3186,50 @@
     const pdfViewerModal = document.getElementById('pdfViewerModal');
     const pdfModalCard = document.getElementById('pdfModalCard');
     const closePdfModal = document.getElementById('closePdfModal');
+    const pdfCanvasWrapper = document.getElementById('pdfCanvasWrapper');
+    let isPdfRendered = false;
+
+    async function loadAndRenderPdf() {
+      if (!pdfCanvasWrapper) return;
+      if (typeof pdfjsLib === 'undefined') return;
+
+      try {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const loadingTask = pdfjsLib.getDocument('Ayush_Gaurav_CV.pdf');
+        const pdf = await loadingTask.promise;
+
+        pdfCanvasWrapper.innerHTML = ''; // Clear native fallback object
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+          const containerWidth = pdfCanvasWrapper.clientWidth || 800;
+          const unscaledViewport = page.getViewport({ scale: 1.0 });
+          const scale = Math.min((containerWidth - 32) / unscaledViewport.width, 1.8);
+          const viewport = page.getViewport({ scale: Math.max(scale, 1.0) });
+
+          const canvas = document.createElement('canvas');
+          canvas.className = 'shadow-2xl rounded-lg max-w-full h-auto my-2 border border-white/10';
+          const context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+          pdfCanvasWrapper.appendChild(canvas);
+
+          await page.render({ canvasContext: context, viewport: viewport }).promise;
+        }
+        isPdfRendered = true;
+      } catch (err) {
+        console.warn('PDF.js rendering fallback:', err);
+      }
+    }
 
     function openPdfModal() {
       if (!pdfViewerModal || !pdfModalCard) return;
       pdfViewerModal.classList.remove('opacity-0', 'pointer-events-none');
       pdfModalCard.classList.remove('scale-95');
       pdfModalCard.classList.add('scale-100');
+      if (!isPdfRendered) {
+        loadAndRenderPdf();
+      }
     }
 
     function hidePdfModal() {

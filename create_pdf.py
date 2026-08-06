@@ -8,7 +8,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 
 def build_pdf():
-    pdf_filename = r"c:\Users\avina\OneDrive\Desktop\hackathon\New folder (2)\Ayush_Gaurav_CV.pdf"
+    pdf_filename = "Ayush_Gaurav_CV.pdf"
     
     margin = 36 # 0.5 inch margins
     doc = SimpleDocTemplate(
