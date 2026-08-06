@@ -1607,12 +1607,12 @@
                 </div>
               </div>
 
-              <!-- Barcode & Flip Hint Footer -->
+              <!-- Touch to Flip Footer -->
               <div class="mt-1 pt-1.5 border-t border-darkBorder/70 flex items-center justify-between font-mono text-[9px]">
                 <span class="text-textMuted font-bold">ID: 2024-AG</span>
-                <button type="button" class="bg-neon hover:bg-neonBright text-dark font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1 rounded-full border border-neonBright shadow-[0_0_15px_rgba(16,185,129,0.5)] flex items-center gap-1 cursor-pointer transition-all hover:scale-105" id="icardFlipBtnFront">
-                  <span>FLIP CARD</span> <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
-                </button>
+                <span class="bg-neon/15 text-neonBright border border-neon/50 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 animate-pulse" id="icardFlipBtnFront">
+                  <span>TOUCH CARD TO FLIP</span> <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+                </span>
               </div>
             </div>
 
@@ -1669,9 +1669,9 @@
               <!-- Flip Back Footer -->
               <div class="pt-1 border-t border-darkBorder/70 flex items-center justify-between font-mono text-[9px]">
                 <span class="text-textMuted font-bold">DEVTAC #2024</span>
-                <button type="button" class="bg-neonBright hover:bg-neon text-dark font-extrabold text-[10px] sm:text-xs px-2.5 sm:px-3.5 py-1 rounded-full border border-white shadow-[0_0_15px_rgba(0,255,135,0.6)] flex items-center gap-1 cursor-pointer transition-all hover:scale-105" id="icardFlipBtnBack">
-                  <span>FLIP FRONT</span> <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                </button>
+                <span class="bg-neonBright/20 text-neonBright border border-neonBright/60 px-2.5 py-1 rounded-full font-bold flex items-center gap-1 animate-pulse" id="icardFlipBtnBack">
+                  <span>TOUCH CARD TO FLIP</span> <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                </span>
               </div>
 
             </div>
@@ -4650,14 +4650,14 @@
     }
 
     // ──────────────────────────────────────────────
-    // 12. 3D Flipping ICARD Logic
+    // 12. 3D Flipping ICARD Logic (Touch & Click support)
     // ──────────────────────────────────────────────
     const icardInner = document.getElementById('icardInner');
     const heroIcardBadge = document.getElementById('heroIcardBadge');
     const icardPhotoBox = document.getElementById('icardPhotoBox');
 
     function toggleIcardFlip(e) {
-      if (e) e.stopPropagation();
+      if (e && e.stopPropagation) e.stopPropagation();
       if (icardInner) {
         icardInner.classList.toggle('is-flipped');
         playUiSound(950, 0.08, 'triangle');
@@ -4665,8 +4665,19 @@
     }
 
     if (heroIcardBadge) {
+      let isTouchHandled = false;
+
+      heroIcardBadge.addEventListener('touchstart', (e) => {
+        if (icardPhotoBox && icardPhotoBox.contains(e.target)) return;
+        isTouchHandled = true;
+        toggleIcardFlip(e);
+      }, { passive: true });
+
       heroIcardBadge.addEventListener('click', (e) => {
-        // If photo clicked, open image lightbox, else flip card
+        if (isTouchHandled) {
+          isTouchHandled = false;
+          return;
+        }
         if (icardPhotoBox && icardPhotoBox.contains(e.target)) {
           e.stopPropagation();
           openImageLightbox();
