@@ -2835,94 +2835,6 @@
 
 
     // ──────────────────────────────────────────────
-    // Particle system — floating dots background
-    // ──────────────────────────────────────────────
-    const canvas = document.getElementById('particles-canvas');
-    const ctx = canvas.getContext('2d');
-
-    let particles = [];
-    const PARTICLE_COUNT = 60;
-    const CONNECTION_DISTANCE = 140;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.radius = Math.random() * 1.5 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.1;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`;
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function drawConnections() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < CONNECTION_DISTANCE) {
-            const opacity = (1 - dist / CONNECTION_DISTANCE) * 0.12;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(16, 185, 129, ${opacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-
-      drawConnections();
-      requestAnimationFrame(animateParticles);
-    }
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-    });
-
-    resizeCanvas();
-    initParticles();
-    animateParticles();
-
-    // ──────────────────────────────────────────────
     // Timeline group hover — glow the dot
     // ──────────────────────────────────────────────
     document.querySelectorAll('.timeline-group').forEach((group) => {
@@ -3662,27 +3574,39 @@
     // 15. Advanced Visual Effects & Interactive Animations
     // ──────────────────────────────────────────────
 
-    // A. Interactive Canvas Particle Grid System
+    // ──────────────────────────────────────────────
+    // 15. Optimized Visual Effects & Performance System
+    // ──────────────────────────────────────────────
+
+    // A. Ultra-Fast Canvas Particle Grid System
     (function initParticleCanvas() {
       const canvas = document.getElementById('particles-canvas');
       if (!canvas) return;
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: true });
       if (!ctx) return;
 
       let width = (canvas.width = window.innerWidth);
       let height = (canvas.height = window.innerHeight);
+      let isMobile = width < 768;
+      let isTabHidden = false;
 
       let mouse = { x: width / 2, y: height / 2, active: false };
       window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
         mouse.active = true;
-      });
+      }, { passive: true });
+
       window.addEventListener('mouseleave', () => {
         mouse.active = false;
+      }, { passive: true });
+
+      document.addEventListener('visibilitychange', () => {
+        isTabHidden = document.hidden;
       });
 
-      const particleCount = width < 768 ? 35 : 75;
+      const particleCount = isMobile ? 25 : 55;
+      const MAX_DIST_SQ = 12100; // 110 * 110 squared distance to avoid Math.sqrt
       const particles = [];
 
       class Particle {
@@ -3692,10 +3616,10 @@
         reset() {
           this.x = Math.random() * width;
           this.y = Math.random() * height;
-          this.vx = (Math.random() - 0.5) * 0.6;
-          this.vy = (Math.random() - 0.5) * 0.6;
+          this.vx = (Math.random() - 0.5) * 0.5;
+          this.vy = (Math.random() - 0.5) * 0.5;
           this.radius = Math.random() * 1.5 + 1;
-          this.alpha = Math.random() * 0.5 + 0.2;
+          this.alpha = Math.random() * 0.4 + 0.2;
         }
         update() {
           this.x += this.vx;
@@ -3704,15 +3628,15 @@
           if (this.x < 0 || this.x > width) this.vx *= -1;
           if (this.y < 0 || this.y > height) this.vy *= -1;
 
-          // Mouse influence
-          if (mouse.active) {
+          if (mouse.active && !isMobile) {
             const dx = mouse.x - this.x;
             const dy = mouse.y - this.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 130) {
+            const distSq = dx * dx + dy * dy;
+            if (distSq < 16900) { // 130 * 130
+              const dist = Math.sqrt(distSq);
               const force = (130 - dist) / 130;
-              this.x -= (dx / dist) * force * 1.8;
-              this.y -= (dy / dist) * force * 1.8;
+              this.x -= (dx / dist) * force * 1.5;
+              this.y -= (dy / dist) * force * 1.5;
             }
           }
         }
@@ -3731,6 +3655,11 @@
       }
 
       function animate() {
+        if (isTabHidden) {
+          requestAnimationFrame(animate);
+          return;
+        }
+
         ctx.clearRect(0, 0, width, height);
         const isLight = document.body.classList.contains('light-mode');
 
@@ -3738,21 +3667,25 @@
           particles[i].update();
           particles[i].draw(isLight);
 
-          for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
+          // Fast distance-squared particle line connections (skips Math.sqrt unless within range)
+          if (!isMobile) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const distSq = dx * dx + dy * dy;
 
-            if (dist < 110) {
-              const opacity = (1 - dist / 110) * 0.25;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = isLight
-                ? `rgba(5, 150, 105, ${opacity})`
-                : `rgba(16, 185, 129, ${opacity})`;
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
+              if (distSq < MAX_DIST_SQ) {
+                const dist = Math.sqrt(distSq);
+                const opacity = (1 - dist / 110) * 0.2;
+                ctx.beginPath();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.strokeStyle = isLight
+                  ? `rgba(5, 150, 105, ${opacity})`
+                  : `rgba(16, 185, 129, ${opacity})`;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+              }
             }
           }
         }
@@ -3764,14 +3697,21 @@
       window.addEventListener('resize', () => {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
-      });
+        isMobile = width < 768;
+      }, { passive: true });
     })();
 
-    // B. Custom Neon Cursor Follower
+    // B. Custom Neon Cursor Follower (Event Delegated)
     (function initCustomCursor() {
       const dot = document.getElementById('custom-cursor-dot');
       const ring = document.getElementById('custom-cursor-ring');
       if (!dot || !ring) return;
+
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        dot.style.display = 'none';
+        ring.style.display = 'none';
+        return;
+      }
 
       let mouseX = -100, mouseY = -100;
       let ringX = -100, ringY = -100;
@@ -3780,24 +3720,28 @@
         mouseX = e.clientX;
         mouseY = e.clientY;
         dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-      });
+      }, { passive: true });
 
       function renderRing() {
-        ringX += (mouseX - ringX) * 0.18;
-        ringY += (mouseY - ringY) * 0.18;
+        ringX += (mouseX - ringX) * 0.2;
+        ringY += (mouseY - ringY) * 0.2;
         ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
         requestAnimationFrame(renderRing);
       }
       renderRing();
 
-      const interactiveElements = document.querySelectorAll(
-        'a, button, input, textarea, select, .spotlight-card, .timeline-card, .skill-pill, .project-card-trigger, .cmd-item'
-      );
+      // Efficient Event Delegation on Body for Hover Rings
+      document.body.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, input, textarea, select, .spotlight-card, .timeline-card, .skill-pill, .project-card-trigger, .cmd-item')) {
+          ring.classList.add('active-hover');
+        }
+      }, { passive: true });
 
-      interactiveElements.forEach((el) => {
-        el.addEventListener('mouseenter', () => ring.classList.add('active-hover'));
-        el.addEventListener('mouseleave', () => ring.classList.remove('active-hover'));
-      });
+      document.body.addEventListener('mouseout', (e) => {
+        if (e.target.closest('a, button, input, textarea, select, .spotlight-card, .timeline-card, .skill-pill, .project-card-trigger, .cmd-item')) {
+          ring.classList.remove('active-hover');
+        }
+      }, { passive: true });
     })();
 
     // C. 3D Tilt Card & Dynamic Mouse Spotlight Tracker
