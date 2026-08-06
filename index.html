@@ -819,10 +819,51 @@
       animation-play-state: paused !important;
     }
 
+  
+    /* Interactive Neon Cursor Spotlight */
+    #cursorSpotlight {
+      will-change: transform, left, top;
+    }
+
+    /* 3D Flip Card Container */
+    .icard-perspective {
+      perspective: 1000px;
+    }
+
+    .icard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .icard-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .icard-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .icard-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Card Specular Light & 3D Tilt Transitions */
+    .timeline-card, .skill-category-block, #heroIcardBadge {
+      transition: transform 0.2s ease-out, border-color 0.4s ease, box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+    }
+
   </style>
 </head>
 
 <body class="bg-grid relative">
+  <!-- Cursor Spotlight Aura -->
+  <div id="cursorSpotlight" class="fixed top-0 left-0 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.16)_0%,rgba(0,255,135,0.06)_45%,transparent_70%)] blur-[50px] pointer-events-none z-[60] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 opacity-0 hidden md:block"></div>
+
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress-bar"
     class="fixed top-0 left-0 h-[3px] bg-gradient-to-r from-neon via-neonBright to-neon z-[60] transition-all duration-75 shadow-[0_0_12px_#00ff87] w-0">
@@ -1496,61 +1537,121 @@
           <div class="w-8 sm:w-9 h-3 sm:h-3.5 bg-gradient-to-r from-gray-700 via-gray-400 to-gray-700 rounded-sm -mt-1 border border-neon/40 z-10 shadow-md"></div>
         </div>
 
-        <!-- Hanging ICARD Badge -->
-        <div id="heroIcardBadge"
-          class="cursor-pointer group relative w-36 sm:w-44 md:w-48 bg-[#111111]/95 backdrop-blur-md border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] hover:border-neonBright hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] transition-all duration-300 transform hover:scale-[1.03]"
-          title="Click to view full photo & profile details">
+        <!-- 3D Flipping Hanging ICARD Badge -->
+        <div id="heroIcardBadge" class="icard-perspective cursor-pointer group relative w-36 sm:w-44 md:w-48 h-[270px] sm:h-[320px] md:h-[340px]" title="Click card to flip / click photo to open preview">
+          <div id="icardInner" class="icard-inner relative w-full h-full">
 
-          <!-- Top Glowing Edge Line -->
-          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neon via-neonBright to-neon rounded-t-2xl"></div>
+            <!-- FRONT FACE -->
+            <div class="icard-face icard-front absolute inset-0 bg-[#111111]/95 backdrop-blur-md border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] group-hover:border-neonBright group-hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] flex flex-col justify-between transition-all">
 
-          <!-- Lanyard Slot Cutout -->
-          <div class="w-6 sm:w-7 h-1.5 bg-[#0a0a0a] mx-auto rounded-full mb-2.5 border border-darkBorder shadow-inner"></div>
+              <!-- Top Glowing Edge Line -->
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neon via-neonBright to-neon rounded-t-2xl"></div>
 
-          <!-- Badge Header Tag & Live Status -->
-          <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-mono mb-2 px-0.5">
-            <span class="text-neon font-bold tracking-wider uppercase flex items-center gap-1">
-              <i data-lucide="badge-check" class="w-3 h-3 text-neonBright"></i> DEV ID
-            </span>
-            <span class="flex items-center gap-1 text-textMuted font-mono">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-neon"></span>
-              </span>
-              ACTIVE
-            </span>
-          </div>
+              <!-- Lanyard Slot Cutout -->
+              <div class="w-6 sm:w-7 h-1.5 bg-[#0a0a0a] mx-auto rounded-full mb-1.5 border border-darkBorder shadow-inner"></div>
 
-          <!-- Badge Photo Frame -->
-          <div class="relative w-24 h-28 sm:w-32 sm:h-36 md:w-36 md:h-40 mx-auto rounded-xl p-0.5 bg-gradient-to-b from-neon/80 via-neonBright/40 to-neon/80 mb-2.5 shadow-[0_0_20px_rgba(16,185,129,0.35)] group-hover:shadow-[0_0_25px_rgba(0,255,135,0.6)] transition-all">
-            <img src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-lg bg-dark group-hover:brightness-105 transition-all" loading="lazy" />
-            <div class="absolute inset-0 rounded-lg bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-              <i data-lucide="maximize-2" class="w-6 h-6 text-neonBright drop-shadow-[0_0_10px_#00ff87]"></i>
+              <!-- Badge Header Tag & Live Status -->
+              <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-mono mb-1.5 px-0.5">
+                <span class="text-neon font-bold tracking-wider uppercase flex items-center gap-1">
+                  <i data-lucide="badge-check" class="w-3 h-3 text-neonBright"></i> DEV ID
+                </span>
+                <span class="flex items-center gap-1 text-textMuted font-mono">
+                  <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-neon"></span>
+                  </span>
+                  ACTIVE
+                </span>
+              </div>
+
+              <!-- Badge Photo Frame -->
+              <div id="icardPhotoBox" class="relative w-22 h-26 sm:w-30 sm:h-34 md:w-32 md:h-36 mx-auto rounded-xl p-0.5 bg-gradient-to-b from-neon/80 via-neonBright/40 to-neon/80 mb-1.5 shadow-[0_0_20px_rgba(16,185,129,0.35)] group-hover:shadow-[0_0_25px_rgba(0,255,135,0.6)] transition-all">
+                <img src="avatar.jpg" alt="Ayush Gaurav" class="w-full h-full object-cover rounded-lg bg-dark group-hover:brightness-105 transition-all" loading="lazy" />
+                <div class="absolute inset-0 rounded-lg bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                  <i data-lucide="maximize-2" class="w-5 h-5 text-neonBright drop-shadow-[0_0_10px_#00ff87]"></i>
+                </div>
+              </div>
+
+              <!-- Name & Title -->
+              <div class="text-center">
+                <h3 class="text-white font-black text-xs sm:text-sm tracking-tight group-hover:text-neonBright transition-colors uppercase">AYUSH GAURAV</h3>
+                <p class="text-[10px] font-mono text-neon font-semibold mt-0.5">CS Engineering</p>
+                <div class="mt-1">
+                  <span class="inline-block text-[8px] sm:text-[9px] font-mono text-neonBright bg-neon/15 border border-neon/40 px-2 py-0.5 rounded-full font-bold">
+                    AI &amp; Full Stack
+                  </span>
+                </div>
+              </div>
+
+              <!-- Barcode & Flip Hint Footer -->
+              <div class="mt-1 pt-1.5 border-t border-darkBorder/70 flex items-center justify-between opacity-80 font-mono text-[8px]">
+                <span class="text-textMuted font-bold">ID: 2024-AG</span>
+                <span class="text-neon flex items-center gap-0.5 hover:underline" id="icardFlipBtnFront">
+                  Flip <i data-lucide="rotate-cw" class="w-2.5 h-2.5"></i>
+                </span>
+              </div>
             </div>
-          </div>
 
-          <!-- Name & Title -->
-          <div class="text-center">
-            <h3 class="text-white font-black text-xs sm:text-sm tracking-tight group-hover:text-neonBright transition-colors uppercase">AYUSH GAURAV</h3>
-            <p class="text-[10px] font-mono text-neon font-semibold mt-0.5">CS Engineering</p>
-            <div class="mt-1">
-              <span class="inline-block text-[8px] sm:text-[9px] font-mono text-neonBright bg-neon/15 border border-neon/40 px-2 py-0.5 rounded-full font-bold">
-                AI &amp; Full Stack
-              </span>
-            </div>
-          </div>
+            <!-- BACK FACE (TECH SPECS & QR CODE) -->
+            <div class="icard-face icard-back absolute inset-0 bg-[#0d0d0d]/98 backdrop-blur-md border border-neonBright/60 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_35px_rgba(0,255,135,0.3)] flex flex-col justify-between">
+              
+              <!-- Top Glowing Edge Line -->
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neonBright via-neon to-neonBright rounded-t-2xl"></div>
 
-          <!-- Barcode Footer -->
-          <div class="mt-2.5 pt-2 border-t border-darkBorder/70 flex items-center justify-between opacity-75 group-hover:opacity-100 transition-opacity">
-            <div class="flex items-center gap-0.5 font-mono">
-              <div class="w-0.5 h-2.5 bg-neon"></div>
-              <div class="w-1 h-2.5 bg-textMuted"></div>
-              <div class="w-0.5 h-2.5 bg-neon"></div>
-              <div class="w-1.5 h-2.5 bg-neonBright"></div>
-              <div class="w-0.5 h-2.5 bg-textMuted"></div>
-              <div class="w-1 h-2.5 bg-neon"></div>
+              <!-- Lanyard Slot Cutout -->
+              <div class="w-6 sm:w-7 h-1.5 bg-[#0a0a0a] mx-auto rounded-full mb-1 border border-darkBorder shadow-inner"></div>
+
+              <!-- Header Tag -->
+              <div class="flex items-center justify-between text-[9px] sm:text-[10px] font-mono mb-1 text-neonBright font-bold">
+                <span>DEV PASS SPECS</span>
+                <span>SECURITY LEVEL A</span>
+              </div>
+
+              <!-- Tech Specs Grid -->
+              <div class="bg-dark/90 rounded-xl p-2 border border-neon/30 text-[9px] sm:text-[10px] font-mono space-y-1 text-left">
+                <div class="flex justify-between border-b border-darkBorder/60 pb-0.5">
+                  <span class="text-textMuted">DEV:</span>
+                  <span class="text-white font-bold">AYUSH GAURAV</span>
+                </div>
+                <div class="flex justify-between border-b border-darkBorder/60 pb-0.5">
+                  <span class="text-textMuted">DEGREE:</span>
+                  <span class="text-neon font-semibold">B.E — CSBS</span>
+                </div>
+                <div class="flex justify-between border-b border-darkBorder/60 pb-0.5">
+                  <span class="text-textMuted">STATUS:</span>
+                  <span class="text-neonBright font-bold">OPEN FOR HIRING</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-textMuted">CORE:</span>
+                  <span class="text-white">AI, Full Stack, DB</span>
+                </div>
+              </div>
+
+              <!-- QR Code Display Box -->
+              <div class="my-1 p-1.5 bg-darkCard rounded-xl border border-neon/30 flex items-center justify-center gap-2">
+                <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white p-1 rounded-lg flex items-center justify-center">
+                  <!-- Vector QR Code SVG -->
+                  <svg class="w-full h-full" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0h9v9H0V0zm2 2v5h5V2H2zm9-2h2v2h-2V0zm4 0h2v2h-2V0zm4 0h9v9h-9V0zm2 2v5h5V2h-5zM0 11h2v2H0v-2zm4 0h2v2H4v-2zm4 0h2v2H8v-2zm6 0h2v2h-2v-2zm4 0h2v2h-2v-2zm6 0h2v2h-2v-2zM0 15h2v2H0v-2zm4 0h4v2H4v-2zm6 0h2v2h-2v-2zm4 0h2v2h-2v-2zm6 0h4v2h-4v-2zM0 20h9v9H0v-9zm2 2v5h5v-5H2zm11-2h2v2h-2v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8 4h2v2h-2v-2zm4 0h4v2h-4v-2zm-4 4h4v2h-4v-2zm6 0h2v2h-2v-2z" fill="#000"/>
+                  </svg>
+                </div>
+                <div class="text-left text-[8px] font-mono text-textMuted space-y-0.5">
+                  <p class="text-neon font-bold">SCAN TO CONNECT</p>
+                  <p>github.com/</p>
+                  <p>AyushGaurav4529</p>
+                </div>
+              </div>
+
+              <!-- Flip Back Footer -->
+              <div class="pt-1 border-t border-darkBorder/70 flex items-center justify-between font-mono text-[8px]">
+                <span class="text-textMuted">DEVTAC #2024</span>
+                <span class="text-neonBright flex items-center gap-0.5 hover:underline font-bold" id="icardFlipBtnBack">
+                  Flip Front <i data-lucide="rotate-ccw" class="w-2.5 h-2.5"></i>
+                </span>
+              </div>
+
             </div>
-            <span class="text-[8px] font-mono text-textMuted font-bold">ID: 2024-AG</span>
+
           </div>
         </div>
       </div>
@@ -4471,6 +4572,74 @@
         })
         .catch(() => {});
     })();
+
+    // ──────────────────────────────────────────────
+    // 11. Interactive Neon Cursor Spotlight
+    // ──────────────────────────────────────────────
+    const cursorSpotlight = document.getElementById('cursorSpotlight');
+    if (cursorSpotlight) {
+      window.addEventListener('mousemove', (e) => {
+        cursorSpotlight.style.left = e.clientX + 'px';
+        cursorSpotlight.style.top = e.clientY + 'px';
+        cursorSpotlight.style.opacity = '1';
+      });
+      document.addEventListener('mouseleave', () => {
+        cursorSpotlight.style.opacity = '0';
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 12. 3D Flipping ICARD Logic
+    // ──────────────────────────────────────────────
+    const icardInner = document.getElementById('icardInner');
+    const heroIcardBadge = document.getElementById('heroIcardBadge');
+    const icardPhotoBox = document.getElementById('icardPhotoBox');
+
+    function toggleIcardFlip(e) {
+      if (e) e.stopPropagation();
+      if (icardInner) {
+        icardInner.classList.toggle('is-flipped');
+        playUiSound(950, 0.08, 'triangle');
+      }
+    }
+
+    if (heroIcardBadge) {
+      heroIcardBadge.addEventListener('click', (e) => {
+        // If photo clicked, open image lightbox, else flip card
+        if (icardPhotoBox && icardPhotoBox.contains(e.target)) {
+          e.stopPropagation();
+          openImageLightbox();
+        } else {
+          toggleIcardFlip(e);
+        }
+      });
+    }
+
+    // ──────────────────────────────────────────────
+    // 13. 3D Tilt & Specular Lighting Effect on Cards
+    // ──────────────────────────────────────────────
+    const tiltableCards = document.querySelectorAll('.timeline-card, .skill-category-block, #heroIcardBadge');
+    tiltableCards.forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.015, 1.015, 1.015)`;
+        card.style.backgroundImage = `radial-gradient(circle at ${x}px ${y}px, rgba(16, 185, 129, 0.12) 0%, transparent 60%)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        card.style.backgroundImage = 'none';
+      });
+    });
+
   </script>
 </body>
 
