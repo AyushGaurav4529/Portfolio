@@ -108,11 +108,11 @@ def build_pdf():
     # SUMMARY
     story.append(Paragraph("SUMMARY", heading_style))
     summary_text = (
-        "Computer Science Engineering undergrad with hands-on experience in <b>Software Development, AI, Full Stack Web "
-        "Development, Python &amp; C Programming</b>. Skilled in designing scalable applications, developing AI-powered "
-        "solutions, and building responsive web applications using modern technologies. Passionate about solving real-world "
-        "problems through software engineering and continuously learning emerging technologies. Strong problem-solving, "
-        "debugging, and teamwork skills with hackathon experience in developing innovative products."
+        "Computer Science Engineering undergraduate with hands-on experience building AI-powered SaaS platforms, cross "
+        "platform mobile applications, and full-stack web systems using Python, JavaScript, Flutter, and Firebase. Developed "
+        "and deployed an AI-based smart inventory management system at the FantomCode Hackathon and engineered a "
+        "hyperlocal food delivery platform featured in multiple hackathons. Proficient in REST API design, MySQL schema "
+        "optimization, and integrating AI/ML modules into real-world applications."
     )
     story.append(Paragraph(summary_text, body_style))
     story.append(HRFlowable(width="100%", thickness=0.8, color=colors.HexColor('#888888'), spaceBefore=4, spaceAfter=6))
@@ -120,12 +120,11 @@ def build_pdf():
     # TECHNICAL SKILLS
     story.append(Paragraph("TECHNICAL SKILLS", heading_style))
     skills = [
-        "<b>Languages:</b> Python, JavaScript, Dart, SQL, HTML, C.",
-        "<b>Frameworks &amp; Libraries:</b> FastAPI, Flutter, Node.js, OpenCV, NumPy.",
-        "<b>Databases &amp; Tools:</b> MySQL, Firebase, Git, GitHub, VS Code, Postman.",
-        "<b>Artificial Intelligence &amp; Machine Learning:</b> Artificial Intelligence, Prompt Engineering, Machine Learning Fundamentals.",
-        "<b>Core Computer Science:</b> Data Structures and Algorithms, Operating Systems, Database Management Systems, Computer Networks.",
-        "<b>Soft Skills:</b> Problem Solving, Communication, Leadership, Team Collaboration, Analytical Thinking, Time Management."
+        "<b>Languages:</b> C, Python, JavaScript, Dart, SQL.",
+        "<b>Frameworks &amp; Libraries:</b> Node.js, FastAPI, Flutter, Express.js, OpenCV, NumPy.",
+        "<b>Databases &amp; Tools:</b> MySQL, Firebase, Git, GitHub, REST APIs, Postman, VS Code.",
+        "<b>Core Fundamentals:</b> Data Structures and Algorithms, Operating Systems, Database Management Systems, Computer Networks.",
+        "<b>Domains &amp; Concepts:</b> Full Stack Development, Artificial Intelligence (AI), Prompt Engineering, Machine Learning Fundamentals."
     ]
     for s in skills:
         story.append(Paragraph(f"● &nbsp; {s}", bullet_style))
@@ -139,9 +138,9 @@ def build_pdf():
     story.append(Paragraph("<b>1. Retail Guard (AI-Based Smart Inventory Management)</b>", body_style))
     p1_bullets = [
         "<b>Tech Stack:</b> JavaScript, Node.js, Applied AI, Database Management Systems.",
-        "Engineered an AI-powered SaaS inventory and store management system designed to optimize retail operations.",
-        "Developed Algorithmic modules to monitor product expiration dates and track live inventory metrices.",
-        "Integrated intelligent predictive analytics to generate data-driven sales insights, enabling shop owners to maximize profit margins.",
+        "Engineered an AI-powered SaaS inventory and store management system designed to optimize retail operations and reduce stock waste.",
+        "Developed Algorithmic modules for real-time live inventory tracking and automated product expiration monitoring.",
+        "Integrated intelligent predictive analytics to deliver data-driven sales insights, helping shop owners improve profit margins.",
         "<b>Recognitions:</b> Deployed and pitched as the core project at the FantomCode Hackathon (RVITM).",
         "<b>Skills:</b> AI, JavaScript, Firebase, Inventory Management, Data Analytics."
     ]
@@ -180,7 +179,7 @@ def build_pdf():
     story.append(Paragraph("<b>4. Inventory Management System</b>", body_style))
     p4_bullets = [
         "<b>Tech Stack:</b> HTML, CSS, JavaScript.",
-        "Created a responsive web application facilitating structured stock tracking and interface controls for small scale retail systems.",
+        "Created a responsive web application facilitating structured stock tracking and interface controls for small-scale retail systems.",
         "Improved product organization and inventory tracking.",
         "<b>Skills:</b> HTML, CSS, JavaScript"
     ]
@@ -191,10 +190,10 @@ def build_pdf():
 
     # EDUCATION
     story.append(Paragraph("EDUCATION", heading_style))
-    story.append(Paragraph("<b>Dr. Ambedkar Institute of Technology, Bengaluru</b> | B.E- CSBS | 2024 - Current", body_style))
+    story.append(Paragraph("<b>Dr. Ambedkar Institute of Technology, Bengaluru</b>| B.E- CSBS | 2024 - Current", body_style))
     story.append(Paragraph("<b>Kendriya Vidyalaya (CBSE)</b>", body_style))
-    story.append(Paragraph("● &nbsp; All India Senior School Certificate Examination (Class 12) | <b>73%</b>", bullet_style))
-    story.append(Paragraph("● &nbsp; Secondary School Examination (Class 10) | <b>72.3%</b>", bullet_style))
+    story.append(Paragraph("• &nbsp; All India Senior School Certificate Examination (Class 12) | <b>73%</b>", bullet_style))
+    story.append(Paragraph("• &nbsp; Secondary School Examination (Class 10) | <b>72.3%</b>", bullet_style))
     
     story.append(HRFlowable(width="100%", thickness=0.8, color=colors.HexColor('#888888'), spaceBefore=4, spaceAfter=6))
 
