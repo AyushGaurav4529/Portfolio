@@ -179,13 +179,14 @@ export const HangingIcard: React.FC<HangingIcardProps> = ({
                   <span>{location}</span>
                 </div>
 
-                <span
+                <button
+                  type="button"
                   onClick={toggleFlip}
-                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-300 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/40 shadow-sm animate-pulse cursor-pointer"
+                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/40"
                 >
-                  <span>TOUCH CARD TO FLIP</span>
-                  <RotateCw className="w-3.5 h-3.5" />
-                </span>
+                  <span>Flip Back</span>
+                  <RotateCw className="w-3 h-3 animate-spin-slow" />
+                </button>
               </div>
             </div>
 
@@ -263,13 +264,14 @@ export const HangingIcard: React.FC<HangingIcardProps> = ({
                   </a>
                 </div>
 
-                <span
+                <button
+                  type="button"
                   onClick={toggleFlip}
-                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-300 bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/40 shadow-sm animate-pulse cursor-pointer"
+                  className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-950/60 px-2.5 py-1 rounded-full border border-emerald-500/40"
                 >
-                  <span>TOUCH CARD TO FLIP</span>
-                  <RotateCw className="w-3.5 h-3.5" />
-                </span>
+                  <span>Front Side</span>
+                  <RotateCw className="w-3 h-3" />
+                </button>
               </div>
             </div>
           </motion.div>
