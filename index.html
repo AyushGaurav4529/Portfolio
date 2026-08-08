@@ -3996,8 +3996,8 @@
     // 15. Optimized Visual Effects & Performance System
     // ──────────────────────────────────────────────
 
-    // A. Ultra-Fast Interactive AI Neural Network Graph Canvas System
-    (function initNeuralCanvas() {
+    // A. Cyber AI Matrix Rain & 3D Interactive Tech Globe Canvas Engine
+    (function initCyberAiMatrixCanvas() {
       const canvas = document.getElementById('particles-canvas');
       if (!canvas) return;
       const ctx = canvas.getContext('2d', { alpha: true });
@@ -4012,6 +4012,7 @@
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
         isMobile = width < 768;
+        initMatrixColumns();
       }, { passive: true });
 
       let mouse = { x: width / 2, y: height / 2, active: false };
@@ -4029,60 +4030,151 @@
         isTabHidden = document.hidden;
       });
 
-      const aiLabels = ['PyTorch', 'Computer Vision', 'LLMs', 'Neural Nets', 'Node.js', 'Python', 'Flutter', 'Deep Learning', 'REST APIs', 'MySQL', 'Firebase', 'Applied AI', 'DSA', 'Dart'];
-      const nodeCount = isMobile ? 22 : 45;
-      const MAX_DIST_SQ = 14400; // 120 * 120
-      const nodes = [];
+      // ──────────────────────────────────────────────
+      // 1. Matrix Digital Code Rain Engine
+      // ──────────────────────────────────────────────
+      const matrixChars = ['PyTorch', 'Vision', 'LLM', '01', 'AI', 'Python', 'Flutter', 'Node.js', 'SQL', '10', 'DSA', 'REST'];
+      const fontSize = 11;
+      let columns = 0;
+      let drops = [];
 
-      class NeuralNode {
-        constructor(index) {
-          this.reset(index);
+      function initMatrixColumns() {
+        columns = Math.floor(width / 32);
+        drops = [];
+        for (let i = 0; i < columns; i++) {
+          drops[i] = Math.random() * -50;
         }
-        reset(index) {
-          this.x = Math.random() * width;
-          this.y = Math.random() * height;
-          this.vx = (Math.random() - 0.5) * 0.45;
-          this.vy = (Math.random() - 0.5) * 0.45;
-          this.radius = Math.random() * 2 + 1.5;
-          this.label = (index % 3 === 0) ? aiLabels[index % aiLabels.length] : '';
+      }
+      initMatrixColumns();
+
+      function drawMatrixRain(isLight) {
+        ctx.font = '10px "JetBrains Mono", monospace';
+        for (let i = 0; i < drops.length; i++) {
+          const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          const x = i * 32;
+          const y = drops[i] * fontSize;
+
+          ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.16)' : 'rgba(0, 255, 135, 0.18)';
+          ctx.fillText(char, x, y);
+
+          if (y > height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i] += 0.45;
         }
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
+      }
 
-          if (this.x < 0 || this.x > width) this.vx *= -1;
-          if (this.y < 0 || this.y > height) this.vy *= -1;
+      // ──────────────────────────────────────────────
+      // 2. 3D Rotating Wireframe Tech Globe Engine
+      // ──────────────────────────────────────────────
+      const globeRadius = isMobile ? Math.min(width, height) * 0.28 : 220;
+      const globeCenter = { x: width * 0.78, y: height * 0.42 };
+      let rotationX = 0;
+      let rotationY = 0;
 
-          if (mouse.active && !isMobile) {
-            const dx = mouse.x - this.x;
-            const dy = mouse.y - this.y;
-            const distSq = dx * dx + dy * dy;
-            if (distSq < 22500) { // 150 * 150
-              const dist = Math.sqrt(distSq);
-              const force = (150 - dist) / 150;
-              this.x -= (dx / dist) * force * 1.8;
-              this.y -= (dy / dist) * force * 1.8;
+      const latLines = 10;
+      const lonLines = 16;
+      const globePoints = [];
+
+      for (let i = 0; i <= latLines; i++) {
+        const lat = (Math.PI * i) / latLines - Math.PI / 2;
+        for (let j = 0; j < lonLines; j++) {
+          const lon = (2 * Math.PI * j) / lonLines;
+          globePoints.push({
+            x: globeRadius * Math.cos(lat) * Math.cos(lon),
+            y: globeRadius * Math.sin(lat),
+            z: globeRadius * Math.cos(lat) * Math.sin(lon)
+          });
+        }
+      }
+
+      function draw3dGlobe(isLight) {
+        // Adjust center for mobile vs desktop
+        globeCenter.x = isMobile ? width * 0.5 : width * 0.82;
+        globeCenter.y = isMobile ? height * 0.35 : height * 0.45;
+
+        // Auto-rotation + Scroll Parallax + Mouse Tilt
+        const scrollFactor = window.scrollY * 0.001;
+        const targetRotY = (mouse.active ? (mouse.x - width / 2) * 0.00015 : 0) + scrollFactor + 0.003;
+        const targetRotX = (mouse.active ? (mouse.y - height / 2) * 0.00015 : 0) + 0.0015;
+
+        rotationY += targetRotY;
+        rotationX += targetRotX;
+
+        const sinX = Math.sin(rotationX);
+        const cosX = Math.cos(rotationX);
+        const sinY = Math.sin(rotationY);
+        const cosY = Math.cos(rotationY);
+
+        const projected = [];
+
+        for (let i = 0; i < globePoints.length; i++) {
+          const pt = globePoints[i];
+
+          // 3D Y Rotation
+          let x1 = pt.x * cosY - pt.z * sinY;
+          let z1 = pt.z * cosY + pt.x * sinY;
+
+          // 3D X Rotation
+          let y1 = pt.y * cosX - z1 * sinX;
+          let z2 = z1 * cosX + pt.y * sinX;
+
+          // Perspective Projection
+          const scale = 400 / (400 + z2);
+          const px = globeCenter.x + x1 * scale;
+          const py = globeCenter.y + y1 * scale;
+
+          projected.push({ x: px, y: py, z: z2, scale: scale });
+        }
+
+        // Draw Globe Nodes & Synaptic Grid Lines
+        for (let i = 0; i < projected.length; i++) {
+          const p = projected[i];
+          if (p.z > -globeRadius) { // Front-face clipping
+            const depthAlpha = Math.max(0.1, (p.z + globeRadius) / (globeRadius * 2));
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(1, 2 * p.scale), 0, Math.PI * 2);
+            ctx.fillStyle = isLight
+              ? `rgba(5, 150, 105, ${depthAlpha * 0.8})`
+              : `rgba(0, 255, 135, ${depthAlpha * 0.9})`;
+            ctx.fill();
+
+            // Connect to neighboring point longitude line
+            const nextIdx = (i + 1) % projected.length;
+            if (i % lonLines !== lonLines - 1 && projected[nextIdx].z > -globeRadius) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(projected[nextIdx].x, projected[nextIdx].y);
+              ctx.strokeStyle = isLight
+                ? `rgba(5, 150, 105, ${depthAlpha * 0.3})`
+                : `rgba(0, 255, 135, ${depthAlpha * 0.35})`;
+              ctx.lineWidth = 0.7;
+              ctx.stroke();
+            }
+
+            // Mouse laser connection to nearest globe nodes
+            if (mouse.active && !isMobile) {
+              const mdx = p.x - mouse.x;
+              const mdy = p.y - mouse.y;
+              const mdistSq = mdx * mdx + mdy * mdy;
+              if (mdistSq < 16900) { // 130 * 130
+                const mdist = Math.sqrt(mdistSq);
+                const opacity = (1 - mdist / 130) * 0.5;
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.strokeStyle = `rgba(0, 255, 135, ${opacity})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+              }
             }
           }
         }
-        draw(isLight) {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = isLight ? '#059669' : '#00ff87';
-          ctx.fill();
-
-          if (this.label && !isMobile) {
-            ctx.font = '9px "JetBrains Mono", monospace';
-            ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.75)' : 'rgba(0, 255, 135, 0.75)';
-            ctx.fillText(this.label, this.x + 8, this.y + 3);
-          }
-        }
       }
 
-      for (let i = 0; i < nodeCount; i++) {
-        nodes.push(new NeuralNode(i));
-      }
-
+      // ──────────────────────────────────────────────
+      // 3. Render Loop
+      // ──────────────────────────────────────────────
       function animate() {
         if (isTabHidden) {
           requestAnimationFrame(animate);
@@ -4092,47 +4184,9 @@
         ctx.clearRect(0, 0, width, height);
         const isLight = document.body.classList.contains('light-mode');
 
-        for (let i = 0; i < nodes.length; i++) {
-          nodes[i].update();
-          nodes[i].draw(isLight);
+        drawMatrixRain(isLight);
+        draw3dGlobe(isLight);
 
-          // Synaptic connections between nodes
-          for (let j = i + 1; j < nodes.length; j++) {
-            const dx = nodes[i].x - nodes[j].x;
-            const dy = nodes[i].y - nodes[j].y;
-            const distSq = dx * dx + dy * dy;
-
-            if (distSq < MAX_DIST_SQ) {
-              const dist = Math.sqrt(distSq);
-              const opacity = (1 - dist / 120) * 0.25;
-              ctx.beginPath();
-              ctx.moveTo(nodes[i].x, nodes[i].y);
-              ctx.lineTo(nodes[j].x, nodes[j].y);
-              ctx.strokeStyle = isLight
-                ? `rgba(5, 150, 105, ${opacity})`
-                : `rgba(0, 255, 135, ${opacity})`;
-              ctx.lineWidth = 0.8;
-              ctx.stroke();
-            }
-          }
-
-          // Mouse magnetic laser links
-          if (mouse.active && !isMobile) {
-            const mdx = nodes[i].x - mouse.x;
-            const mdy = nodes[i].y - mouse.y;
-            const mdistSq = mdx * mdx + mdy * mdy;
-            if (mdistSq < 19600) { // 140 * 140
-              const mdist = Math.sqrt(mdistSq);
-              const opacity = (1 - mdist / 140) * 0.45;
-              ctx.beginPath();
-              ctx.moveTo(nodes[i].x, nodes[i].y);
-              ctx.lineTo(mouse.x, mouse.y);
-              ctx.strokeStyle = `rgba(0, 255, 135, ${opacity})`;
-              ctx.lineWidth = 1.2;
-              ctx.stroke();
-            }
-          }
-        }
         requestAnimationFrame(animate);
       }
 
