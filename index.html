@@ -437,64 +437,64 @@
     .aurora-blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.15;
+      filter: blur(100px);
+      opacity: 0.35;
       will-change: transform;
     }
 
     .aurora-1 {
-      background: radial-gradient(circle, #10b981 0%, rgba(16, 185, 129, 0) 70%);
-      width: 650px;
-      height: 650px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.7) 0%, rgba(16, 185, 129, 0) 70%);
+      width: 750px;
+      height: 750px;
       top: -150px;
       left: -100px;
       animation: auroraFloat1 16s ease-in-out infinite;
     }
 
     .aurora-2 {
-      background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
-      width: 580px;
-      height: 580px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.65) 0%, rgba(99, 102, 241, 0) 70%);
+      width: 680px;
+      height: 680px;
       top: 35%;
       right: -150px;
       animation: auroraFloat2 18s ease-in-out infinite;
     }
 
     .aurora-3 {
-      background: radial-gradient(circle, #00ff87 0%, rgba(0, 255, 135, 0) 70%);
-      width: 520px;
-      height: 520px;
+      background: radial-gradient(circle, rgba(0, 255, 135, 0.7) 0%, rgba(0, 255, 135, 0) 70%);
+      width: 600px;
+      height: 600px;
       bottom: -100px;
       left: 25%;
       animation: auroraFloat3 14s ease-in-out infinite;
     }
 
     .light-mode .aurora-blob {
-      opacity: 0.22;
+      opacity: 0.28;
     }
 
     /* Neon Cursor Sparkle Trail Effect */
     .cursor-spark {
       position: fixed;
-      width: 5px;
-      height: 5px;
+      width: 7px;
+      height: 7px;
       background-color: #00ff87;
       border-radius: 50%;
       pointer-events: none;
       z-index: 99997;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 8px #00ff87, 0 0 16px #10b981;
-      animation: sparkFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87, 0 0 30px #10b981;
+      animation: sparkFade 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     @keyframes sparkFade {
       0% {
-        opacity: 0.95;
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.2);
       }
       100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0.15) translateY(12px);
+        transform: translate(-50%, -50%) scale(0.1) translateY(16px);
       }
     }
 
