@@ -4442,11 +4442,32 @@
               <p><strong class="text-neonBright">skills</strong>      - List technical competencies & stack</p>
               <p><strong class="text-neonBright">projects</strong>    - List featured applications</p>
               <p><strong class="text-neonBright">contact</strong>     - Get direct email & social handles</p>
+              <p><strong class="text-neonBright">hack</strong>        - 🎮 Launch Security Decryption Mini-Game (Easter Egg!)</p>
               <p><strong class="text-neonBright">theme</strong>       - Toggle Dark / Light mode</p>
               <p><strong class="text-neonBright">clear</strong>       - Clear terminal buffer</p>
               <p><strong class="text-neonBright">matrix</strong>      - Trigger cyberpunk code visualizer</p>
               <p><strong class="text-neonBright">exit</strong>        - Close CLI session</p>
             `;
+            break;
+
+          case 'hack':
+          case 'game':
+          case 'override':
+            res.innerHTML = `
+              <div class="p-3 bg-[#0d0d0d] rounded-xl border border-neon/50 space-y-2 font-mono text-xs my-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]">
+                <div class="flex items-center justify-between text-neon font-bold">
+                  <span>[FIREWALL ALERT] NEURAL CORE ENCRYPTED</span>
+                  <span class="animate-ping text-[10px] text-neonBright">● SECURE</span>
+                </div>
+                <p class="text-textMuted">Decryption Key Stream: <span class="text-neonBright font-mono animate-pulse">0x7F4A... 0x99B1... 0x34FE... 0x88AA</span></p>
+                <p class="text-white">Click below or type <span class="text-neon font-bold">override</span> to execute firewall bypass protocol:</p>
+                <button onclick="runTerminalHackGame()" class="bg-gradient-to-r from-neon via-teal-400 to-neonBright text-dark font-black px-4 py-2 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.4)] hover:scale-105 transition-all cursor-pointer flex items-center gap-2">
+                  <i data-lucide="shield-alert" class="w-4 h-4 text-dark"></i>
+                  <span>⚡ Execute Override Protocol (Decrypt)</span>
+                </button>
+              </div>
+            `;
+            setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 50);
             break;
 
           case 'about':
@@ -4507,6 +4528,60 @@
         input.value = '';
         output.scrollTop = output.scrollHeight;
       });
+
+      // Interactive Terminal Hack Game Handler
+      window.runTerminalHackGame = function() {
+        const line = document.createElement('div');
+        line.className = 'p-3 bg-[#0a0a0a] border border-neon/60 rounded-xl my-2 font-mono text-xs text-neonBright space-y-1.5 shadow-[0_0_25px_rgba(0,255,135,0.3)] animate-pulse';
+        line.innerHTML = `<p class="font-bold text-neon">[BYPASS PROTOCOL ACTIVATED]</p><p>Initializing 256-bit quantum key solver...</p>`;
+        output.appendChild(line);
+        output.scrollTop = output.scrollHeight;
+
+        const steps = [
+          '[1/4] Intercepting SSL Handshake & Bypassing Ports...',
+          '[2/4] Cracking 256-Bit Neural Core Encryption...',
+          '[3/4] Injecting Overdrive Payload to Root Shell...',
+          '[4/4] ⚡ FIREWALL BROKEN — ACCESS GRANTED!'
+        ];
+
+        let idx = 0;
+        const hackTimer = setInterval(() => {
+          if (idx < steps.length) {
+            const p = document.createElement('p');
+            p.className = idx === 3 ? 'text-neonBright font-bold font-mono' : 'text-textMuted font-mono';
+            p.textContent = steps[idx];
+            line.appendChild(p);
+            output.scrollTop = output.scrollHeight;
+            idx++;
+          } else {
+            clearInterval(hackTimer);
+            line.classList.remove('animate-pulse');
+            
+            const rewardCard = document.createElement('div');
+            rewardCard.className = 'mt-3 p-4 bg-[#111111] border-2 border-neonBright rounded-2xl text-xs space-y-2 font-mono shadow-[0_0_30px_rgba(0,255,135,0.4)]';
+            rewardCard.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="bg-neon text-dark font-black px-2 py-0.5 rounded text-[10px]">🏆 LEVEL 5 UNLOCKED</span>
+                <span class="text-neonBright text-[10px]">SECRET EASTER EGG</span>
+              </div>
+              <h4 class="text-white font-bold text-sm">🎉 Congratulations Hacker! You Unlocked Ayush's Neural Core</h4>
+              <p class="text-textSecondary leading-relaxed">You discovered the secret portfolio decryption key! Here are 3 behind-the-scenes engineering facts:</p>
+              <ul class="list-disc list-inside text-textMuted space-y-1 text-[11px]">
+                <li><strong>Retail Guard AI:</strong> Achieves sub-35ms detection latency on YOLO models.</li>
+                <li><strong>HomePlate:</strong> Uses custom geospatial indexing for instant food delivery routing.</li>
+                <li><strong>Built With:</strong> Pure HTML5, Tailwind, JS, and Web Audio synthesis (No heavy frameworks!).</li>
+              </ul>
+              <div class="pt-2 border-t border-darkBorder flex items-center justify-between text-[11px]">
+                <span class="text-neon font-bold">Secret Code: AYUSH-NEURAL-2026</span>
+                <a href="mailto:ayushgaurav4529@gmail.com?subject=I%20Hacked%20Your%20Portfolio!" class="text-neonBright font-bold underline hover:text-white">Claim Reward →</a>
+              </div>
+            `;
+            output.appendChild(rewardCard);
+            output.scrollTop = output.scrollHeight;
+            if (window.lucide) lucide.createIcons();
+          }
+        }, 350);
+      };
     })();
 
     // 2. Interactive Certificate Verifier Modal
