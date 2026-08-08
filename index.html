@@ -498,6 +498,119 @@
       }
     }
 
+    /* ==========================================================================
+       MODULAR VISUAL EFFECTS (MODULAR & EASY TO DISABLE)
+       ========================================================================== */
+
+    /* --- EFFECT 1: CYBERPUNK GLITCH TEXT ANIMATION --- */
+    .glitch-hover-text {
+      position: relative;
+      display: inline-block;
+    }
+
+    .glitch-hover-text::before,
+    .glitch-hover-text::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: inset(0 0 0 0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .glitch-hover-text:hover::before {
+      left: 2px;
+      text-shadow: -2px 0 #ff0055;
+      animation: glitchAnim1 0.4s infinite linear alternate-reverse;
+      opacity: 0.85;
+    }
+
+    .glitch-hover-text:hover::after {
+      left: -2px;
+      text-shadow: 2px 0 #00ff87;
+      animation: glitchAnim2 0.4s infinite linear alternate-reverse;
+      opacity: 0.85;
+    }
+
+    @keyframes glitchAnim1 {
+      0% { clip-path: inset(10% 0 80% 0); }
+      20% { clip-path: inset(60% 0 10% 0); }
+      40% { clip-path: inset(40% 0 40% 0); }
+      60% { clip-path: inset(80% 0 5% 0); }
+      80% { clip-path: inset(15% 0 65% 0); }
+      100% { clip-path: inset(30% 0 50% 0); }
+    }
+
+    @keyframes glitchAnim2 {
+      0% { clip-path: inset(70% 0 15% 0); }
+      20% { clip-path: inset(20% 0 60% 0); }
+      40% { clip-path: inset(50% 0 20% 0); }
+      60% { clip-path: inset(10% 0 75% 0); }
+      80% { clip-path: inset(85% 0 5% 0); }
+      100% { clip-path: inset(35% 0 40% 0); }
+    }
+
+    /* --- EFFECT 2: MAGNETIC HOVER BUTTONS --- */
+    .magnetic-btn {
+      transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform;
+    }
+
+    /* --- EFFECT 3: SCROLL PROGRESS BAR --- */
+    #scroll-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #10b981 0%, #00ff87 50%, #34d399 100%);
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.8), 0 0 20px rgba(16, 185, 129, 0.5);
+      z-index: 99999;
+      pointer-events: none;
+      transition: width 0.1s ease-out;
+    }
+
+    /* --- EFFECT 5: KINETIC TEXT SPLIT REVEAL --- */
+    .section-heading-kinetic {
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+      opacity: 0;
+      transform: translateY(30px) scale(0.96);
+      filter: blur(6px);
+    }
+
+    .section-heading-kinetic.heading-revealed {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* --- EFFECT 6: NEON RIPPLE CLICK WAVE --- */
+    .click-ripple {
+      position: fixed;
+      border-radius: 50%;
+      border: 2px solid #00ff87;
+      box-shadow: 0 0 15px #00ff87, inset 0 0 15px #00ff87;
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate(-50%, -50%) scale(0);
+      animation: rippleExpand 0.55s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes rippleExpand {
+      0% {
+        width: 0px;
+        height: 0px;
+        opacity: 0.9;
+      }
+      100% {
+        width: 140px;
+        height: 140px;
+        opacity: 0;
+      }
+    }
+
     /* Interactive Spotlight & 3D Tilt Card Effect */
     .spotlight-card {
       position: relative;
@@ -1414,6 +1527,9 @@
     </button>
   </div>
 
+  <!-- --- EFFECT 3: SCROLL PROGRESS BAR --- -->
+  <div id="scroll-progress-bar" style="width: 0%;"></div>
+
   <!-- Particle canvas & Living Aurora background -->
   <div class="aurora-container pointer-events-none fixed inset-0 z-0 overflow-hidden">
     <div class="aurora-blob aurora-1"></div>
@@ -1880,7 +1996,8 @@
 
       <!-- Name & Typing Animation -->
       <h1
-        class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight gradient-text mb-3 sm:mb-4 animate-on-scroll max-w-full break-words"
+        class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight gradient-text mb-3 sm:mb-4 animate-on-scroll max-w-full break-words glitch-hover-text"
+        data-text="AYUSH GAURAV"
         style="line-height: 1.05;">
         AYUSH GAURAV
       </h1>
@@ -4936,6 +5053,107 @@
         card.style.backgroundImage = 'none';
       });
     });
+
+    // ==========================================================================
+    // 14. MODULAR VISUAL EFFECTS LOGIC (MODULAR & EASY TO DISABLE / REMOVE)
+    // ==========================================================================
+
+    // --- EFFECT 2: MAGNETIC HOVER BUTTONS ---
+    (function initMagneticButtons() {
+      const magneticElements = document.querySelectorAll('.btn-open-pdf, #btnOpenPdfHero, #aiChatToggleBtn, .magnetic-btn, .contact-link, .project-filter-btn');
+      magneticElements.forEach((el) => {
+        el.classList.add('magnetic-btn');
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          el.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'translate(0px, 0px)';
+        });
+      });
+    })();
+
+    // --- EFFECT 3: SCROLL PROGRESS BAR ---
+    (function initScrollProgressBar() {
+      const progressBar = document.getElementById('scroll-progress-bar');
+      if (!progressBar) return;
+
+      window.addEventListener('scroll', () => {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight <= 0) return;
+        const progress = (window.scrollY / totalHeight) * 100;
+        progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+      }, { passive: true });
+    })();
+
+    // --- EFFECT 4: NUMBER COUNTER ROLLUP ---
+    (function initNumberCounters() {
+      const counters = document.querySelectorAll('.counter-rollup, #github-activity .text-2xl, #github-activity .text-3xl');
+      if (!counters.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const text = el.textContent || '';
+            const match = text.match(/\d+/);
+            if (match) {
+              const targetNum = parseInt(match[0], 10);
+              const suffix = text.replace(match[0], '');
+              let current = 0;
+              const step = Math.max(1, Math.floor(targetNum / 25));
+              const timer = setInterval(() => {
+                current += step;
+                if (current >= targetNum) {
+                  current = targetNum;
+                  clearInterval(timer);
+                }
+                el.textContent = `${current}${suffix}`;
+              }, 40);
+            }
+            observer.unobserve(el);
+          }
+        });
+      }, { threshold: 0.3 });
+
+      counters.forEach((c) => observer.observe(c));
+    })();
+
+    // --- EFFECT 5: KINETIC TEXT SPLIT REVEAL ---
+    (function initKineticTextReveals() {
+      const headings = document.querySelectorAll('.section-heading, .section-heading-kinetic, h2');
+      if (!headings.length) return;
+
+      headings.forEach((h) => h.classList.add('section-heading-kinetic'));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('heading-revealed');
+          }
+        });
+      }, { threshold: 0.2 });
+
+      headings.forEach((h) => observer.observe(h));
+    })();
+
+    // --- EFFECT 6: NEON RIPPLE CLICK WAVE ---
+    (function initNeonClickRipple() {
+      window.addEventListener('click', (e) => {
+        // Skip text inputs and buttons with default click behavior to keep UI clean
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const ripple = document.createElement('div');
+        ripple.className = 'click-ripple';
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+      });
+    })();
 
   </script>
 </body>
