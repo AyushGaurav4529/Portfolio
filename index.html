@@ -1090,12 +1090,31 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease;
     }
     #cyber-preloader.loaded {
       opacity: 0;
+      filter: blur(12px) scale(1.05);
       visibility: hidden;
       pointer-events: none;
+    }
+
+    .preloader-scanline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00ff87, transparent);
+      box-shadow: 0 0 10px #00ff87;
+      animation: scanSweep 2s ease-in-out infinite;
+    }
+
+    @keyframes scanSweep {
+      0% { top: 0%; opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
     }
   </style>
 </head>
@@ -1103,17 +1122,52 @@
 <body class="bg-grid relative">
   <!-- System Startup Cyber Preloader -->
   <div id="cyber-preloader">
-    <div class="relative flex flex-col items-center gap-4">
-      <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-neutral-900 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_35px_rgba(16,185,129,0.35)] animate-pulse">
-        <span class="font-mono font-bold text-xl sm:text-2xl text-emerald-400">AG</span>
-        <div class="absolute -inset-1 rounded-2xl border border-emerald-500/20 animate-ping opacity-40"></div>
-      </div>
-      <div class="flex flex-col items-center gap-2 font-mono text-center">
-        <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase">INITIALIZING SYSTEM</span>
-        <div class="w-44 sm:w-52 h-1.5 bg-neutral-900 rounded-full overflow-hidden border border-emerald-500/30">
-          <div id="preloader-bar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 w-0 transition-all duration-200"></div>
+    <!-- Subtle Background Glow Orb -->
+    <div class="absolute w-[350px] h-[350px] rounded-full bg-emerald-500/10 blur-[90px] pointer-events-none animate-pulse"></div>
+
+    <div class="relative flex flex-col items-center gap-6 max-w-sm w-full px-6 py-8 bg-[#0a0a0a]/90 backdrop-blur-2xl border border-emerald-500/40 rounded-3xl shadow-[0_0_60px_rgba(16,185,129,0.25)] font-mono text-center overflow-hidden">
+      
+      <!-- HUD Corner Brackets -->
+      <span class="absolute top-3 left-4 text-[10px] text-emerald-500/60 font-bold">┌ SYSTEM BOOT</span>
+      <span class="absolute top-3 right-4 text-[10px] text-emerald-500/60 font-bold">CORE v2.4 ┐</span>
+      <span class="absolute bottom-3 left-4 text-[10px] text-emerald-500/60 font-bold">└ PORTFOLIO OS</span>
+      <span class="absolute bottom-3 right-4 text-[10px] text-emerald-500/60 font-bold">READY ┘</span>
+
+      <!-- Dual Ring Rotating Cyber Logo Orb -->
+      <div class="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center mt-2">
+        <!-- Outer Spinning Dash Ring -->
+        <div class="absolute inset-0 rounded-full border-2 border-dashed border-emerald-400/70 animate-[spin_8s_linear_infinite] shadow-[0_0_20px_rgba(0,255,135,0.4)]"></div>
+        
+        <!-- Inner Reverse Spinning Accent Ring -->
+        <div class="absolute inset-2 rounded-full border border-teal-400/40 border-t-emerald-400 border-b-emerald-400 animate-[spin_4s_linear_infinite_reverse]"></div>
+        
+        <!-- Center Glass Logo Badge -->
+        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-neutral-900/90 border border-emerald-400/60 flex items-center justify-center shadow-[0_0_25px_rgba(16,185,129,0.5)] relative overflow-hidden group">
+          <span class="font-mono font-black text-2xl sm:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-300 drop-shadow-[0_0_10px_rgba(0,255,135,0.8)]">AG</span>
+          <!-- Laser Scanline Sweep -->
+          <div class="preloader-scanline"></div>
         </div>
-        <span id="preloader-status" class="text-[10px] text-neutral-400 tracking-wider">LOADING ASSETS & STYLES...</span>
+      </div>
+
+      <!-- Live Loading Info -->
+      <div class="flex flex-col items-center gap-3 w-full">
+        <div class="flex items-center justify-between w-full text-xs font-bold text-emerald-400 px-1">
+          <span class="tracking-widest uppercase flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block"></span>
+            INITIALIZING
+          </span>
+          <span id="preloader-percent" class="text-emerald-300 font-mono font-black">0%</span>
+        </div>
+
+        <!-- Multi-gradient Progress Track -->
+        <div class="w-full h-2 bg-neutral-950 rounded-full overflow-hidden border border-emerald-500/30 p-0.5 shadow-inner">
+          <div id="preloader-bar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-300 to-emerald-400 rounded-full w-0 transition-all duration-150 shadow-[0_0_15px_#00ff87]"></div>
+        </div>
+
+        <!-- Real-time Scrolling Cyber Log Console -->
+        <div class="w-full bg-[#050505] p-2.5 rounded-xl border border-neutral-800 text-[11px] text-neutral-400 h-9 overflow-hidden flex items-center justify-center">
+          <span id="preloader-status" class="text-emerald-400/90 font-mono tracking-wide truncate">Loading neural weights & assets...</span>
+        </div>
       </div>
     </div>
   </div>
@@ -2915,25 +2969,47 @@
     (function initPreloader() {
       const preloader = document.getElementById('cyber-preloader');
       const bar = document.getElementById('preloader-bar');
+      const percent = document.getElementById('preloader-percent');
       const status = document.getElementById('preloader-status');
       if (!preloader) return;
 
+      const logMessages = [
+        'Loading neural weights & shaders...',
+        'Initializing high-frequency renderer...',
+        'Establishing socket mesh...',
+        'Optimizing visual DOM trees...',
+        'System Operational. Opening UI...'
+      ];
+
       let progress = 0;
+      let msgIndex = 0;
+
       const timer = setInterval(() => {
-        progress += Math.floor(Math.random() * 25) + 15;
-        if (bar) bar.style.width = Math.min(progress, 90) + '%';
-        if (progress >= 90) clearInterval(timer);
-      }, 40);
+        progress += Math.floor(Math.random() * 20) + 12;
+        if (progress > 95) progress = 95;
+        
+        if (bar) bar.style.width = progress + '%';
+        if (percent) percent.textContent = progress + '%';
+        
+        if (status && progress % 25 === 0 && msgIndex < logMessages.length - 1) {
+          msgIndex++;
+          status.textContent = logMessages[msgIndex];
+        }
+
+        if (progress >= 95) clearInterval(timer);
+      }, 45);
 
       function hidePreloader() {
+        clearInterval(timer);
         if (bar) bar.style.width = '100%';
-        if (status) status.textContent = 'SYSTEM READY';
+        if (percent) percent.textContent = '100%';
+        if (status) status.textContent = 'SYSTEM OPERATIONAL';
         setTimeout(() => {
           preloader.classList.add('loaded');
           if (window.lucide && typeof window.lucide.createIcons === 'function') {
             window.lucide.createIcons();
           }
-        }, 150);
+        }, 180);
       }
 
       if (document.readyState === 'complete') {
