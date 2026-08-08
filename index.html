@@ -217,15 +217,17 @@
 
     .animate-on-scroll {
       opacity: 0;
-      transform: translateY(40px) scale(0.96);
-      filter: blur(8px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translate3d(0, 30px, 0) scale(0.97);
+      filter: blur(6px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform, filter;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .animate-on-scroll.visible {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
       filter: blur(0);
     }
 
@@ -1173,7 +1175,7 @@
   </div>
 
   <!-- Cursor Spotlight Aura -->
-  <div id="cursorSpotlight" class="fixed top-0 left-0 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.16)_0%,rgba(0,255,135,0.06)_45%,transparent_70%)] blur-[50px] pointer-events-none z-[60] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 opacity-0 hidden md:block"></div>
+  <div id="cursorSpotlight" class="fixed top-0 left-0 w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.16)_0%,rgba(0,255,135,0.06)_45%,transparent_70%)] blur-[50px] pointer-events-none z-[60] will-change-transform transition-opacity duration-500 opacity-0 hidden md:block" style="will-change: transform;"></div>
 
   <!-- Scroll Progress Bar -->
   <div id="scroll-progress-bar"
@@ -5022,8 +5024,7 @@
     
     window.addEventListener('mousemove', (e) => {
       if (cursorSpotlight) {
-        cursorSpotlight.style.left = e.clientX + 'px';
-        cursorSpotlight.style.top = e.clientY + 'px';
+        cursorSpotlight.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
         cursorSpotlight.style.opacity = '1';
       }
 
