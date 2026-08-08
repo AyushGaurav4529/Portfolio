@@ -217,13 +217,16 @@
 
     .animate-on-scroll {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+      transform: translateY(40px) scale(0.96);
+      filter: blur(8px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
     }
 
     .animate-on-scroll.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+      filter: blur(0);
     }
 
     /* Timeline card hover */
@@ -396,8 +399,102 @@
 
     @media (pointer: coarse) {
       #custom-cursor-dot,
-      #custom-cursor-ring {
+      #custom-cursor-ring,
+      .cursor-spark {
         display: none !important;
+      }
+    }
+
+    /* Living Aurora / Borealis Background Effect */
+    @keyframes auroraFloat1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -40px) scale(1.12); }
+      66% { transform: translate(-30px, 30px) scale(0.92); }
+    }
+
+    @keyframes auroraFloat2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-60px, 50px) scale(1.15); }
+      66% { transform: translate(40px, -20px) scale(0.95); }
+    }
+
+    @keyframes auroraFloat3 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 40px) scale(1.2); }
+    }
+
+    .aurora-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .aurora-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      will-change: transform;
+    }
+
+    .aurora-1 {
+      background: radial-gradient(circle, #10b981 0%, rgba(16, 185, 129, 0) 70%);
+      width: 650px;
+      height: 650px;
+      top: -150px;
+      left: -100px;
+      animation: auroraFloat1 16s ease-in-out infinite;
+    }
+
+    .aurora-2 {
+      background: radial-gradient(circle, #6366f1 0%, rgba(99, 102, 241, 0) 70%);
+      width: 580px;
+      height: 580px;
+      top: 35%;
+      right: -150px;
+      animation: auroraFloat2 18s ease-in-out infinite;
+    }
+
+    .aurora-3 {
+      background: radial-gradient(circle, #00ff87 0%, rgba(0, 255, 135, 0) 70%);
+      width: 520px;
+      height: 520px;
+      bottom: -100px;
+      left: 25%;
+      animation: auroraFloat3 14s ease-in-out infinite;
+    }
+
+    .light-mode .aurora-blob {
+      opacity: 0.22;
+    }
+
+    /* Neon Cursor Sparkle Trail Effect */
+    .cursor-spark {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background-color: #00ff87;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99997;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px #00ff87, 0 0 16px #10b981;
+      animation: sparkFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes sparkFade {
+      0% {
+        opacity: 0.95;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.15) translateY(12px);
       }
     }
 
@@ -1317,7 +1414,12 @@
     </button>
   </div>
 
-  <!-- Particle canvas background -->
+  <!-- Particle canvas & Living Aurora background -->
+  <div class="aurora-container pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div class="aurora-blob aurora-1"></div>
+    <div class="aurora-blob aurora-2"></div>
+    <div class="aurora-blob aurora-3"></div>
+  </div>
   <canvas id="particles-canvas"></canvas>
   <div id="custom-cursor-dot"></div>
   <div id="custom-cursor-ring"></div>
@@ -4732,19 +4834,34 @@
     })();
 
     // ──────────────────────────────────────────────
-    // 11. Interactive Neon Cursor Spotlight
+    // 11. Interactive Neon Cursor Spotlight & Sparkle Trail
     // ──────────────────────────────────────────────
     const cursorSpotlight = document.getElementById('cursorSpotlight');
-    if (cursorSpotlight) {
-      window.addEventListener('mousemove', (e) => {
+    let lastSparkTime = 0;
+    
+    window.addEventListener('mousemove', (e) => {
+      if (cursorSpotlight) {
         cursorSpotlight.style.left = e.clientX + 'px';
         cursorSpotlight.style.top = e.clientY + 'px';
         cursorSpotlight.style.opacity = '1';
-      });
-      document.addEventListener('mouseleave', () => {
-        cursorSpotlight.style.opacity = '0';
-      });
-    }
+      }
+
+      // Spawn subtle glowing sparkle trail (throttled ~40ms)
+      const now = Date.now();
+      if (now - lastSparkTime > 40 && !window.matchMedia('(pointer: coarse)').matches) {
+        lastSparkTime = now;
+        const spark = document.createElement('div');
+        spark.className = 'cursor-spark';
+        spark.style.left = e.clientX + 'px';
+        spark.style.top = e.clientY + 'px';
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 600);
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      if (cursorSpotlight) cursorSpotlight.style.opacity = '0';
+    });
 
     // ──────────────────────────────────────────────
     // 12. 3D Flipping ICARD Logic
