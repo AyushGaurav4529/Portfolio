@@ -1040,6 +1040,21 @@
       transform: rotate(0deg) translateY(0px) !important;
     }
 
+    /* Subtle Motion over Heavy Glows: Quiet Ambient Glassmorphism */
+    .glass-ambient {
+      background: rgba(17, 17, 17, 0.75) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.05) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    .glass-ambient:hover {
+      border-color: rgba(255, 255, 255, 0.15) !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.12) !important;
+    }
+
   
     /* Interactive Neon Cursor Spotlight */
     #cursorSpotlight {
@@ -1068,7 +1083,11 @@
       height: 100%;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
-      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s ease;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
 
     /* FRONT FACE: facing front (0deg) by default */
@@ -1948,7 +1967,7 @@
 
       <!-- Status Badge (Open to Opportunities) -->
       <div class="mb-4 animate-on-scroll">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-darkCard/90 border border-neon/40 text-xs font-mono text-neon font-semibold shadow-[0_0_15px_rgba(16,185,129,0.25)] hover:border-neon transition-all">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#111111]/75 backdrop-blur-[16px] border border-white/10 text-xs font-mono text-neon font-semibold shadow-sm hover:border-white/20 transition-all">
           <span class="relative flex h-2.5 w-2.5">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-neon"></span>
@@ -1976,7 +1995,7 @@
           <div id="icardInner" class="icard-inner relative w-full h-full">
 
             <!-- FRONT FACE -->
-            <div class="icard-face icard-front bg-[#111111] border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] group-hover:border-neonBright group-hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] flex flex-col justify-between transition-all">
+            <div class="icard-face icard-front bg-[#111111]/85 backdrop-blur-[16px] border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:border-white/20 flex flex-col justify-between transition-all">
 
               <!-- Top Glowing Edge Line -->
               <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neon via-neonBright to-neon rounded-t-2xl"></div>
@@ -2025,7 +2044,7 @@
             </div>
 
             <!-- BACK FACE (TECH SPECS & QR CODE) -->
-            <div class="icard-face icard-back bg-[#0d0d0d] border border-neonBright/60 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_35px_rgba(0,255,135,0.3)] flex flex-col justify-between">
+            <div class="icard-face icard-back bg-[#0d0d0d]/90 backdrop-blur-[16px] border border-white/10 rounded-2xl p-3 sm:p-4 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-between">
               
               <!-- Top Glowing Edge Line -->
               <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neonBright via-neon to-neonBright rounded-t-2xl"></div>
