@@ -83,6 +83,8 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <!-- PDF.js for Cross-Platform PDF Viewer -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Motion / Framer Motion CDN for Spring Physics Micro-Interactions -->
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
 
   <style>
     * {
@@ -5163,22 +5165,64 @@
     });
 
     // ==========================================================================
-    // 14. MODULAR VISUAL EFFECTS LOGIC (MODULAR & EASY TO DISABLE / REMOVE)
+    // 14. SPRING PHYSICS MICRO-ANIMATIONS & AMBIENT LIGHT REFLECTIONS
     // ==========================================================================
 
-    // --- EFFECT 2: MAGNETIC HOVER BUTTONS ---
-    (function initMagneticButtons() {
-      const magneticElements = document.querySelectorAll('.btn-open-pdf, #btnOpenPdfHero, #aiChatToggleBtn, .magnetic-btn, .contact-link, .project-filter-btn');
+    // --- EFFECT 2: SPRING PHYSICS MAGNETIC HOVER BUTTONS ---
+    (function initSpringMagneticButtons() {
+      const magneticElements = document.querySelectorAll('.btn-open-pdf, #btnOpenPdfHero, #aiChatToggleBtn, .magnetic-btn, .contact-link, .project-filter-btn, .btn-connect, #btnNavCv, .btn-copy-email, .btn-copy-phone');
+      
       magneticElements.forEach((el) => {
         el.classList.add('magnetic-btn');
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+        let isHovered = false;
+        let rafId = null;
+
+        function updateSpring() {
+          // Spring physics dampening formula
+          currentX += (targetX - currentX) * 0.18;
+          currentY += (targetY - currentY) * 0.18;
+
+          el.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) scale3d(${isHovered ? 1.04 : 1}, ${isHovered ? 1.04 : 1}, 1)`;
+
+          if (isHovered || Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+            rafId = requestAnimationFrame(updateSpring);
+          } else {
+            el.style.transform = 'translate3d(0px, 0px, 0) scale3d(1, 1, 1)';
+          }
+        }
+
         el.addEventListener('mousemove', (e) => {
           const rect = el.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          el.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+          targetX = (e.clientX - rect.left - rect.width / 2) * 0.35;
+          targetY = (e.clientY - rect.top - rect.height / 2) * 0.35;
+          if (!isHovered) {
+            isHovered = true;
+            rafId = requestAnimationFrame(updateSpring);
+          }
         });
+
         el.addEventListener('mouseleave', () => {
-          el.style.transform = 'translate(0px, 0px)';
+          isHovered = false;
+          targetX = 0;
+          targetY = 0;
+        });
+      });
+    })();
+
+    // --- CURSOR-FOLLOWING AMBIENT LIGHT REFLECTIONS ON CARDS ---
+    (function initCardLightReflections() {
+      const cards = document.querySelectorAll('.timeline-card, .skill-category-block, .project-card, .glass-ambient, #connect .lg\\:col-span-5, #connect .lg\\:col-span-7');
+      cards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.backgroundImage = `radial-gradient(400px circle at ${x}px ${y}px, rgba(16, 185, 129, 0.08) 0%, transparent 80%)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.backgroundImage = 'none';
         });
       });
     })();
