@@ -3324,9 +3324,10 @@
     if (typingTextEl) {
       const roles = [
         'AI & Full Stack Developer',
+        'Scalable Software Developer',
         'CS Engineering Undergrad',
         'Machine Learning Enthusiast',
-        'Scalable Software Architect'
+        'Problem Solver & Open Source Contributor'
       ];
       let roleIdx = 0;
       let charIdx = 0;
@@ -3342,19 +3343,21 @@
           charIdx++;
         }
 
-        let speed = isDeleting ? 40 : 80;
+        // Slower typing (140ms/char) and deleting (75ms/char) for a smooth experience
+        let speed = isDeleting ? 75 : 140;
         if (!isDeleting && charIdx === currentRole.length) {
-          speed = 2200; // Pause at end of word
+          speed = 2800; // Pause at end of word
           isDeleting = true;
         } else if (isDeleting && charIdx === 0) {
           isDeleting = false;
           roleIdx = (roleIdx + 1) % roles.length;
-          speed = 400;
+          speed = 600; // Pause before typing next word
         }
         setTimeout(typeLoop, speed);
       }
       typeLoop();
     }
+
 
     // ──────────────────────────────────────────────
     // 4. Skill Bar Filling via Intersection Observer
@@ -4331,49 +4334,8 @@
       });
     })();
 
-    // F. Dynamic Auto-Typing Role Switcher
-    (function initRoleTypewriter() {
-      const roleElement = document.getElementById('hero-typing-text');
-      if (!roleElement) return;
+    // F. Dynamic Auto-Typing Role Switcher handled by Section 3 above
 
-      const roles = [
-        'AI & Machine Learning Developer',
-        'Full Stack Web Engineer',
-        'Scalable Software Developer',
-        'Problem Solver & Open Source Contributor'
-      ];
-
-      let roleIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-
-      function typeLoop() {
-        const currentRole = roles[roleIndex];
-
-        if (isDeleting) {
-          charIndex--;
-          roleElement.textContent = currentRole.substring(0, charIndex);
-        } else {
-          charIndex++;
-          roleElement.textContent = currentRole.substring(0, charIndex);
-        }
-
-        let typeSpeed = isDeleting ? 40 : 80;
-
-        if (!isDeleting && charIndex === currentRole.length) {
-          typeSpeed = 2200; // Pause at full text
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          roleIndex = (roleIndex + 1) % roles.length;
-          typeSpeed = 400; // Pause before typing next
-        }
-
-        setTimeout(typeLoop, typeSpeed);
-      }
-
-      typeLoop();
-    })();
 
     // ──────────────────────────────────────────────
     // 16. TOP 1% PORTFOLIO FEATURES IMPLEMENTATION
