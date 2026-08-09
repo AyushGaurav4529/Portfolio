@@ -1049,6 +1049,7 @@
     /* 3D Flip Card Container */
     .icard-perspective {
       perspective: 1000px;
+      -webkit-perspective: 1000px;
     }
 
     .icard-inner {
@@ -1057,6 +1058,7 @@
       height: 100%;
       transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
 
     .icard-inner.is-flipped {
@@ -1064,24 +1066,35 @@
     }
 
     .icard-face {
+      position: absolute;
+      inset: 0;
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
     }
 
     .icard-front {
+      z-index: 2;
+      opacity: 1;
       pointer-events: auto;
     }
 
     .icard-back {
       transform: rotateY(180deg);
+      z-index: 1;
+      opacity: 0;
       pointer-events: none;
     }
 
     .icard-inner.is-flipped .icard-front {
+      z-index: 1;
+      opacity: 0;
       pointer-events: none;
     }
 
     .icard-inner.is-flipped .icard-back {
+      z-index: 2;
+      opacity: 1;
       pointer-events: auto;
     }
 
@@ -1959,7 +1972,7 @@
           <div id="icardInner" class="icard-inner relative w-full h-full">
 
             <!-- FRONT FACE -->
-            <div class="icard-face icard-front absolute inset-0 bg-[#111111]/95 backdrop-blur-md border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] group-hover:border-neonBright group-hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] flex flex-col justify-between transition-all">
+            <div class="icard-face icard-front bg-[#111111] border border-neon/50 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(16,185,129,0.25)] group-hover:border-neonBright group-hover:shadow-[0_0_40px_rgba(0,255,135,0.4)] flex flex-col justify-between transition-all">
 
               <!-- Top Glowing Edge Line -->
               <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neon via-neonBright to-neon rounded-t-2xl"></div>
@@ -2013,7 +2026,7 @@
             </div>
 
             <!-- BACK FACE (TECH SPECS & QR CODE) -->
-            <div class="icard-face icard-back absolute inset-0 bg-[#0d0d0d]/98 backdrop-blur-md border border-neonBright/60 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_35px_rgba(0,255,135,0.3)] flex flex-col justify-between">
+            <div class="icard-face icard-back bg-[#0d0d0d] border border-neonBright/60 rounded-2xl p-3 sm:p-4 shadow-[0_20px_40px_rgba(0,0,0,0.9),0_0_35px_rgba(0,255,135,0.3)] flex flex-col justify-between">
               
               <!-- Top Glowing Edge Line -->
               <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-neonBright via-neon to-neonBright rounded-t-2xl"></div>
