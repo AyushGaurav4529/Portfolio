@@ -111,6 +111,13 @@
   </script>
 
   <style>
+    :root {
+      --color-neon: #10b981;
+      --color-neon-bright: #00ff87;
+      --color-neon-rgb: 16, 185, 129;
+      --color-neon-bright-rgb: 0, 255, 135;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -127,7 +134,7 @@
     html {
       scroll-behavior: smooth;
       scrollbar-width: thin;
-      scrollbar-color: #10b981 #0a0a0a;
+      scrollbar-color: var(--color-neon) #0a0a0a;
     }
 
     body {
@@ -158,7 +165,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #10b981;
+      background: var(--color-neon);
       border-radius: 3px;
     }
 
@@ -167,11 +174,11 @@
 
       0%,
       100% {
-        box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+        box-shadow: 0 0 8px rgba(var(--color-neon-rgb), 0.3);
       }
 
       50% {
-        box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
+        box-shadow: 0 0 20px rgba(var(--color-neon-bright-rgb), 0.5);
       }
     }
 
@@ -277,8 +284,8 @@
 
     .timeline-card:hover {
       transform: scale(1.03);
-      border-color: #10b981;
-      box-shadow: 0 0 20px rgba(0, 255, 135, 0.25), 0 0 40px rgba(0, 255, 135, 0.08);
+      border-color: var(--color-neon);
+      box-shadow: 0 0 20px rgba(var(--color-neon-bright-rgb), 0.25), 0 0 40px rgba(var(--color-neon-bright-rgb), 0.08);
     }
 
     /* Timeline node dot */
@@ -288,8 +295,8 @@
 
     .timeline-card:hover~.timeline-dot,
     .timeline-group:hover .timeline-dot {
-      background-color: #00ff87 !important;
-      box-shadow: 0 0 16px rgba(0, 255, 135, 0.6);
+      background-color: var(--color-neon-bright) !important;
+      box-shadow: 0 0 16px rgba(var(--color-neon-bright-rgb), 0.6);
       transform: scale(1.4);
     }
 
@@ -300,10 +307,10 @@
     }
 
     .skill-pill:hover {
-      border-color: #10b981;
-      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+      border-color: var(--color-neon);
+      box-shadow: 0 0 12px rgba(var(--color-neon-rgb), 0.3);
       transform: translateY(-2px);
-      color: #00ff87;
+      color: var(--color-neon-bright);
     }
 
     /* CTA button */
@@ -329,21 +336,21 @@
     }
 
     .cta-btn:hover {
-      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), 0 0 60px rgba(16, 185, 129, 0.15);
+      box-shadow: 0 0 30px rgba(var(--color-neon-rgb), 0.4), 0 0 60px rgba(var(--color-neon-rgb), 0.15);
       transform: translateY(-2px);
     }
 
     /* Background grid pattern */
     .bg-grid {
       background-image:
-        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(var(--color-neon-rgb), 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--color-neon-rgb), 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
     /* Gradient text */
     .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #00ff87 100%);
+      background: linear-gradient(135deg, #ffffff 0%, var(--color-neon) 50%, var(--color-neon-bright) 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
@@ -353,12 +360,12 @@
 
     /* Timeline connector lines */
     .timeline-line {
-      background: linear-gradient(90deg, #1e1e1e, #10b981, #1e1e1e);
+      background: linear-gradient(90deg, #1e1e1e, var(--color-neon), #1e1e1e);
       height: 2px;
     }
 
     .timeline-line-v {
-      background: linear-gradient(180deg, #1e1e1e, #10b981, #1e1e1e);
+      background: linear-gradient(180deg, #1e1e1e, var(--color-neon), #1e1e1e);
       width: 2px;
     }
 
@@ -368,8 +375,8 @@
     }
 
     .contact-link:hover {
-      color: #00ff87;
-      text-shadow: 0 0 8px rgba(0, 255, 135, 0.4);
+      color: var(--color-neon-bright);
+      text-shadow: 0 0 8px rgba(var(--color-neon-bright-rgb), 0.4);
     }
 
     /* Section heading decoration */
@@ -378,7 +385,7 @@
       display: block;
       width: 60px;
       height: 3px;
-      background: linear-gradient(90deg, #10b981, #00ff87);
+      background: linear-gradient(90deg, var(--color-neon), var(--color-neon-bright));
       margin-top: 12px;
       border-radius: 2px;
     }
@@ -401,12 +408,12 @@
       left: 0;
       width: 6px;
       height: 6px;
-      background-color: #00ff87;
+      background-color: var(--color-neon-bright);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87;
+      box-shadow: 0 0 10px var(--color-neon-bright), 0 0 20px var(--color-neon-bright);
       transition: transform 0.05s ease-out, opacity 0.3s ease, background-color 0.2s ease;
     }
 
@@ -416,12 +423,12 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(16, 185, 129, 0.6);
+      border: 1.5px solid rgba(var(--color-neon-rgb), 0.6);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99998;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 15px rgba(var(--color-neon-rgb), 0.25);
       transition: width 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
                   height 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
                   border-color 0.25s ease, 
@@ -432,9 +439,9 @@
     #custom-cursor-ring.active-hover {
       width: 54px;
       height: 54px;
-      border-color: #00ff87;
-      background-color: rgba(16, 185, 129, 0.12);
-      box-shadow: 0 0 25px rgba(0, 255, 135, 0.4);
+      border-color: var(--color-neon-bright);
+      background-color: rgba(var(--color-neon-rgb), 0.12);
+      box-shadow: 0 0 25px rgba(var(--color-neon-bright-rgb), 0.4);
     }
 
     @media (pointer: coarse) {
@@ -605,8 +612,8 @@
       top: 0;
       left: 0;
       height: 3px;
-      background: linear-gradient(90deg, #10b981 0%, #00ff87 50%, #34d399 100%);
-      box-shadow: 0 0 10px rgba(0, 255, 135, 0.8), 0 0 20px rgba(16, 185, 129, 0.5);
+      background: linear-gradient(90deg, var(--color-neon) 0%, var(--color-neon-bright) 50%, var(--color-neon) 100%);
+      box-shadow: 0 0 10px rgba(var(--color-neon-bright-rgb), 0.8), 0 0 20px rgba(var(--color-neon-rgb), 0.5);
       z-index: 99999;
       pointer-events: none;
       transition: width 0.1s ease-out;
@@ -630,8 +637,8 @@
     .click-ripple {
       position: fixed;
       border-radius: 50%;
-      border: 2px solid #00ff87;
-      box-shadow: 0 0 15px #00ff87, inset 0 0 15px #00ff87;
+      border: 2px solid var(--color-neon-bright);
+      box-shadow: 0 0 15px var(--color-neon-bright), inset 0 0 15px var(--color-neon-bright);
       pointer-events: none;
       z-index: 99998;
       transform: translate(-50%, -50%) scale(0);
@@ -971,19 +978,19 @@
     }
 
     .side-nav-item.active .side-nav-dot {
-      background-color: #10b981 !important;
-      box-shadow: 0 0 12px #10b981, 0 0 20px rgba(0, 255, 135, 0.6) !important;
+      background-color: var(--color-neon) !important;
+      box-shadow: 0 0 12px var(--color-neon), 0 0 20px rgba(var(--color-neon-bright-rgb), 0.6) !important;
       transform: scale(1.5) !important;
     }
 
     .side-nav-item.active .side-nav-label {
       opacity: 1 !important;
-      color: #10b981 !important;
+      color: var(--color-neon) !important;
       font-weight: 600 !important;
     }
 
     .side-nav-item:hover .side-nav-dot {
-      background-color: #00ff87;
+      background-color: var(--color-neon-bright);
       transform: scale(1.2);
     }
 
@@ -995,16 +1002,16 @@
     }
 
     .light-mode .side-nav-item.active .side-nav-label {
-      color: #059669 !important;
+      color: var(--color-neon) !important;
     }
 
-    /* Neon accents stay the same green — keep readability */
+    /* Neon accents dynamic in Light & Dark Mode */
     .light-mode .text-neon {
-      color: #059669 !important;
+      color: var(--color-neon) !important;
     }
 
     .light-mode .text-neonBright {
-      color: #059669 !important;
+      color: var(--color-neon-bright) !important;
     }
 
     /* Scrollbar light */
@@ -3345,16 +3352,45 @@
       const menu = document.getElementById('accentPickerMenu');
 
       const accents = {
-        emerald: { neon: '#10b981', bright: '#00ff87' },
-        cyan: { neon: '#06b6d4', bright: '#38bdf8' },
-        indigo: { neon: '#6366f1', bright: '#818cf8' },
-        orange: { neon: '#f97316', bright: '#fb923c' }
+        emerald: {
+          neon: '#10b981',
+          bright: '#00ff87',
+          rgb: '16, 185, 129',
+          brightRgb: '0, 255, 135'
+        },
+        cyan: {
+          neon: '#06b6d4',
+          bright: '#38bdf8',
+          rgb: '6, 182, 212',
+          brightRgb: '56, 189, 248'
+        },
+        indigo: {
+          neon: '#6366f1',
+          bright: '#818cf8',
+          rgb: '99, 102, 241',
+          brightRgb: '129, 140, 248'
+        },
+        orange: {
+          neon: '#f97316',
+          bright: '#fb923c',
+          rgb: '249, 115, 22',
+          brightRgb: '251, 146, 60'
+        }
       };
 
       function setAccent(accentName) {
         const colors = accents[accentName] || accents.emerald;
         document.documentElement.style.setProperty('--color-neon', colors.neon);
         document.documentElement.style.setProperty('--color-neon-bright', colors.bright);
+        document.documentElement.style.setProperty('--color-neon-rgb', colors.rgb);
+        document.documentElement.style.setProperty('--color-neon-bright-rgb', colors.brightRgb);
+
+        // Force reactive color update on text & background utility classes
+        document.querySelectorAll('.text-neon').forEach(el => el.style.color = colors.neon);
+        document.querySelectorAll('.text-neonBright').forEach(el => el.style.color = colors.bright);
+        document.querySelectorAll('.border-neon').forEach(el => el.style.borderColor = colors.neon);
+        document.querySelectorAll('.bg-neon').forEach(el => el.style.backgroundColor = colors.neon);
+
         localStorage.setItem(ACCENT_KEY, accentName);
       }
 
@@ -4368,13 +4404,15 @@
       initMatrixColumns();
 
       function drawMatrixRain(isLight) {
+        const neonColor = getComputedStyle(document.documentElement).getPropertyValue('--color-neon-bright').trim() || '#00ff87';
         ctx.font = '10px "JetBrains Mono", monospace';
         for (let i = 0; i < drops.length; i++) {
           const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
           const x = i * 32;
           const y = drops[i] * fontSize;
 
-          ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.16)' : 'rgba(0, 255, 135, 0.18)';
+          ctx.fillStyle = neonColor;
+          ctx.globalAlpha = isLight ? 0.22 : 0.28;
           ctx.fillText(char, x, y);
 
           if (y > height && Math.random() > 0.975) {
@@ -4382,6 +4420,7 @@
           }
           drops[i] += 0.45;
         }
+        ctx.globalAlpha = 1.0;
       }
 
       // ──────────────────────────────────────────────
@@ -4454,9 +4493,8 @@
             const depthAlpha = Math.max(0.1, (p.z + globeRadius) / (globeRadius * 2));
             ctx.beginPath();
             ctx.arc(p.x, p.y, Math.max(1, 2 * p.scale), 0, Math.PI * 2);
-            ctx.fillStyle = isLight
-              ? `rgba(5, 150, 105, ${depthAlpha * 0.8})`
-              : `rgba(0, 255, 135, ${depthAlpha * 0.9})`;
+            const neonRgb = getComputedStyle(document.documentElement).getPropertyValue('--color-neon-bright-rgb').trim() || '0, 255, 135';
+            ctx.fillStyle = `rgba(${neonRgb}, ${depthAlpha * (isLight ? 0.7 : 0.9)})`;
             ctx.fill();
 
             // Connect to neighboring point longitude line
@@ -4465,9 +4503,7 @@
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(projected[nextIdx].x, projected[nextIdx].y);
-              ctx.strokeStyle = isLight
-                ? `rgba(5, 150, 105, ${depthAlpha * 0.3})`
-                : `rgba(0, 255, 135, ${depthAlpha * 0.35})`;
+              ctx.strokeStyle = `rgba(${neonRgb}, ${depthAlpha * (isLight ? 0.25 : 0.35)})`;
               ctx.lineWidth = 0.7;
               ctx.stroke();
             }
