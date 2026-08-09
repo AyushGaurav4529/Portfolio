@@ -2017,15 +2017,10 @@
                 </div>
               </div>
 
-              <!-- Barcode & Flip Hint Footer -->
+              <!-- Barcode & Status Footer -->
               <div class="mt-1 pt-1.5 border-t border-darkBorder/70 flex items-center justify-between font-mono text-[9px]">
                 <span class="text-textMuted font-bold">ID: 2024-AG</span>
-                <button type="button" id="icardFlipBtnFront"
-                  class="cursor-pointer inline-flex items-center gap-1 text-[9px] font-bold text-neonBright bg-neon/20 hover:bg-neon hover:text-dark border border-neon/50 px-2 py-0.5 rounded-full transition-all shadow-[0_0_8px_rgba(16,185,129,0.3)] hover:scale-105"
-                  title="Click to flip ID card">
-                  <span>Flip</span>
-                  <i data-lucide="rotate-cw" class="w-3 h-3"></i>
-                </button>
+                <span class="text-neon font-bold">VERIFIED</span>
               </div>
             </div>
 
@@ -2079,15 +2074,10 @@
                 </div>
               </div>
 
-              <!-- Flip Back Footer -->
+              <!-- Back Card Footer -->
               <div class="pt-1 border-t border-darkBorder/70 flex items-center justify-between font-mono text-[9px]">
                 <span class="text-textMuted font-bold">DEVTAC #2024</span>
-                <button type="button" id="icardFlipBtnBack"
-                  class="cursor-pointer inline-flex items-center gap-1 text-[9px] font-bold text-neonBright bg-neon/20 hover:bg-neon hover:text-dark border border-neon/50 px-2 py-0.5 rounded-full transition-all shadow-[0_0_8px_rgba(16,185,129,0.3)] hover:scale-105"
-                  title="Click to flip ID card back to front">
-                  <span>Flip Front</span>
-                  <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
-                </button>
+                <span class="text-neonBright font-bold">SECURE PASS</span>
               </div>
 
             </div>
@@ -5090,13 +5080,11 @@
     const icardInner = document.getElementById('icardInner');
     const heroIcardBadge = document.getElementById('heroIcardBadge');
     const icardPhotoBox = document.getElementById('icardPhotoBox');
-    const icardFlipBtnFront = document.getElementById('icardFlipBtnFront');
-    const icardFlipBtnBack = document.getElementById('icardFlipBtnBack');
 
     function toggleIcardFlip(e) {
       if (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (typeof e.preventDefault === 'function') e.preventDefault();
+        if (typeof e.stopPropagation === 'function') e.stopPropagation();
       }
       if (icardInner) {
         icardInner.classList.toggle('is-flipped');
@@ -5104,13 +5092,6 @@
           playUiSound(950, 0.08, 'triangle');
         }
       }
-    }
-
-    if (icardFlipBtnFront) {
-      icardFlipBtnFront.addEventListener('click', toggleIcardFlip);
-    }
-    if (icardFlipBtnBack) {
-      icardFlipBtnBack.addEventListener('click', toggleIcardFlip);
     }
 
     if (heroIcardBadge) {
