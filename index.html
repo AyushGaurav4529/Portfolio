@@ -52,8 +52,8 @@
             dark: '#0a0a0a',
             darkCard: '#111111',
             darkBorder: '#1e1e1e',
-            neon: '#10b981',
-            neonBright: '#00ff87',
+            neon: 'var(--color-neon, #10b981)',
+            neonBright: 'var(--color-neon-bright, #00ff87)',
             textPrimary: '#ffffff',
             textSecondary: '#94a3b8',
             textMuted: '#64748b',
@@ -1763,6 +1763,26 @@
           <span>CLI</span>
         </button>
 
+        <!-- Theme Accent Customizer Picker -->
+        <div class="relative group/accent">
+          <button id="accentPickerBtn"
+            class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-[#1e1e1e] bg-[#111111] text-neon flex items-center justify-center hover:border-neon hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer"
+            aria-label="Theme Accent Color Customizer" title="Customize Accent Color">
+            <i data-lucide="palette" class="w-4 h-4 text-neon"></i>
+          </button>
+          
+          <!-- Accent Swatch Menu -->
+          <div id="accentPickerMenu" class="absolute right-0 mt-2 w-48 bg-[#111111]/95 backdrop-blur-xl border border-white/10 rounded-xl p-2.5 shadow-2xl opacity-0 pointer-events-none group-hover/accent:opacity-100 group-hover/accent:pointer-events-auto transition-all duration-200 z-50">
+            <div class="text-[10px] font-mono font-bold text-textMuted uppercase mb-2 px-1">Accent Color</div>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button data-accent="emerald" class="w-8 h-8 rounded-lg bg-[#10b981] border border-white/20 hover:scale-110 transition-transform shadow-md cursor-pointer" title="Emerald Green"></button>
+              <button data-accent="cyan" class="w-8 h-8 rounded-lg bg-[#06b6d4] border border-white/20 hover:scale-110 transition-transform shadow-md cursor-pointer" title="Neon Cyan"></button>
+              <button data-accent="indigo" class="w-8 h-8 rounded-lg bg-[#6366f1] border border-white/20 hover:scale-110 transition-transform shadow-md cursor-pointer" title="Electric Indigo"></button>
+              <button data-accent="orange" class="w-8 h-8 rounded-lg bg-[#f97316] border border-white/20 hover:scale-110 transition-transform shadow-md cursor-pointer" title="Sunset Orange"></button>
+            </div>
+          </div>
+        </div>
+
         <!-- Theme Toggle -->
         <button id="themeToggleNav"
           class="theme-toggle-nav relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-[#1e1e1e] bg-[#111111] text-neon flex items-center justify-center hover:border-neon hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer"
@@ -3298,12 +3318,38 @@
       localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
     }
 
-    // Apply saved theme on load
-    (function initTheme() {
-      const saved = localStorage.getItem(THEME_KEY);
-      if (saved === 'light') {
-        document.body.classList.add('light-mode');
+    // ──────────────────────────────────────────────
+    // Theme Accent Customizer (Emerald, Cyan, Indigo, Orange)
+    // ──────────────────────────────────────────────
+    (function initAccentCustomizer() {
+      const ACCENT_KEY = 'portfolio-accent-theme';
+      const accents = {
+        emerald: { neon: '#10b981', bright: '#00ff87' },
+        cyan: { neon: '#06b6d4', bright: '#38bdf8' },
+        indigo: { neon: '#6366f1', bright: '#818cf8' },
+        orange: { neon: '#f97316', bright: '#fb923c' }
+      };
+
+      function setAccent(accentName) {
+        const colors = accents[accentName] || accents.emerald;
+        document.documentElement.style.setProperty('--color-neon', colors.neon);
+        document.documentElement.style.setProperty('--color-neon-bright', colors.bright);
+        localStorage.setItem(ACCENT_KEY, accentName);
       }
+
+      window.setAccentTheme = setAccent;
+
+      document.querySelectorAll('#accentPickerMenu [data-accent]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const accent = btn.getAttribute('data-accent');
+          setAccent(accent);
+          if (typeof playUiSound === 'function') playUiSound(1000, 0.08, 'triangle');
+        });
+      });
+
+      const savedAccent = localStorage.getItem(ACCENT_KEY) || 'emerald';
+      setAccent(savedAccent);
     })();
 
     if (themeToggleNav) {
