@@ -85,6 +85,30 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <!-- Motion / Framer Motion CDN for Spring Physics Micro-Interactions -->
   <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
+  <!-- Mermaid.js for Interactive Node-Based System Architecture Diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.mermaid) {
+        mermaid.initialize({
+          startOnLoad: true,
+          theme: 'dark',
+          securityLevel: 'loose',
+          fontFamily: 'JetBrains Mono, Geist Mono, monospace',
+          themeVariables: {
+            darkMode: true,
+            background: 'transparent',
+            primaryColor: '#10b981',
+            primaryTextColor: '#ffffff',
+            primaryBorderColor: '#00ff87',
+            lineColor: '#10b981',
+            secondaryColor: '#1e1e1e',
+            tertiaryColor: '#0a0a0a'
+          }
+        });
+      }
+    });
+  </script>
 
   <style>
     * {
@@ -2390,6 +2414,30 @@
                   <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Firebase</span>
                   <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">Applied AI</span>
                 </div>
+
+                <!-- Interactive Architecture Pipeline Diagram -->
+                <details class="group/arch mb-3 border-t border-darkBorder/60 pt-2 text-left">
+                  <summary class="cursor-pointer inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-neon hover:text-neonBright transition-colors list-none">
+                    <i data-lucide="git-fork" class="w-3.5 h-3.5 text-neon"></i>
+                    <span>Explore System Architecture Pipeline</span>
+                    <i data-lucide="chevron-down" class="w-3 h-3 transition-transform group-open/arch:rotate-180"></i>
+                  </summary>
+                  <div class="mt-2.5 p-3 rounded-xl bg-dark/90 border border-neon/30 overflow-x-auto">
+                    <div class="mermaid text-xs flex justify-center">
+                      graph LR
+                        A[POS Client] -->|Stream SKUs| B[Node.js Gateway]
+                        B -->|Process| C[AI Engine]
+                        C -->|Predict Waste| D[Firebase DB]
+                        D -->|Alert| E[Manager Portal]
+                        style A fill:#1e1e1e,stroke:#10b981,stroke-width:1px,color:#fff
+                        style B fill:#1e1e1e,stroke:#10b981,stroke-width:1px,color:#fff
+                        style C fill:#10b981,stroke:#00ff87,stroke-width:2px,color:#000
+                        style D fill:#1e1e1e,stroke:#38bdf8,stroke-width:1px,color:#fff
+                        style E fill:#1e1e1e,stroke:#00ff87,stroke-width:1px,color:#fff
+                    </div>
+                  </div>
+                </details>
+
                 <p class="text-textMuted text-xs italic flex items-center gap-1 md:justify-end">
                   <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
                   Pitched at FantomCode Hackathon (RVITM)
@@ -2504,6 +2552,30 @@
                   <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">JavaScript</span>
                   <span class="text-xs font-mono bg-neon/10 text-neon px-2 py-0.5 rounded">REST APIs</span>
                 </div>
+
+                <!-- Interactive Architecture Pipeline Diagram -->
+                <details class="group/arch mb-3 border-t border-darkBorder/60 pt-2 text-left">
+                  <summary class="cursor-pointer inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-neon hover:text-neonBright transition-colors list-none">
+                    <i data-lucide="git-fork" class="w-3.5 h-3.5 text-neon"></i>
+                    <span>Explore System Architecture Pipeline</span>
+                    <i data-lucide="chevron-down" class="w-3 h-3 transition-transform group-open/arch:rotate-180"></i>
+                  </summary>
+                  <div class="mt-2.5 p-3 rounded-xl bg-dark/90 border border-neon/30 overflow-x-auto">
+                    <div class="mermaid text-xs flex justify-center">
+                      graph LR
+                        A[Flutter App] -->|Order Payload| B[REST Gateway]
+                        B -->|Query Meals| C[Hyperlocal Router]
+                        C -->|Match| D[Kitchen Dispatcher]
+                        D -->|Status| E[Student Tracker]
+                        style A fill:#1e1e1e,stroke:#38bdf8,stroke-width:1px,color:#fff
+                        style B fill:#1e1e1e,stroke:#10b981,stroke-width:1px,color:#fff
+                        style C fill:#10b981,stroke:#00ff87,stroke-width:2px,color:#000
+                        style D fill:#1e1e1e,stroke:#38bdf8,stroke-width:1px,color:#fff
+                        style E fill:#1e1e1e,stroke:#00ff87,stroke-width:1px,color:#fff
+                    </div>
+                  </div>
+                </details>
+
                 <p class="text-textMuted text-xs italic flex items-center gap-1">
                   <i data-lucide="trophy" class="w-3 h-3 text-neon"></i>
                   NIRMITH Hackathon (Web) &amp; VIBE-A-THON (Mobile)
