@@ -998,13 +998,13 @@
     /* Realistic Hanging Pendulum Swing Animation */
     @keyframes smoothSwing {
       0% {
-        transform: rotate(-7deg);
+        transform: rotate(-1.5deg);
       }
       50% {
-        transform: rotate(7deg);
+        transform: rotate(1.5deg);
       }
       100% {
-        transform: rotate(-7deg);
+        transform: rotate(-1.5deg);
       }
     }
 
@@ -1013,25 +1013,31 @@
         transform: rotate(0deg) translateY(0px);
       }
       50% {
-        transform: rotate(-3deg) translateY(2px);
+        transform: rotate(-1deg) translateY(1px);
       }
     }
 
     .hanging-icard-wrapper {
       transform-origin: top center !important;
-      animation: smoothSwing 4s ease-in-out infinite !important;
+      animation: smoothSwing 6s ease-in-out infinite !important;
+      transition: transform 0.4s ease-out;
       will-change: transform;
     }
 
     #heroIcardBadge {
       transform-origin: top center !important;
-      animation: badgeSway 3s ease-in-out infinite !important;
+      animation: badgeSway 5s ease-in-out infinite !important;
+      transition: transform 0.4s ease-out;
       will-change: transform;
     }
 
+    /* Pause and gently stabilize card upright when hovered or flipped */
     .hanging-icard-wrapper:hover,
-    .hanging-icard-wrapper:hover #heroIcardBadge {
+    .hanging-icard-wrapper:hover #heroIcardBadge,
+    .hanging-icard-wrapper:has(.is-flipped),
+    .hanging-icard-wrapper:has(.is-flipped) #heroIcardBadge {
       animation-play-state: paused !important;
+      transform: rotate(0deg) translateY(0px) !important;
     }
 
   
@@ -5105,7 +5111,7 @@
     // ──────────────────────────────────────────────
     // 13. 3D Tilt & Specular Lighting Effect on Cards
     // ──────────────────────────────────────────────
-    const tiltableCards = document.querySelectorAll('.timeline-card, .skill-category-block, #heroIcardBadge');
+    const tiltableCards = document.querySelectorAll('.timeline-card, .skill-category-block');
     tiltableCards.forEach((card) => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
