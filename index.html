@@ -1792,16 +1792,16 @@
               </div>
               <div class="grid grid-cols-4 gap-2">
                 <button type="button" data-accent="emerald" class="w-9 h-9 rounded-xl bg-[#10b981] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Emerald Green">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80"></span>
+                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
                 </button>
                 <button type="button" data-accent="cyan" class="w-9 h-9 rounded-xl bg-[#06b6d4] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Neon Cyan">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80"></span>
+                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
                 </button>
                 <button type="button" data-accent="indigo" class="w-9 h-9 rounded-xl bg-[#6366f1] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Electric Indigo">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80"></span>
+                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
                 </button>
                 <button type="button" data-accent="orange" class="w-9 h-9 rounded-xl bg-[#f97316] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Sunset Orange">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80"></span>
+                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
                 </button>
               </div>
             </div>
@@ -3333,17 +3333,7 @@
 
     // ──────────────────────────────────────────────
     // Light / Dark Mode Toggle
-    // ──────────────────────────────────────────────
-    const themeToggleNav = document.getElementById('themeToggleNav');
-    const THEME_KEY = 'portfolio-theme';
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
-    }
-
-    // ──────────────────────────────────────────────
+       // ──────────────────────────────────────────────
     // Theme Accent Customizer (Emerald, Cyan, Indigo, Orange)
     // ──────────────────────────────────────────────
     (function initAccentCustomizer() {
@@ -3365,16 +3355,16 @@
           brightRgb: '56, 189, 248'
         },
         indigo: {
-          neon: '#6366f1',
-          bright: '#818cf8',
-          rgb: '99, 102, 241',
-          brightRgb: '129, 140, 248'
+          neon: '#818cf8',
+          bright: '#a5b4fc',
+          rgb: '129, 140, 248',
+          brightRgb: '165, 180, 252'
         },
         orange: {
-          neon: '#f97316',
-          bright: '#fb923c',
-          rgb: '249, 115, 22',
-          brightRgb: '251, 146, 60'
+          neon: '#fb923c',
+          bright: '#ffb703',
+          rgb: '251, 146, 60',
+          brightRgb: '255, 183, 3'
         }
       };
 
@@ -3385,11 +3375,53 @@
         document.documentElement.style.setProperty('--color-neon-rgb', colors.rgb);
         document.documentElement.style.setProperty('--color-neon-bright-rgb', colors.brightRgb);
 
-        // Force reactive color update on text & background utility classes
-        document.querySelectorAll('.text-neon').forEach(el => el.style.color = colors.neon);
-        document.querySelectorAll('.text-neonBright').forEach(el => el.style.color = colors.bright);
-        document.querySelectorAll('.border-neon').forEach(el => el.style.borderColor = colors.neon);
-        document.querySelectorAll('.bg-neon').forEach(el => el.style.backgroundColor = colors.neon);
+        // Inject dynamic style rule overrides for 100% theme coverage across all elements
+        let styleEl = document.getElementById('dynamic-accent-styles');
+        if (!styleEl) {
+          styleEl = document.createElement('style');
+          styleEl.id = 'dynamic-accent-styles';
+          document.head.appendChild(styleEl);
+        }
+
+        styleEl.innerHTML = `
+          .text-neon, [class*="text-neon"] { color: ${colors.neon} !important; }
+          .text-neonBright, [class*="text-neonBright"] { color: ${colors.bright} !important; }
+          .border-neon, [class*="border-neon"] { border-color: ${colors.neon} !important; }
+          .bg-neon, [class*="bg-neon"] { background-color: ${colors.neon} !important; }
+          .bg-neonBright, [class*="bg-neonBright"] { background-color: ${colors.bright} !important; }
+          
+          /* Active side navigation dot & label */
+          .side-nav-item.active .side-nav-dot {
+            background-color: ${colors.neon} !important;
+            box-shadow: 0 0 12px ${colors.neon}, 0 0 20px rgba(${colors.brightRgb}, 0.8) !important;
+          }
+          .side-nav-item.active .side-nav-label { color: ${colors.neon} !important; }
+          
+          /* Navbar Control Badges */
+          #aiChatToggleBtn, #cliModalBtn, #accentPickerBtn, #themeToggleNav {
+            border-color: ${colors.neon} !important;
+            color: ${colors.bright} !important;
+          }
+          #aiChatToggleBtn:hover, #cliModalBtn:hover, #accentPickerBtn:hover, #themeToggleNav:hover {
+            box-shadow: 0 0 20px rgba(${colors.brightRgb}, 0.5) !important;
+          }
+          
+          /* Titles & Headings */
+          h1.gradient-text {
+            background: linear-gradient(135deg, #ffffff 0%, ${colors.neon} 50%, ${colors.bright} 100%) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+          }
+          .section-heading::after {
+            background: linear-gradient(90deg, ${colors.neon}, ${colors.bright}) !important;
+          }
+          
+          /* Interactive Cursor Rings */
+          #custom-cursor-dot { background-color: ${colors.bright} !important; box-shadow: 0 0 10px ${colors.bright}, 0 0 20px ${colors.bright} !important; }
+          #custom-cursor-ring { border-color: rgba(${colors.rgb}, 0.6) !important; }
+          #custom-cursor-ring.active-hover { border-color: ${colors.bright} !important; background-color: rgba(${colors.rgb}, 0.15) !important; }
+        `;
 
         localStorage.setItem(ACCENT_KEY, accentName);
       }
@@ -3413,8 +3445,11 @@
       document.querySelectorAll('#accentPickerMenu [data-accent]').forEach(swatch => {
         swatch.addEventListener('click', (e) => {
           e.stopPropagation();
-          const accent = swatch.getAttribute('data-accent');
-          setAccent(accent);
+          const targetBtn = e.target.closest('[data-accent]');
+          const accent = targetBtn ? targetBtn.getAttribute('data-accent') : null;
+          if (accent) {
+            setAccent(accent);
+          }
           if (menu) menu.classList.remove('open');
           if (typeof playUiSound === 'function') playUiSound(1050, 0.08, 'triangle');
         });
