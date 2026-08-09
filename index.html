@@ -2365,30 +2365,7 @@
             data-category="ai hackathon" style="transition-delay: 0.1s;">
             <!-- Desktop: left card -->
             <div class="hidden md:block md:w-1/2 md:text-right md:pr-8">
-              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 w-full cursor-pointer hover:border-neon transition-all group" data-project-id="retail-guard" title="Click for technical breakdown">
-                <!-- Interactive Media Display Header -->
-                <div class="relative w-full h-36 sm:h-40 rounded-lg overflow-hidden bg-[#0c0c0c] border border-white/10 mb-4 group/media">
-                  <video data-autoplay-on-scroll loop muted playsinline class="w-full h-full object-cover opacity-85 group-hover/media:opacity-100 group-hover/media:scale-105 transition-all duration-500">
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-code-programming-on-a-computer-screen-41554-large.mp4" type="video/mp4">
-                  </video>
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-black/30 p-2.5 flex flex-col justify-between pointer-events-none">
-                    <div class="flex items-center justify-between">
-                      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-dark/80 backdrop-blur-md border border-white/10 text-[9px] font-mono text-neon font-semibold">
-                        <span class="relative flex h-1.5 w-1.5">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-neon"></span>
-                        </span>
-                        AUTOPLAY DEMO
-                      </span>
-                      <span class="text-[9px] font-mono text-white/70 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded">HD VIDEO</span>
-                    </div>
-                    <div class="flex items-center gap-1.5 text-white text-xs font-mono">
-                      <i data-lucide="play-circle" class="w-4 h-4 text-neon"></i>
-                      <span>AI Retail Dashboard</span>
-                    </div>
-                  </div>
-                </div>
-
+              <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 inline-block text-left w-full cursor-pointer hover:border-neon transition-all group" data-project-id="retail-guard" title="Click for technical breakdown">
                 <div class="flex items-center gap-2 mb-3 md:justify-end">
                   <i data-lucide="shield-check" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
                   <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">Retail Guard</h3>
@@ -2470,29 +2447,6 @@
             </div>
             <div class="hidden md:block md:w-1/2 md:pl-8">
               <div class="timeline-card project-card-trigger bg-darkCard rounded-xl p-6 w-full cursor-pointer hover:border-neon transition-all group" data-project-id="homeplate" title="Click for technical breakdown">
-                <!-- Interactive Media Display Header -->
-                <div class="relative w-full h-36 sm:h-40 rounded-lg overflow-hidden bg-[#0c0c0c] border border-white/10 mb-4 group/media">
-                  <video data-autoplay-on-scroll loop muted playsinline class="w-full h-full object-cover opacity-85 group-hover/media:opacity-100 group-hover/media:scale-105 transition-all duration-500">
-                    <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-smart-phone-with-green-screen-41544-large.mp4" type="video/mp4">
-                  </video>
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-transparent to-black/30 p-2.5 flex flex-col justify-between pointer-events-none">
-                    <div class="flex items-center justify-between">
-                      <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-dark/80 backdrop-blur-md border border-white/10 text-[9px] font-mono text-neon font-semibold">
-                        <span class="relative flex h-1.5 w-1.5">
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neonBright opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-neon"></span>
-                        </span>
-                        INTERACTIVE DEMO
-                      </span>
-                      <span class="text-[9px] font-mono text-white/70 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded">MOBILE APP</span>
-                    </div>
-                    <div class="flex items-center gap-1.5 text-white text-xs font-mono">
-                      <i data-lucide="smartphone" class="w-4 h-4 text-neon"></i>
-                      <span>Flutter App Preview</span>
-                    </div>
-                  </div>
-                </div>
-
                 <div class="flex items-center gap-2 mb-3">
                   <i data-lucide="utensils" class="w-5 h-5 text-neon group-hover:scale-110 transition-transform"></i>
                   <h3 class="text-white font-bold text-xl group-hover:text-neon transition-colors">HomePlate</h3>
@@ -5281,25 +5235,6 @@
           card.style.backgroundImage = 'none';
         });
       });
-    })();
-
-    // --- INTERACTIVE MEDIA DISPLAY: SCROLL-TRIGGERED VIDEO AUTOPLAY OBSERVER ---
-    (function initScrollVideoAutoplay() {
-      const videos = document.querySelectorAll('video[data-autoplay-on-scroll]');
-      if (!videos.length) return;
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target;
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      }, { threshold: 0.25 });
-
-      videos.forEach((video) => observer.observe(video));
     })();
 
     // --- EFFECT 3: SCROLL PROGRESS BAR ---
