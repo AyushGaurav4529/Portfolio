@@ -52,8 +52,8 @@
             dark: '#0a0a0a',
             darkCard: '#111111',
             darkBorder: '#1e1e1e',
-            neon: 'var(--color-neon, #10b981)',
-            neonBright: 'var(--color-neon-bright, #00ff87)',
+            neon: '#10b981',
+            neonBright: '#00ff87',
             textPrimary: '#ffffff',
             textSecondary: '#94a3b8',
             textMuted: '#64748b',
@@ -111,13 +111,6 @@
   </script>
 
   <style>
-    :root {
-      --color-neon: #10b981;
-      --color-neon-bright: #00ff87;
-      --color-neon-rgb: 16, 185, 129;
-      --color-neon-bright-rgb: 0, 255, 135;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -134,7 +127,7 @@
     html {
       scroll-behavior: smooth;
       scrollbar-width: thin;
-      scrollbar-color: var(--color-neon) #0a0a0a;
+      scrollbar-color: #10b981 #0a0a0a;
     }
 
     body {
@@ -165,7 +158,7 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--color-neon);
+      background: #10b981;
       border-radius: 3px;
     }
 
@@ -174,11 +167,11 @@
 
       0%,
       100% {
-        box-shadow: 0 0 8px rgba(var(--color-neon-rgb), 0.3);
+        box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
       }
 
       50% {
-        box-shadow: 0 0 20px rgba(var(--color-neon-bright-rgb), 0.5);
+        box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
       }
     }
 
@@ -284,8 +277,8 @@
 
     .timeline-card:hover {
       transform: scale(1.03);
-      border-color: var(--color-neon);
-      box-shadow: 0 0 20px rgba(var(--color-neon-bright-rgb), 0.25), 0 0 40px rgba(var(--color-neon-bright-rgb), 0.08);
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(0, 255, 135, 0.25), 0 0 40px rgba(0, 255, 135, 0.08);
     }
 
     /* Timeline node dot */
@@ -295,8 +288,8 @@
 
     .timeline-card:hover~.timeline-dot,
     .timeline-group:hover .timeline-dot {
-      background-color: var(--color-neon-bright) !important;
-      box-shadow: 0 0 16px rgba(var(--color-neon-bright-rgb), 0.6);
+      background-color: #00ff87 !important;
+      box-shadow: 0 0 16px rgba(0, 255, 135, 0.6);
       transform: scale(1.4);
     }
 
@@ -307,10 +300,10 @@
     }
 
     .skill-pill:hover {
-      border-color: var(--color-neon);
-      box-shadow: 0 0 12px rgba(var(--color-neon-rgb), 0.3);
+      border-color: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
       transform: translateY(-2px);
-      color: var(--color-neon-bright);
+      color: #00ff87;
     }
 
     /* CTA button */
@@ -336,21 +329,21 @@
     }
 
     .cta-btn:hover {
-      box-shadow: 0 0 30px rgba(var(--color-neon-rgb), 0.4), 0 0 60px rgba(var(--color-neon-rgb), 0.15);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), 0 0 60px rgba(16, 185, 129, 0.15);
       transform: translateY(-2px);
     }
 
     /* Background grid pattern */
     .bg-grid {
       background-image:
-        linear-gradient(rgba(var(--color-neon-rgb), 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(var(--color-neon-rgb), 0.03) 1px, transparent 1px);
+        linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
     /* Gradient text */
     .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, var(--color-neon) 50%, var(--color-neon-bright) 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #00ff87 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
@@ -360,12 +353,12 @@
 
     /* Timeline connector lines */
     .timeline-line {
-      background: linear-gradient(90deg, #1e1e1e, var(--color-neon), #1e1e1e);
+      background: linear-gradient(90deg, #1e1e1e, #10b981, #1e1e1e);
       height: 2px;
     }
 
     .timeline-line-v {
-      background: linear-gradient(180deg, #1e1e1e, var(--color-neon), #1e1e1e);
+      background: linear-gradient(180deg, #1e1e1e, #10b981, #1e1e1e);
       width: 2px;
     }
 
@@ -375,8 +368,8 @@
     }
 
     .contact-link:hover {
-      color: var(--color-neon-bright);
-      text-shadow: 0 0 8px rgba(var(--color-neon-bright-rgb), 0.4);
+      color: #00ff87;
+      text-shadow: 0 0 8px rgba(0, 255, 135, 0.4);
     }
 
     /* Section heading decoration */
@@ -385,7 +378,7 @@
       display: block;
       width: 60px;
       height: 3px;
-      background: linear-gradient(90deg, var(--color-neon), var(--color-neon-bright));
+      background: linear-gradient(90deg, #10b981, #00ff87);
       margin-top: 12px;
       border-radius: 2px;
     }
@@ -408,12 +401,12 @@
       left: 0;
       width: 6px;
       height: 6px;
-      background-color: var(--color-neon-bright);
+      background-color: #00ff87;
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px var(--color-neon-bright), 0 0 20px var(--color-neon-bright);
+      box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87;
       transition: transform 0.05s ease-out, opacity 0.3s ease, background-color 0.2s ease;
     }
 
@@ -423,12 +416,12 @@
       left: 0;
       width: 36px;
       height: 36px;
-      border: 1.5px solid rgba(var(--color-neon-rgb), 0.6);
+      border: 1.5px solid rgba(16, 185, 129, 0.6);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99998;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 15px rgba(var(--color-neon-rgb), 0.25);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
       transition: width 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
                   height 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
                   border-color 0.25s ease, 
@@ -439,9 +432,9 @@
     #custom-cursor-ring.active-hover {
       width: 54px;
       height: 54px;
-      border-color: var(--color-neon-bright);
-      background-color: rgba(var(--color-neon-rgb), 0.12);
-      box-shadow: 0 0 25px rgba(var(--color-neon-bright-rgb), 0.4);
+      border-color: #00ff87;
+      background-color: rgba(16, 185, 129, 0.12);
+      box-shadow: 0 0 25px rgba(0, 255, 135, 0.4);
     }
 
     @media (pointer: coarse) {
@@ -612,8 +605,8 @@
       top: 0;
       left: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--color-neon) 0%, var(--color-neon-bright) 50%, var(--color-neon) 100%);
-      box-shadow: 0 0 10px rgba(var(--color-neon-bright-rgb), 0.8), 0 0 20px rgba(var(--color-neon-rgb), 0.5);
+      background: linear-gradient(90deg, #10b981 0%, #00ff87 50%, #34d399 100%);
+      box-shadow: 0 0 10px rgba(0, 255, 135, 0.8), 0 0 20px rgba(16, 185, 129, 0.5);
       z-index: 99999;
       pointer-events: none;
       transition: width 0.1s ease-out;
@@ -637,8 +630,8 @@
     .click-ripple {
       position: fixed;
       border-radius: 50%;
-      border: 2px solid var(--color-neon-bright);
-      box-shadow: 0 0 15px var(--color-neon-bright), inset 0 0 15px var(--color-neon-bright);
+      border: 2px solid #00ff87;
+      box-shadow: 0 0 15px #00ff87, inset 0 0 15px #00ff87;
       pointer-events: none;
       z-index: 99998;
       transform: translate(-50%, -50%) scale(0);
@@ -978,19 +971,19 @@
     }
 
     .side-nav-item.active .side-nav-dot {
-      background-color: var(--color-neon) !important;
-      box-shadow: 0 0 12px var(--color-neon), 0 0 20px rgba(var(--color-neon-bright-rgb), 0.6) !important;
+      background-color: #10b981 !important;
+      box-shadow: 0 0 12px #10b981, 0 0 20px rgba(0, 255, 135, 0.6) !important;
       transform: scale(1.5) !important;
     }
 
     .side-nav-item.active .side-nav-label {
       opacity: 1 !important;
-      color: var(--color-neon) !important;
+      color: #10b981 !important;
       font-weight: 600 !important;
     }
 
     .side-nav-item:hover .side-nav-dot {
-      background-color: var(--color-neon-bright);
+      background-color: #00ff87;
       transform: scale(1.2);
     }
 
@@ -1002,16 +995,16 @@
     }
 
     .light-mode .side-nav-item.active .side-nav-label {
-      color: var(--color-neon) !important;
+      color: #059669 !important;
     }
 
-    /* Neon accents dynamic in Light & Dark Mode */
+    /* Neon accents stay the same green — keep readability */
     .light-mode .text-neon {
-      color: var(--color-neon) !important;
+      color: #059669 !important;
     }
 
     .light-mode .text-neonBright {
-      color: var(--color-neon-bright) !important;
+      color: #059669 !important;
     }
 
     /* Scrollbar light */
@@ -1108,11 +1101,6 @@
     .glass-ambient:hover {
       border-color: rgba(255, 255, 255, 0.15) !important;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.12) !important;
-    }
-
-    #accentPickerMenu.open {
-      opacity: 1 !important;
-      pointer-events: auto !important;
     }
 
   
@@ -1774,39 +1762,6 @@
           <i data-lucide="terminal" class="w-3.5 h-3.5 text-neonBright"></i>
           <span>CLI</span>
         </button>
-
-        <!-- Theme Accent Customizer Picker -->
-        <div class="relative">
-          <button id="accentPickerBtn" type="button"
-            class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg border border-[#1e1e1e] bg-[#111111] text-neon flex items-center justify-center hover:border-neon hover:shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer"
-            aria-label="Theme Accent Color Customizer" title="Customize Accent Color">
-            <i data-lucide="palette" class="w-4 h-4 text-neon"></i>
-          </button>
-          
-          <!-- Accent Swatch Menu -->
-          <div id="accentPickerMenu" class="absolute right-0 top-full pt-2 w-52 opacity-0 pointer-events-none transition-all duration-200 z-50">
-            <div class="bg-[#111111]/95 backdrop-blur-xl border border-white/15 rounded-xl p-3 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-              <div class="text-[10px] font-mono font-bold text-textMuted uppercase mb-2 px-1 flex items-center justify-between">
-                <span>Accent Color</span>
-                <span class="text-[9px] text-neon font-semibold">SELECT</span>
-              </div>
-              <div class="grid grid-cols-4 gap-2">
-                <button type="button" data-accent="emerald" class="w-9 h-9 rounded-xl bg-[#10b981] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Emerald Green">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
-                </button>
-                <button type="button" data-accent="cyan" class="w-9 h-9 rounded-xl bg-[#06b6d4] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Neon Cyan">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
-                </button>
-                <button type="button" data-accent="indigo" class="w-9 h-9 rounded-xl bg-[#6366f1] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Electric Indigo">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
-                </button>
-                <button type="button" data-accent="orange" class="w-9 h-9 rounded-xl bg-[#f97316] border-2 border-white/20 hover:scale-110 hover:border-white transition-all shadow-md cursor-pointer flex items-center justify-center" title="Sunset Orange">
-                  <span class="w-2 h-2 rounded-full bg-white opacity-80 pointer-events-none"></span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Theme Toggle -->
         <button id="themeToggleNav"
@@ -3333,130 +3288,22 @@
 
     // ──────────────────────────────────────────────
     // Light / Dark Mode Toggle
-       // ──────────────────────────────────────────────
-    // Theme Accent Customizer (Emerald, Cyan, Indigo, Orange)
     // ──────────────────────────────────────────────
-    (function initAccentCustomizer() {
-      const ACCENT_KEY = 'portfolio-accent-theme';
-      const btn = document.getElementById('accentPickerBtn');
-      const menu = document.getElementById('accentPickerMenu');
+    const themeToggleNav = document.getElementById('themeToggleNav');
+    const THEME_KEY = 'portfolio-theme';
 
-      const accents = {
-        emerald: {
-          neon: '#10b981',
-          bright: '#00ff87',
-          rgb: '16, 185, 129',
-          brightRgb: '0, 255, 135'
-        },
-        cyan: {
-          neon: '#06b6d4',
-          bright: '#38bdf8',
-          rgb: '6, 182, 212',
-          brightRgb: '56, 189, 248'
-        },
-        indigo: {
-          neon: '#818cf8',
-          bright: '#a5b4fc',
-          rgb: '129, 140, 248',
-          brightRgb: '165, 180, 252'
-        },
-        orange: {
-          neon: '#fb923c',
-          bright: '#ffb703',
-          rgb: '251, 146, 60',
-          brightRgb: '255, 183, 3'
-        }
-      };
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
+    }
 
-      function setAccent(accentName) {
-        const colors = accents[accentName] || accents.emerald;
-        document.documentElement.style.setProperty('--color-neon', colors.neon);
-        document.documentElement.style.setProperty('--color-neon-bright', colors.bright);
-        document.documentElement.style.setProperty('--color-neon-rgb', colors.rgb);
-        document.documentElement.style.setProperty('--color-neon-bright-rgb', colors.brightRgb);
-
-        // Inject dynamic style rule overrides for 100% theme coverage across all elements
-        let styleEl = document.getElementById('dynamic-accent-styles');
-        if (!styleEl) {
-          styleEl = document.createElement('style');
-          styleEl.id = 'dynamic-accent-styles';
-          document.head.appendChild(styleEl);
-        }
-
-        styleEl.innerHTML = `
-          .text-neon, [class*="text-neon"] { color: ${colors.neon} !important; }
-          .text-neonBright, [class*="text-neonBright"] { color: ${colors.bright} !important; }
-          .border-neon, [class*="border-neon"] { border-color: ${colors.neon} !important; }
-          .bg-neon, [class*="bg-neon"] { background-color: ${colors.neon} !important; }
-          .bg-neonBright, [class*="bg-neonBright"] { background-color: ${colors.bright} !important; }
-          
-          /* Active side navigation dot & label */
-          .side-nav-item.active .side-nav-dot {
-            background-color: ${colors.neon} !important;
-            box-shadow: 0 0 12px ${colors.neon}, 0 0 20px rgba(${colors.brightRgb}, 0.8) !important;
-          }
-          .side-nav-item.active .side-nav-label { color: ${colors.neon} !important; }
-          
-          /* Navbar Control Badges */
-          #aiChatToggleBtn, #cliModalBtn, #accentPickerBtn, #themeToggleNav {
-            border-color: ${colors.neon} !important;
-            color: ${colors.bright} !important;
-          }
-          #aiChatToggleBtn:hover, #cliModalBtn:hover, #accentPickerBtn:hover, #themeToggleNav:hover {
-            box-shadow: 0 0 20px rgba(${colors.brightRgb}, 0.5) !important;
-          }
-          
-          /* Titles & Headings */
-          h1.gradient-text {
-            background: linear-gradient(135deg, #ffffff 0%, ${colors.neon} 50%, ${colors.bright} 100%) !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-          }
-          .section-heading::after {
-            background: linear-gradient(90deg, ${colors.neon}, ${colors.bright}) !important;
-          }
-          
-          /* Interactive Cursor Rings */
-          #custom-cursor-dot { background-color: ${colors.bright} !important; box-shadow: 0 0 10px ${colors.bright}, 0 0 20px ${colors.bright} !important; }
-          #custom-cursor-ring { border-color: rgba(${colors.rgb}, 0.6) !important; }
-          #custom-cursor-ring.active-hover { border-color: ${colors.bright} !important; background-color: rgba(${colors.rgb}, 0.15) !important; }
-        `;
-
-        localStorage.setItem(ACCENT_KEY, accentName);
+    // Apply saved theme on load
+    (function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'light') {
+        document.body.classList.add('light-mode');
       }
-
-      window.setAccentTheme = setAccent;
-
-      if (btn && menu) {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          menu.classList.toggle('open');
-          if (typeof playUiSound === 'function') playUiSound(900, 0.05);
-        });
-
-        document.addEventListener('click', (e) => {
-          if (!menu.contains(e.target) && !btn.contains(e.target)) {
-            menu.classList.remove('open');
-          }
-        });
-      }
-
-      document.querySelectorAll('#accentPickerMenu [data-accent]').forEach(swatch => {
-        swatch.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const targetBtn = e.target.closest('[data-accent]');
-          const accent = targetBtn ? targetBtn.getAttribute('data-accent') : null;
-          if (accent) {
-            setAccent(accent);
-          }
-          if (menu) menu.classList.remove('open');
-          if (typeof playUiSound === 'function') playUiSound(1050, 0.08, 'triangle');
-        });
-      });
-
-      const savedAccent = localStorage.getItem(ACCENT_KEY) || 'emerald';
-      setAccent(savedAccent);
     })();
 
     if (themeToggleNav) {
@@ -4439,15 +4286,13 @@
       initMatrixColumns();
 
       function drawMatrixRain(isLight) {
-        const neonColor = getComputedStyle(document.documentElement).getPropertyValue('--color-neon-bright').trim() || '#00ff87';
         ctx.font = '10px "JetBrains Mono", monospace';
         for (let i = 0; i < drops.length; i++) {
           const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
           const x = i * 32;
           const y = drops[i] * fontSize;
 
-          ctx.fillStyle = neonColor;
-          ctx.globalAlpha = isLight ? 0.22 : 0.28;
+          ctx.fillStyle = isLight ? 'rgba(5, 150, 105, 0.16)' : 'rgba(0, 255, 135, 0.18)';
           ctx.fillText(char, x, y);
 
           if (y > height && Math.random() > 0.975) {
@@ -4455,7 +4300,6 @@
           }
           drops[i] += 0.45;
         }
-        ctx.globalAlpha = 1.0;
       }
 
       // ──────────────────────────────────────────────
@@ -4528,8 +4372,9 @@
             const depthAlpha = Math.max(0.1, (p.z + globeRadius) / (globeRadius * 2));
             ctx.beginPath();
             ctx.arc(p.x, p.y, Math.max(1, 2 * p.scale), 0, Math.PI * 2);
-            const neonRgb = getComputedStyle(document.documentElement).getPropertyValue('--color-neon-bright-rgb').trim() || '0, 255, 135';
-            ctx.fillStyle = `rgba(${neonRgb}, ${depthAlpha * (isLight ? 0.7 : 0.9)})`;
+            ctx.fillStyle = isLight
+              ? `rgba(5, 150, 105, ${depthAlpha * 0.8})`
+              : `rgba(0, 255, 135, ${depthAlpha * 0.9})`;
             ctx.fill();
 
             // Connect to neighboring point longitude line
@@ -4538,7 +4383,9 @@
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(projected[nextIdx].x, projected[nextIdx].y);
-              ctx.strokeStyle = `rgba(${neonRgb}, ${depthAlpha * (isLight ? 0.25 : 0.35)})`;
+              ctx.strokeStyle = isLight
+                ? `rgba(5, 150, 105, ${depthAlpha * 0.3})`
+                : `rgba(0, 255, 135, ${depthAlpha * 0.35})`;
               ctx.lineWidth = 0.7;
               ctx.stroke();
             }
