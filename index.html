@@ -770,52 +770,52 @@
 
     /* ===== LIGHT MODE OVERRIDES ===== */
     /* ──────────────────────────────────────────────
-       Light Mode Theme — Premium Ambient Mesh Background
+       Refined Light Mode Theme — Warm Off-Whites (#F9FAFB) & Deep Charcoal (#18181B)
        ────────────────────────────────────────────── */
     .light-mode {
-      background-color: #f8fafc !important;
-      color: #1e293b !important;
+      background-color: #F9FAFB !important;
+      color: #18181B !important;
     }
 
     .light-mode.bg-grid {
-      background-color: #f8fafc !important;
+      background-color: #F9FAFB !important;
       background-image:
-        radial-gradient(at 12% 12%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
-        radial-gradient(at 88% 22%, rgba(56, 189, 248, 0.15) 0px, transparent 45%),
-        radial-gradient(at 50% 55%, rgba(99, 102, 241, 0.09) 0px, transparent 55%),
-        radial-gradient(at 82% 88%, rgba(16, 185, 129, 0.14) 0px, transparent 50%),
-        radial-gradient(at 18% 85%, rgba(14, 165, 233, 0.12) 0px, transparent 45%),
-        linear-gradient(to right, rgba(16, 185, 129, 0.07) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(16, 185, 129, 0.07) 1px, transparent 1px) !important;
+        radial-gradient(at 12% 12%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+        radial-gradient(at 88% 22%, rgba(56, 189, 248, 0.12) 0px, transparent 45%),
+        radial-gradient(at 50% 55%, rgba(99, 102, 241, 0.08) 0px, transparent 55%),
+        radial-gradient(at 82% 88%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+        radial-gradient(at 18% 85%, rgba(14, 165, 233, 0.1) 0px, transparent 45%),
+        linear-gradient(to right, rgba(24, 24, 27, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(24, 24, 27, 0.04) 1px, transparent 1px) !important;
       background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 36px 36px, 36px 36px !important;
       background-attachment: fixed !important;
     }
 
     .light-mode .noise-overlay {
-      opacity: 0.25 !important;
-      mix-blend-mode: soft-light !important;
+      opacity: 0.18 !important;
+      mix-blend-mode: multiply !important;
     }
 
     /* Navbar light mode */
     .light-mode nav.top-navbar {
-      background-color: rgba(255, 255, 255, 0.85) !important;
+      background-color: rgba(249, 250, 251, 0.88) !important;
       backdrop-filter: blur(16px) !important;
-      border-color: rgba(226, 232, 240, 0.8) !important;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      border-color: rgba(228, 228, 231, 0.8) !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     }
 
     .light-mode .nav-link {
-      color: #475569 !important;
+      color: #3F3F46 !important;
     }
 
     .light-mode .nav-link:hover,
     .light-mode .nav-link.active {
-      color: #0f172a !important;
+      color: #18181B !important;
     }
 
     .light-mode .btn-connect {
-      background-color: #0f172a !important;
-      color: #ffffff !important;
+      background-color: #18181B !important;
+      color: #F9FAFB !important;
     }
 
     .light-mode .btn-connect:hover {
@@ -824,8 +824,8 @@
     }
 
     .light-mode .btn-cv {
-      border-color: #cbd5e1 !important;
-      color: #334155 !important;
+      border-color: #E4E4E7 !important;
+      color: #27272A !important;
     }
 
     .light-mode .btn-cv:hover {
@@ -834,9 +834,9 @@
     }
 
     .light-mode .theme-toggle-nav {
-      background: #ffffff !important;
-      border-color: #cbd5e1 !important;
-      color: #334155 !important;
+      background: #FFFFFF !important;
+      border-color: #E4E4E7 !important;
+      color: #27272A !important;
     }
 
     .light-mode .theme-toggle-nav:hover {
@@ -844,25 +844,28 @@
       color: #059669 !important;
     }
 
-    /* Cards in Light Mode — Glassmorphic styling */
+    /* Cards in Light Mode — Refined Warm Off-White Glassmorphism */
     .light-mode .timeline-card,
-    .light-mode .bg-darkCard {
-      background-color: rgba(255, 255, 255, 0.88) !important;
-      backdrop-filter: blur(12px) !important;
-      border-color: rgba(226, 232, 240, 0.9) !important;
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02) !important;
+    .light-mode .bg-darkCard,
+    .light-mode .glass-ambient,
+    .light-mode .icard-face {
+      background-color: rgba(255, 255, 255, 0.92) !important;
+      backdrop-filter: blur(16px) !important;
+      border-color: rgba(228, 228, 231, 0.9) !important;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), 0 2px 6px -1px rgba(0, 0, 0, 0.02) !important;
     }
 
-    .light-mode .timeline-card:hover {
+    .light-mode .timeline-card:hover,
+    .light-mode .glass-ambient:hover {
       border-color: #10b981 !important;
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.22), 0 10px 25px -5px rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.18), 0 10px 25px -5px rgba(0, 0, 0, 0.06) !important;
     }
 
     /* Skill pills */
     .light-mode .skill-pill {
-      background-color: #f1f5f9 !important;
-      border-color: #e2e8f0 !important;
-      color: #334155 !important;
+      background-color: #F4F4F5 !important;
+      border-color: #E4E4E7 !important;
+      color: #27272A !important;
     }
 
     .light-mode .skill-pill:hover {
@@ -872,28 +875,35 @@
 
     /* Skill category cards */
     .light-mode .border-darkBorder {
-      border-color: #e2e8f0 !important;
+      border-color: #E4E4E7 !important;
     }
 
     .light-mode .hover\:border-neon\/30:hover {
       border-color: rgba(16, 185, 129, 0.4) !important;
     }
 
-    /* Text overrides */
+    /* Deep Charcoal Text Overrides */
     .light-mode .text-white {
-      color: #0f172a !important;
+      color: #18181B !important;
     }
 
     .light-mode .text-textSecondary {
-      color: #475569 !important;
+      color: #3F3F46 !important;
     }
 
     .light-mode .text-textMuted {
-      color: #94a3b8 !important;
+      color: #71717A !important;
+    }
+
+    .light-mode h1,
+    .light-mode h2,
+    .light-mode h3,
+    .light-mode h4 {
+      color: #18181B !important;
     }
 
     .light-mode h1.gradient-text {
-      background: linear-gradient(135deg, #0f172a 0%, #10b981 50%, #059669 100%) !important;
+      background: linear-gradient(135deg, #18181B 0%, #10b981 50%, #059669 100%) !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
       -webkit-text-fill-color: transparent !important;
