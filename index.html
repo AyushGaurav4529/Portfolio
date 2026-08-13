@@ -83,6 +83,8 @@
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <!-- PDF.js for Cross-Platform PDF Viewer -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Three.js for Real 3D WebGL effects -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js"></script>
   <!-- Motion / Framer Motion CDN for Spring Physics Micro-Interactions -->
   <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
   <!-- Mermaid.js for Interactive Node-Based System Architecture Diagrams -->
@@ -393,6 +395,56 @@
       pointer-events: none;
       z-index: 0;
     }
+
+    /* 3D Hero Background Canvas */
+    #hero-3d-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    /* 3D Globe container */
+    #globe-canvas-wrap {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(420px, 45vw);
+      height: min(420px, 45vw);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    #globe-canvas-wrap.globe-visible { opacity: 1; }
+    @media (max-width: 900px) {
+      #globe-canvas-wrap {
+        display: none;
+      }
+    }
+
+    /* 3D Card Tilt */
+    .project-tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.08s linear, box-shadow 0.3s ease, border-color 0.3s ease;
+      will-change: transform;
+    }
+    .project-tilt-card .tilt-shine {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(0,255,135,0.18) 0%, transparent 65%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 5;
+    }
+    .project-tilt-card:hover .tilt-shine { opacity: 1; }
 
     /* Custom Neon Cursor Follower */
     #custom-cursor-dot {
@@ -2027,6 +2079,10 @@
     <!-- ========== HERO / HEADER ========== -->
     <header
       class="min-h-screen py-12 sm:py-20 md:py-24 px-4 sm:px-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+      <!-- Three.js 3D floating shapes background -->
+      <canvas id="hero-3d-bg"></canvas>
+      <!-- Three.js 3D rotating globe -->
+      <div id="globe-canvas-wrap"><canvas id="globe-canvas"></canvas></div>
       <!-- Decorative radial glow -->
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] bg-neon/5 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none max-w-full">
@@ -5493,6 +5549,267 @@
         document.body.appendChild(ripple);
 
         setTimeout(() => ripple.remove(), 600);
+      });
+    })();
+
+    // ============================================================
+    // THREE.JS 3D EFFECT 1: HERO BACKGROUND — FLOATING GEOMETRY
+    // ============================================================
+    (function init3DHeroBg() {
+      if (typeof THREE === 'undefined') return;
+      const canvas = document.getElementById('hero-3d-bg');
+      if (!canvas) return;
+      const header = canvas.closest('header');
+      if (!header) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
+      camera.position.z = 5;
+
+      // Resize to match header
+      function resizeHeroBg() {
+        const w = header.offsetWidth;
+        const h = header.offsetHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resizeHeroBg();
+      window.addEventListener('resize', resizeHeroBg);
+
+      // Materials
+      const neonGreen = 0x10b981;
+      const neonBright = 0x00ff87;
+      const purple = 0x6366f1;
+      const sky = 0x38bdf8;
+
+      const wireMat = (color) => new THREE.MeshBasicMaterial({ color, wireframe: true, transparent: true, opacity: 0.55 });
+      const edgeMat = (color) => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.7 });
+
+      const shapes = [];
+
+      const geometries = [
+        new THREE.IcosahedronGeometry(0.6, 0),
+        new THREE.OctahedronGeometry(0.55, 0),
+        new THREE.TetrahedronGeometry(0.5, 0),
+        new THREE.IcosahedronGeometry(0.4, 0),
+        new THREE.OctahedronGeometry(0.7, 0),
+        new THREE.IcosahedronGeometry(0.35, 0),
+        new THREE.TetrahedronGeometry(0.45, 0),
+        new THREE.OctahedronGeometry(0.5, 0),
+        new THREE.IcosahedronGeometry(0.5, 0),
+      ];
+      const colors = [neonGreen, neonBright, purple, sky, neonGreen, neonBright, purple, sky, neonGreen];
+
+      geometries.forEach((geo, i) => {
+        const mesh = new THREE.Mesh(geo, wireMat(colors[i]));
+        const edges = new THREE.LineSegments(new THREE.EdgesGeometry(geo), edgeMat(colors[i]));
+        const group = new THREE.Group();
+        group.add(mesh);
+        group.add(edges);
+
+        const angle = (i / geometries.length) * Math.PI * 2;
+        const radius = 1.8 + Math.random() * 2.2;
+        group.position.set(
+          Math.cos(angle) * radius + (Math.random() - 0.5) * 1.5,
+          Math.sin(angle) * radius + (Math.random() - 0.5) * 1.2,
+          (Math.random() - 0.5) * 2
+        );
+        group.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        group.userData = {
+          floatSpeed: 0.0004 + Math.random() * 0.0004,
+          rotX: (Math.random() - 0.5) * 0.008,
+          rotY: (Math.random() - 0.5) * 0.008,
+          rotZ: (Math.random() - 0.5) * 0.004,
+          floatOffset: Math.random() * Math.PI * 2,
+          baseY: group.position.y
+        };
+        scene.add(group);
+        shapes.push(group);
+      });
+
+      // Mouse parallax
+      let mx = 0, my = 0;
+      window.addEventListener('mousemove', (e) => {
+        mx = (e.clientX / window.innerWidth - 0.5) * 0.4;
+        my = (e.clientY / window.innerHeight - 0.5) * 0.4;
+      });
+
+      let heroFrame;
+      function animateHeroBg(t) {
+        heroFrame = requestAnimationFrame(animateHeroBg);
+        // Only render if header is in viewport
+        const rect = header.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+        camera.position.x += (mx - camera.position.x) * 0.04;
+        camera.position.y += (-my - camera.position.y) * 0.04;
+
+        shapes.forEach((g, i) => {
+          g.rotation.x += g.userData.rotX;
+          g.rotation.y += g.userData.rotY;
+          g.rotation.z += g.userData.rotZ;
+          g.position.y = g.userData.baseY + Math.sin(t * 0.001 * 0.6 + g.userData.floatOffset) * 0.25;
+        });
+        renderer.render(scene, camera);
+      }
+      animateHeroBg(0);
+    })();
+
+    // ============================================================
+    // THREE.JS 3D EFFECT 2: ROTATING PARTICLE GLOBE
+    // ============================================================
+    (function init3DGlobe() {
+      if (typeof THREE === 'undefined') return;
+      const wrap = document.getElementById('globe-canvas-wrap');
+      const canvas = document.getElementById('globe-canvas');
+      if (!wrap || !canvas) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      const SIZE = wrap.offsetWidth || 420;
+      renderer.setSize(SIZE, SIZE, false);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+      camera.position.z = 2.8;
+
+      // Resize
+      function resizeGlobe() {
+        const s = wrap.offsetWidth;
+        renderer.setSize(s, s, false);
+      }
+      window.addEventListener('resize', resizeGlobe);
+
+      // --- Particle sphere ---
+      const PARTICLE_COUNT = 1800;
+      const positions = new Float32Array(PARTICLE_COUNT * 3);
+      const colors = new Float32Array(PARTICLE_COUNT * 3);
+      const c1 = new THREE.Color(0x10b981);
+      const c2 = new THREE.Color(0x00ff87);
+      const c3 = new THREE.Color(0x6366f1);
+      const palette = [c1, c2, c3];
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        // Fibonacci sphere distribution for even spread
+        const phi = Math.acos(1 - 2 * (i + 0.5) / PARTICLE_COUNT);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        const r = 1.0 + (Math.random() - 0.5) * 0.04;
+        positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = r * Math.cos(phi);
+        positions[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+        const col = palette[Math.floor(Math.random() * palette.length)];
+        colors[i * 3]     = col.r;
+        colors[i * 3 + 1] = col.g;
+        colors[i * 3 + 2] = col.b;
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const mat = new THREE.PointsMaterial({
+        size: 0.016,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        sizeAttenuation: true
+      });
+
+      const particles = new THREE.Points(geo, mat);
+      scene.add(particles);
+
+      // --- Wireframe sphere overlay ---
+      const sphereGeo = new THREE.SphereGeometry(1.0, 18, 12);
+      const sphereEdges = new THREE.EdgesGeometry(sphereGeo);
+      const sphereMat = new THREE.LineBasicMaterial({ color: 0x10b981, transparent: true, opacity: 0.12 });
+      const sphereWire = new THREE.LineSegments(sphereEdges, sphereMat);
+      scene.add(sphereWire);
+
+      // --- Orbit ring ---
+      const ringGeo = new THREE.RingGeometry(1.08, 1.12, 64);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0x00ff87, side: THREE.DoubleSide, transparent: true, opacity: 0.18 });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = Math.PI / 2.5;
+      scene.add(ring);
+
+      // Mouse tilt
+      let gmx = 0, gmy = 0;
+      const header = document.querySelector('header');
+      if (header) {
+        header.addEventListener('mousemove', (e) => {
+          const rect = header.getBoundingClientRect();
+          gmx = ((e.clientX - rect.left) / rect.width - 0.5) * 0.8;
+          gmy = ((e.clientY - rect.top) / rect.height - 0.5) * 0.8;
+        });
+        header.addEventListener('mouseleave', () => { gmx = 0; gmy = 0; });
+      }
+
+      // Show globe after a delay
+      setTimeout(() => wrap.classList.add('globe-visible'), 1200);
+
+      let globeFrame;
+      function animateGlobe(t) {
+        globeFrame = requestAnimationFrame(animateGlobe);
+        particles.rotation.y = t * 0.0003;
+        particles.rotation.x += (gmy * 0.5 - particles.rotation.x) * 0.04;
+        particles.rotation.z += (-gmx * 0.3 - particles.rotation.z) * 0.04;
+        sphereWire.rotation.y = t * 0.0002;
+        ring.rotation.z = t * 0.0004;
+        renderer.render(scene, camera);
+      }
+      animateGlobe(0);
+    })();
+
+    // ============================================================
+    // THREE.JS 3D EFFECT 3: PROJECT CARD 3D TILT
+    // ============================================================
+    (function init3DCardTilt() {
+      const cards = document.querySelectorAll('.timeline-card');
+      cards.forEach((card) => {
+        card.classList.add('project-tilt-card');
+        // Inject shine overlay
+        if (!card.querySelector('.tilt-shine')) {
+          const shine = document.createElement('div');
+          shine.className = 'tilt-shine';
+          card.style.position = 'relative';
+          card.appendChild(shine);
+        }
+
+        const MAX_TILT = 10; // degrees
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cx = rect.width / 2;
+          const cy = rect.height / 2;
+          const rotY = ((x - cx) / cx) * MAX_TILT;
+          const rotX = -((y - cy) / cy) * MAX_TILT;
+          card.style.transform = `perspective(700px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03,1.03,1.03)`;
+          // Update shine position
+          const pctX = (x / rect.width * 100).toFixed(1);
+          const pctY = (y / rect.height * 100).toFixed(1);
+          card.style.setProperty('--mx', pctX + '%');
+          card.style.setProperty('--my', pctY + '%');
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+        });
+
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+        });
+        card.addEventListener('mousemove', () => {
+          card.style.transition = 'transform 0.08s linear, box-shadow 0.3s ease, border-color 0.3s ease';
+        });
       });
     })();
 
