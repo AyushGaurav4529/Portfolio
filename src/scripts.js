@@ -586,7 +586,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadAndRenderPdf() {
       if (!pdfCanvasWrapper) return;
-      if (typeof pdfjsLib === 'undefined') return;
+      
+      // Dynamically load pdf.js if not available
+      if (typeof window.pdfjsLib === 'undefined') {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      const pdfjsLib = window.pdfjsLib;
 
       try {
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -2627,6 +2639,128 @@ document.addEventListener("DOMContentLoaded", (event) => {
             end: "bottom top"
           }
         });
+        });
       });
     }
   });
+
+// ============================================================
+// INTERACTIVE HACKER TERMINAL (Ctrl + ~)
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const terminalModal = document.getElementById('terminalModal');
+  const terminalCard = document.getElementById('terminalCard');
+  const closeTerminalBtn = document.getElementById('closeTerminalBtn');
+  const terminalOutput = document.getElementById('terminalOutput');
+  const terminalInput = document.getElementById('terminalInput');
+  const cliModalBtn = document.getElementById('cliModalBtn');
+
+  if (!terminalModal || !terminalInput) return;
+
+  function toggleTerminal() {
+    const isHidden = terminalModal.classList.contains('opacity-0');
+    if (isHidden) {
+      terminalModal.classList.remove('opacity-0', 'pointer-events-none');
+      terminalCard.classList.remove('scale-95');
+      terminalCard.classList.add('scale-100');
+      setTimeout(() => terminalInput.focus(), 100);
+    } else {
+      terminalModal.classList.add('opacity-0', 'pointer-events-none');
+      terminalCard.classList.remove('scale-100');
+      terminalCard.classList.add('scale-95');
+      terminalInput.blur();
+    }
+  }
+
+  if (cliModalBtn) cliModalBtn.addEventListener('click', toggleTerminal);
+  if (closeTerminalBtn) closeTerminalBtn.addEventListener('click', toggleTerminal);
+  
+  terminalModal.addEventListener('click', (e) => {
+    if (e.target === terminalModal) toggleTerminal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === '`') {
+      e.preventDefault();
+      toggleTerminal();
+    }
+    // Close on Escape if open
+    if (e.key === 'Escape' && !terminalModal.classList.contains('opacity-0')) {
+      toggleTerminal();
+    }
+  });
+
+  // Focus input when clicking anywhere inside the terminal area
+  if (terminalOutput) {
+    terminalOutput.addEventListener('click', () => {
+      terminalInput.focus();
+    });
+  }
+
+  terminalInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const command = terminalInput.value.trim().toLowerCase();
+      if (!command) return;
+
+      appendOutput(`$ ${command}`, 'text-white');
+      processCommand(command);
+      
+      terminalInput.value = '';
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
+  });
+
+  function appendOutput(text, colorClass = 'text-textSecondary', isHtml = false) {
+    const p = document.createElement('p');
+    p.className = colorClass;
+    if (isHtml) {
+      p.innerHTML = text;
+    } else {
+      p.textContent = text;
+    }
+    terminalOutput.appendChild(p);
+  }
+
+  function processCommand(cmd) {
+    switch(cmd) {
+      case 'help':
+        appendOutput('Available commands:', 'text-neon');
+        appendOutput('  help     - Show this menu');
+        appendOutput('  about    - Show brief bio');
+        appendOutput('  skills   - List technical skills');
+        appendOutput('  projects - Go to projects section');
+        appendOutput('  contact  - Show contact info');
+        appendOutput('  clear    - Clear terminal output');
+        break;
+      case 'about':
+        appendOutput('Ayush Gaurav - AI & Full Stack Developer.', 'text-sky-400');
+        appendOutput('I build scalable AI models and robust backend systems.');
+        break;
+      case 'skills':
+        appendOutput('Languages: JavaScript, Python, TypeScript, HTML/CSS');
+        appendOutput('Frameworks: React, Node.js, Express, TailwindCSS');
+        appendOutput('Tools: Git, Docker, Linux, Firebase');
+        break;
+      case 'projects':
+        appendOutput('Navigating to projects...', 'text-amber-400');
+        setTimeout(() => {
+          toggleTerminal();
+          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+        break;
+      case 'contact':
+        appendOutput('Email: ayushgaurav4529@gmail.com', 'text-neon');
+        appendOutput('GitHub: github.com/AyushGaurav4529', 'text-neon');
+        appendOutput('LinkedIn: linkedin.com/in/ayugaurav', 'text-neon');
+        break;
+      case 'clear':
+        terminalOutput.innerHTML = '<p class="text-neon font-bold">Ayush Gaurav Terminal v2.5.0 (x86_64-portfolio-linux-gnu)</p>';
+        break;
+      case 'sudo':
+        appendOutput('nice try. This incident will be reported.', 'text-red-500 font-bold');
+        break;
+      default:
+        appendOutput(`Command not found: ${cmd}. Type 'help' for available commands.`, 'text-red-400');
+    }
+  }
+});

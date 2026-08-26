@@ -273,8 +273,17 @@ function initSkillsFloatingIcons(canvas) {
         renderer.setSize(container.clientWidth, container.clientHeight);
     });
 
+    let isVisible = true;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isVisible = entry.isIntersecting;
+        });
+    });
+    observer.observe(container);
+
     function animate(time) {
         requestAnimationFrame(animate);
+        if (!isVisible) return;
 
         shapes.forEach((mesh) => {
             // Self rotation
@@ -368,8 +377,17 @@ function initConnectGlobe(canvas) {
         renderer.setSize(container.clientWidth, container.clientHeight);
     });
 
+    let isVisible = true;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isVisible = entry.isIntersecting;
+        });
+    });
+    observer.observe(container);
+
     function animate() {
         requestAnimationFrame(animate);
+        if (!isVisible) return;
 
         // Slow automatic rotation
         globe.rotation.y += 0.002;
@@ -483,8 +501,17 @@ function initScroll3DScene(canvas) {
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    let isVisible = true;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isVisible = entry.isIntersecting;
+        });
+    });
+    observer.observe(canvas);
+
     function animate() {
         requestAnimationFrame(animate);
+        if (!isVisible) return;
 
         // Constant slow idle rotation
         group.rotation.y += 0.001;
