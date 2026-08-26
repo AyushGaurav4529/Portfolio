@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackedSections = document.querySelectorAll('section[id]');
     const sideNavItems = document.querySelectorAll('.side-nav-item');
     const topNavLinks = document.querySelectorAll('.top-navbar .nav-link');
+    let isNavScrollUpdating = false;
 
     function updateActiveNavOnScroll() {
       let currentSectionId = '';
@@ -271,9 +272,18 @@ document.addEventListener('DOMContentLoaded', () => {
           link.classList.remove('text-neon', 'font-bold');
         }
       });
+
+      isNavScrollUpdating = false;
     }
 
-    window.addEventListener('scroll', updateActiveNavOnScroll);
+    function onNavScroll() {
+      if (!isNavScrollUpdating) {
+        window.requestAnimationFrame(updateActiveNavOnScroll);
+        isNavScrollUpdating = true;
+      }
+    }
+
+    window.addEventListener('scroll', onNavScroll, { passive: true });
     window.addEventListener('load', updateActiveNavOnScroll);
 
     // ──────────────────────────────────────────────
@@ -2586,6 +2596,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Only run GSAP if it loaded properly
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
+      ScrollTrigger.normalizeScroll(true); // Normalizes scrolling to prevent jitter
 
       // 2. Parallax Effect for Backgrounds / Timeline Cards
       // We'll apply a subtle upward shift to the education timeline cards as you scroll down
