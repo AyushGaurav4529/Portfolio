@@ -2639,7 +2639,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             end: "bottom top"
           }
         });
-        });
       });
     }
   });
