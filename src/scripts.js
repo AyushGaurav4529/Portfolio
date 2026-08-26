@@ -2608,7 +2608,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Only run GSAP if it loaded properly
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.normalizeScroll(true); // Normalizes scrolling to prevent jitter
+      // ScrollTrigger.normalizeScroll(true); // Normalizes scrolling to prevent jitter - REMOVED AS IT BREAKS MOBILE SCROLLING
 
       // 2. Parallax Effect for Backgrounds / Timeline Cards
       // We'll apply a subtle upward shift to the education timeline cards as you scroll down
