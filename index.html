@@ -50,6 +50,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <!-- Three.js for Real 3D WebGL effects -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
+<script src="src/three-scenes.js" defer></script>
 <!-- Motion / Framer Motion CDN for Spring Physics Micro-Interactions -->
 <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js" defer></script>
 <!-- Mermaid.js for Interactive Node-Based System Architecture Diagrams -->
@@ -60,6 +61,9 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script></head>
 <body class="bg-grid relative">
+<!-- Scroll-Linked 3D Background Canvas -->
+<canvas id="scroll-3d-bg" class="fixed inset-0 w-full h-full z-[-2] pointer-events-none"></canvas>
+
 <!-- SEO & Accessibility Fallback for Crawlers without JS -->
 <noscript>
   <div style="padding: 20px; background: #0a0a0a; color: #fff; text-align: center; border-bottom: 2px solid #10b981;">
@@ -1451,7 +1455,8 @@
 </section>
 <!-- ========== TECHNICAL SKILLS ========== -->
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 relative" data-aos="fade-up" data-aos-duration="800" id="skills">
-<div class="text-center mb-8 sm:mb-10 animate-on-scroll" data-aos="fade-up">
+<canvas id="skills-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none" style="opacity: 0.6;"></canvas>
+<div class="text-center mb-8 sm:mb-10 animate-on-scroll relative z-10" data-aos="fade-up">
 <span class="text-xs font-mono font-bold text-neon tracking-[0.3em] uppercase">Tech Arsenal</span>
 <h2 class="text-4xl sm:text-5xl font-bold text-white mt-3 section-heading mx-auto w-fit sticky top-4 z-40 rounded-xl px-6 py-2 shadow-lg border border-white/10 bg-dark">Technical Skills</h2>
 </div>
@@ -1634,7 +1639,8 @@
 </section>
 <!-- ========== LET'S CONNECT & CONTACT FORM ========== -->
 <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative" data-aos="fade-up" data-aos-duration="800" id="connect">
-<div class="text-center mb-10 animate-on-scroll" data-aos="fade-up">
+<canvas id="connect-canvas" class="absolute inset-0 w-full h-full z-0 pointer-events-none" style="opacity: 0.5;"></canvas>
+<div class="text-center mb-10 animate-on-scroll relative z-10" data-aos="fade-up">
 <div class="flex items-center justify-center gap-2 mb-4">
 <span class="w-6 h-[2px] bg-neon"></span>
 <span class="text-xs font-mono font-bold text-neon tracking-[0.25em] uppercase">GET IN TOUCH</span>
