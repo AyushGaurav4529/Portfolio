@@ -2,12 +2,43 @@
 // Hero Dynamic Typing, Scramble Effect, Counter Rollup & Kinetic Reveals
 
 export function initAnimations() {
-  // 1. Hero Role – static text (no typewriter)
+  // 1. Hero Dynamic Role Typing Loop
   const typingTextEl = document.getElementById('hero-typing-text');
   if (typingTextEl) {
-    typingTextEl.textContent = 'AI & Full Stack Developer';
-  }
+    const roles = [
+      'AI & Full Stack Developer',
+      'Scalable Software Developer',
+      'CS Engineering Undergrad',
+      'Machine Learning Enthusiast',
+      'Problem Solver & Open Source Contributor'
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
 
+    function typeLoop() {
+      const currentRole = roles[roleIdx];
+      if (isDeleting) {
+        typingTextEl.textContent = currentRole.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        typingTextEl.textContent = currentRole.substring(0, charIdx + 1);
+        charIdx++;
+      }
+
+      let speed = isDeleting ? 70 : 130;
+      if (!isDeleting && charIdx === currentRole.length) {
+        speed = 2600; // Pause at full word
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        speed = 500; // Pause before typing next word
+      }
+      setTimeout(typeLoop, speed);
+    }
+    typeLoop();
+  }
 
   // 3. Number Counter Rollup with IntersectionObserver
   const counters = document.querySelectorAll('.counter-rollup, #github-activity .text-2xl, #github-activity .text-3xl');
