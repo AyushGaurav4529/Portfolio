@@ -56,7 +56,8 @@ export function initNavigation() {
 
   function updateActiveNavOnScroll() {
     let currentSectionId = '';
-    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    // Use mid-viewport as the trigger point for better accuracy
+    const scrollPosition = window.scrollY + window.innerHeight * 0.5;
 
     trackedSections.forEach((section) => {
       const sectionTop = section.offsetTop;
@@ -66,7 +67,8 @@ export function initNavigation() {
       }
     });
 
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 60) {
+    // Activate "connect" when near the bottom of the page (last section is short)
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
       currentSectionId = 'connect';
     }
 
