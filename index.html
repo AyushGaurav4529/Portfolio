@@ -44,21 +44,10 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&amp;family=Geist+Mono:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
-<!-- PDF.js will be lazy loaded -->
-<!-- Three.js for Real 3D WebGL effects -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
-<script src="src/three-scenes.js" defer></script>
-<!-- Motion / Framer Motion CDN for Spring Physics Micro-Interactions -->
-<script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js" defer></script>
+<link rel="stylesheet" href="/src/css/main.css"/>
 <!-- Mermaid.js for Interactive Node-Based System Architecture Diagrams -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js" defer></script>
-
-<link href="dist/output.css" rel="stylesheet">
-<!-- AOS Animation CSS -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script></head>
+</head>
 <body class="bg-grid relative">
 <!-- Scroll-Linked 3D Background Canvas -->
 <canvas id="scroll-3d-bg" class="fixed inset-0 w-full h-full z-[-2] pointer-events-none"></canvas>
@@ -1735,12 +1724,6 @@
 </div>
 <!-- ========== JAVASCRIPT ========== -->
 
-<!-- AOS Animation JS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-
-</section></div>
-
-
-<script src="src/scripts.js" defer></script>
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>

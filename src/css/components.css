@@ -1,0 +1,458 @@
+/* ─── Components, Glassmorphism & Specialized UI ─── */
+
+/* 1. Timeline & Interactive Cards */
+.timeline-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #1e1e1e;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.timeline-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 0 20px rgba(0, 255, 135, 0.25), 0 0 40px rgba(0, 255, 135, 0.08);
+}
+
+.timeline-dot {
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-card:hover ~ .timeline-dot,
+.timeline-group:hover .timeline-dot {
+  background-color: #00ff87 !important;
+  box-shadow: 0 0 16px rgba(0, 255, 135, 0.6);
+  transform: scale(1.4);
+}
+
+.timeline-line-v {
+  background: linear-gradient(180deg, #1e1e1e, #10b981, #1e1e1e);
+  width: 2px;
+}
+
+/* 2. Skill Pills & Interactive Category Tabs */
+.skill-pill {
+  transition: all 0.25s ease;
+  border: 1px solid #1e1e1e;
+}
+
+.skill-pill:hover {
+  border-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+  color: #00ff87;
+}
+
+.skill-bar-fill {
+  transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3. CTA & Magnetic Buttons */
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.cta-btn:hover::before {
+  left: 100%;
+}
+
+.cta-btn:hover {
+  box-shadow: 0 0 30px rgba(16, 185, 129, 0.4), 0 0 60px rgba(16, 185, 129, 0.15);
+  transform: translateY(-2px);
+}
+
+.magnetic-btn {
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.contact-link {
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #00ff87;
+  text-shadow: 0 0 8px rgba(0, 255, 135, 0.4);
+}
+
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981, #00ff87);
+  margin-top: 12px;
+  border-radius: 2px;
+}
+
+/* 4. Canvas Containers */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#hero-3d-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+
+#globe-canvas-wrap {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(420px, 45vw);
+  height: min(420px, 45vw);
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#globe-canvas-wrap.globe-visible {
+  opacity: 1;
+}
+
+@media (max-width: 900px) {
+  #globe-canvas-wrap {
+    display: none;
+  }
+}
+
+/* 5. 3D Card Tilt & Specular Shine */
+.project-tilt-card,
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.tilt-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(0, 255, 135, 0.18) 0%, transparent 65%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.project-tilt-card:hover .tilt-shine,
+.spotlight-card:hover .tilt-shine {
+  opacity: 1;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 255, 135, 0.5),
+    transparent 40%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(16, 185, 129, 0.12),
+    transparent 40%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* 6. Custom Neon Cursor Follower */
+#custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: #00ff87;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87;
+  will-change: transform;
+}
+
+#custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(16, 185, 129, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+  transition: width 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              height 0.25s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              border-color 0.25s ease, 
+              background-color 0.25s ease;
+  will-change: transform;
+}
+
+#custom-cursor-ring.active-hover {
+  width: 52px;
+  height: 52px;
+  border-color: #00ff87;
+  background-color: rgba(16, 185, 129, 0.12);
+  box-shadow: 0 0 25px rgba(0, 255, 135, 0.4);
+}
+
+@media (pointer: coarse) {
+  #custom-cursor-dot,
+  #custom-cursor-ring,
+  .cursor-spark {
+    display: none !important;
+  }
+}
+
+.cursor-spark {
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  background-color: #00ff87;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99997;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00ff87, 0 0 20px #00ff87, 0 0 30px #10b981;
+  animation: sparkFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes sparkFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1) translateY(16px);
+  }
+}
+
+/* 7. Hanging ICARD Badge with Pendulum Swing */
+@keyframes smoothSwing {
+  0% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+  100% { transform: rotate(-1.5deg); }
+}
+
+@keyframes badgeSway {
+  0%, 100% { transform: rotate(0deg) translateY(0px); }
+  50% { transform: rotate(-1deg) translateY(1px); }
+}
+
+.hanging-icard-wrapper {
+  transform-origin: top center !important;
+  animation: smoothSwing 6s ease-in-out infinite !important;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+#heroIcardBadge {
+  transform-origin: top center !important;
+  animation: badgeSway 5s ease-in-out infinite !important;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+.hanging-icard-wrapper:hover,
+.hanging-icard-wrapper:hover #heroIcardBadge,
+.hanging-icard-wrapper:has(.is-flipped),
+.hanging-icard-wrapper:has(.is-flipped) #heroIcardBadge {
+  animation-play-state: paused !important;
+  transform: rotate(0deg) translateY(0px) !important;
+}
+
+.icard-perspective {
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+.icard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.icard-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1), opacity 0.4s ease;
+}
+
+.icard-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+  opacity: 1;
+}
+
+.icard-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  opacity: 0;
+}
+
+.icard-inner.is-flipped .icard-front {
+  transform: rotateY(-180deg);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.icard-inner.is-flipped .icard-back {
+  transform: rotateY(0deg);
+  z-index: 2;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 8. Side Nav Dots */
+.side-nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #475569;
+  transition: all 0.3s ease;
+}
+
+.side-nav-item.active .side-nav-dot {
+  background-color: #10b981 !important;
+  box-shadow: 0 0 12px #10b981, 0 0 20px rgba(0, 255, 135, 0.6) !important;
+  transform: scale(1.5) !important;
+}
+
+.side-nav-item.active .side-nav-label {
+  opacity: 1 !important;
+  color: #10b981 !important;
+  font-weight: 600 !important;
+}
+
+.side-nav-item:hover .side-nav-dot {
+  background-color: #00ff87;
+  transform: scale(1.2);
+}
+
+/* 9. Scroll Progress Bar */
+#scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #10b981 0%, #00ff87 50%, #34d399 100%);
+  box-shadow: 0 0 10px rgba(0, 255, 135, 0.8), 0 0 20px rgba(16, 185, 129, 0.5);
+  z-index: 99999;
+  pointer-events: none;
+  transition: width 0.1s ease-out;
+}
+
+/* 10. Click Ripple Wave */
+.click-ripple {
+  position: fixed;
+  border-radius: 50%;
+  border: 2px solid #00ff87;
+  box-shadow: 0 0 15px #00ff87, inset 0 0 15px #00ff87;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleExpand 0.55s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes rippleExpand {
+  0% { width: 0; height: 0; opacity: 0.9; }
+  100% { width: 140px; height: 140px; opacity: 0; }
+}
+
+/* Ambient Glassmorphism */
+.glass-ambient {
+  background: rgba(17, 17, 17, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.glass-ambient:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.12);
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .cursor-spark, #custom-cursor-dot, #custom-cursor-ring, #cursorSpotlight {
+    display: none !important;
+  }
+}

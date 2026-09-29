@@ -1,0 +1,60 @@
+/* ─── CSS Variables & Design Tokens ─── */
+:root {
+  --color-dark: #0a0a0a;
+  --color-dark-card: #111111;
+  --color-dark-border: #1e1e1e;
+  --color-neon: #10b981;
+  --color-neon-bright: #00ff87;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  
+  --shadow-neon: 0 0 15px rgba(16, 185, 129, 0.3), 0 0 30px rgba(16, 185, 129, 0.1);
+  --shadow-neon-bright: 0 0 20px rgba(0, 255, 135, 0.4), 0 0 40px rgba(0, 255, 135, 0.15);
+  --shadow-neon-glow: 0 0 30px rgba(16, 185, 129, 0.4), 0 0 60px rgba(16, 185, 129, 0.15);
+
+  --font-sans: 'Geist', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+  --color-dark: #f8fafc;
+  --color-dark-card: #ffffff;
+  --color-dark-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+  --color-neon: #059669;
+  --color-neon-bright: #10b981;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+body.light-mode .bg-dark {
+  background-color: #f8fafc !important;
+}
+
+body.light-mode .bg-darkCard,
+body.light-mode .bg-\[\#111111\] {
+  background-color: #ffffff !important;
+}
+
+body.light-mode .border-darkBorder,
+body.light-mode .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+body.light-mode .text-white {
+  color: #0f172a !important;
+}
+
+body.light-mode .text-textSecondary {
+  color: #475569 !important;
+}
+
+body.light-mode .bg-grid {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.07) 1px, transparent 1px) !important;
+}
