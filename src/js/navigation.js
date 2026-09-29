@@ -109,6 +109,17 @@ export function initNavigation() {
       }
     });
 
+    const topNavConnectBtn = document.querySelector('.top-navbar .btn-connect');
+    if (topNavConnectBtn) {
+      if (currentSectionId === 'connect') {
+        topNavConnectBtn.classList.add('bg-neon', 'shadow-[0_0_18px_rgba(16,185,129,0.5)]');
+        topNavConnectBtn.classList.remove('bg-white');
+      } else {
+        topNavConnectBtn.classList.remove('bg-neon', 'shadow-[0_0_18px_rgba(16,185,129,0.5)]');
+        topNavConnectBtn.classList.add('bg-white');
+      }
+    }
+
     // 3. Mobile Navigation Links
     mobileNavLinks.forEach((link) => {
       const href = link.getAttribute('href');
