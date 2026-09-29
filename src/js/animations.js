@@ -2,79 +2,12 @@
 // Hero Dynamic Typing, Scramble Effect, Counter Rollup & Kinetic Reveals
 
 export function initAnimations() {
-  // 1. Hero Dynamic Role Typing Loop
+  // 1. Hero Role – static text (no typewriter)
   const typingTextEl = document.getElementById('hero-typing-text');
   if (typingTextEl) {
-    const roles = [
-      'AI & Full Stack Developer',
-      'Scalable Software Developer',
-      'CS Engineering Undergrad',
-      'Machine Learning Enthusiast',
-      'Problem Solver & Open Source Contributor'
-    ];
-    let roleIdx = 0;
-    let charIdx = 0;
-    let isDeleting = false;
-
-    function typeLoop() {
-      const currentRole = roles[roleIdx];
-      if (isDeleting) {
-        typingTextEl.textContent = currentRole.substring(0, charIdx - 1);
-        charIdx--;
-      } else {
-        typingTextEl.textContent = currentRole.substring(0, charIdx + 1);
-        charIdx++;
-      }
-
-      let speed = isDeleting ? 70 : 130;
-      if (!isDeleting && charIdx === currentRole.length) {
-        speed = 2600; // Pause at full word
-        isDeleting = true;
-      } else if (isDeleting && charIdx === 0) {
-        isDeleting = false;
-        roleIdx = (roleIdx + 1) % roles.length;
-        speed = 500; // Pause before typing next word
-      }
-      setTimeout(typeLoop, speed);
-    }
-    typeLoop();
+    typingTextEl.textContent = 'AI & Full Stack Developer';
   }
 
-  // 2. Hacker Text Scramble Effect
-  const scrambleGlyphs = '!<>-_\\/[]{}—=+^?#________';
-  function scrambleText(element, finalText, duration = 500) {
-    if (!element) return;
-    const start = Date.now();
-
-    const timer = setInterval(() => {
-      const timePassed = Date.now() - start;
-      const progress = Math.min(timePassed / duration, 1);
-
-      let result = '';
-      for (let i = 0; i < finalText.length; i++) {
-        if (finalText[i] === ' ') {
-          result += ' ';
-        } else if (i < Math.floor(progress * finalText.length)) {
-          result += finalText[i];
-        } else {
-          result += scrambleGlyphs[Math.floor(Math.random() * scrambleGlyphs.length)];
-        }
-      }
-
-      element.textContent = result;
-      if (progress >= 1) clearInterval(timer);
-    }, 28);
-  }
-
-  const headings = document.querySelectorAll('h1.gradient-text, h2.section-heading');
-  headings.forEach((heading) => {
-    const originalText = heading.textContent.trim();
-    heading.setAttribute('data-original', originalText);
-
-    heading.addEventListener('mouseenter', () => {
-      scrambleText(heading, originalText, 450);
-    });
-  });
 
   // 3. Number Counter Rollup with IntersectionObserver
   const counters = document.querySelectorAll('.counter-rollup, #github-activity .text-2xl, #github-activity .text-3xl');
