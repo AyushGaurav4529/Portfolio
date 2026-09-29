@@ -49,48 +49,144 @@ export function initNavigation() {
   }
 
   // 4. ScrollSpy: Real-time active section tracking (RAF Throttled)
-  const trackedSections = document.querySelectorAll('section[id]');
+  const SECTION_ORDER = [
+    'hero',
+    'summary',
+    'education',
+    'projects',
+    'certifications',
+    'hackathons',
+    'skills',
+    'github-activity',
+    'testimonials',
+    'connect'
+  ];
+
   const sideNavItems = document.querySelectorAll('.side-nav-item');
   const topNavLinks = document.querySelectorAll('.top-navbar .nav-link');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
   let isNavScrollUpdating = false;
+  let activeSectionId = '';
 
-  function updateActiveNavOnScroll() {
-    let currentSectionId = '';
-    // Use mid-viewport as the trigger point for better accuracy
-    const scrollPosition = window.scrollY + window.innerHeight * 0.5;
-
-    trackedSections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        currentSectionId = section.getAttribute('id');
-      }
+  function getTrackedSections() {
+    const sections = [];
+    SECTION_ORDER.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) sections.push(el);
     });
+    // Collect any other section with an ID on the page
+    document.querySelectorAll('section[id]').forEach((el) => {
+      if (!sections.includes(el)) sections.push(el);
+    });
+    return sections;
+  }
 
-    // Activate "connect" when near the bottom of the page (last section is short)
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
-      currentSectionId = 'connect';
-    }
+  function setActiveSectionUI(currentSectionId) {
+    if (!currentSectionId) return;
+    activeSectionId = currentSectionId;
 
+    // 1. Left Side Navigation Items
     sideNavItems.forEach((item) => {
-      if (item.getAttribute('data-section') === currentSectionId) {
+      const section = item.getAttribute('data-section');
+      if (section === currentSectionId) {
         item.classList.add('active');
+        item.setAttribute('aria-current', 'true');
       } else {
         item.classList.remove('active');
+        item.removeAttribute('aria-current');
       }
     });
 
+    // 2. Top Navigation Links
     topNavLinks.forEach((link) => {
       const href = link.getAttribute('href');
       if (href === '#' + currentSectionId) {
         link.classList.add('text-neon', 'font-bold');
+        link.classList.remove('text-textSecondary');
       } else {
         link.classList.remove('text-neon', 'font-bold');
+        link.classList.add('text-textSecondary');
       }
     });
 
+    // 3. Mobile Navigation Links
+    mobileNavLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href === '#' + currentSectionId) {
+        link.classList.add('border-neon', 'text-neon');
+        link.classList.remove('border-darkBorder');
+      } else {
+        link.classList.remove('border-neon', 'text-neon');
+        link.classList.add('border-darkBorder');
+      }
+    });
+  }
+
+  function determineActiveSection() {
+    const trackedSections = getTrackedSections();
+    if (!trackedSections.length) return '';
+
+    const scrollY = window.scrollY || window.pageYOffset;
+    const viewportHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+
+    // 1. Top of page -> Hero / Home
+    if (scrollY < 120) {
+      return trackedSections[0]?.id || 'hero';
+    }
+
+    // 2. Bottom of page -> Connect (Contact)
+    if (scrollY + viewportHeight >= docHeight - 80) {
+      return 'connect';
+    }
+
+    // 3. Focal line: the natural eye-reading focus line below the sticky top navbar
+    const focalPoint = Math.min(240, Math.max(120, viewportHeight * 0.3));
+
+    // Find section containing the focalPoint
+    for (let i = 0; i < trackedSections.length; i++) {
+      const sec = trackedSections[i];
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= focalPoint && rect.bottom > focalPoint) {
+        return sec.id;
+      }
+    }
+
+    // 4. Fallback: section with largest visible height on screen
+    let bestId = '';
+    let maxVisibleHeight = -1;
+
+    trackedSections.forEach((sec) => {
+      const rect = sec.getBoundingClientRect();
+      const visibleTop = Math.max(0, rect.top);
+      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+      if (visibleHeight > maxVisibleHeight && visibleHeight > 50) {
+        maxVisibleHeight = visibleHeight;
+        bestId = sec.id;
+      }
+    });
+
+    return bestId || activeSectionId || 'hero';
+  }
+
+  function updateActiveNavOnScroll() {
+    const currentId = determineActiveSection();
+    if (currentId) {
+      setActiveSectionUI(currentId);
+    }
     isNavScrollUpdating = false;
   }
+
+  // Instant response on clicking side nav items
+  sideNavItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const sec = item.getAttribute('data-section');
+      if (sec) {
+        setActiveSectionUI(sec);
+      }
+    });
+  });
 
   // 5. Back to Top Floating Button
   const backToTopBtn = document.getElementById('backToTopBtn');
@@ -128,6 +224,13 @@ export function initNavigation() {
     if (!isBackToTopUpdating) {
       isBackToTopUpdating = true;
       requestAnimationFrame(updateBackToTop);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (!isNavScrollUpdating) {
+      isNavScrollUpdating = true;
+      requestAnimationFrame(updateActiveNavOnScroll);
     }
   }, { passive: true });
 

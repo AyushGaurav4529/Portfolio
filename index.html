@@ -543,32 +543,44 @@
 <i class="w-5 h-5" data-lucide="x"></i>
 </button>
 </div>
-<div class="flex flex-col gap-2.5 py-6 font-mono text-sm">
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#summary">
+<div class="flex flex-col gap-2 py-4 font-mono text-sm max-h-[70vh] overflow-y-auto">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#hero">
+<span class="flex items-center gap-2"><span>🏠</span> <span>Home</span></span>
+<i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
+</a>
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#summary">
 <span class="flex items-center gap-2"><span>👨‍💻</span> <span>About &amp; Summary</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#education">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#education">
 <span class="flex items-center gap-2"><span>🎓</span> <span>Education</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#projects">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#projects">
 <span class="flex items-center gap-2"><span>🚀</span> <span>Projects &amp; SaaS</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#certifications">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#certifications">
 <span class="flex items-center gap-2"><span>📜</span> <span>Certifications</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#hackathons">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#hackathons">
 <span class="flex items-center gap-2"><span>🏆</span> <span>Hackathons</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#skills">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#skills">
 <span class="flex items-center gap-2"><span>🛠️</span> <span>Skills &amp; Toolkit</span></span>
 <i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
 </a>
-<a class="mobile-nav-link flex items-center justify-between p-3.5 rounded-xl bg-neon text-dark font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)]" href="#connect">
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#github-activity">
+<span class="flex items-center gap-2"><span>📊</span> <span>Coding Activity</span></span>
+<i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
+</a>
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-darkCard border border-darkBorder hover:border-neon text-white transition-all" href="#testimonials">
+<span class="flex items-center gap-2"><span>💬</span> <span>Peer Feedback</span></span>
+<i class="w-4 h-4 text-neon" data-lucide="chevron-right"></i>
+</a>
+<a class="mobile-nav-link flex items-center justify-between p-3 rounded-xl bg-neon text-dark font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.4)]" href="#connect">
 <span class="flex items-center gap-2"><span>📬</span> <span>Let's Connect</span></span>
 <i class="w-4 h-4" data-lucide="arrow-right"></i>
 </a>
@@ -585,34 +597,46 @@
 </div>
 </div>
 <!-- Left Side Vertical Navigation Dots -->
-<aside class="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden xl:flex flex-col gap-4 items-start pointer-events-auto">
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="summary" href="#summary" title="About">
+<aside aria-label="Section navigation" class="fixed left-3 sm:left-4 xl:left-6 top-1/2 -translate-y-1/2 z-30 hidden lg:flex flex-col gap-2.5 items-start pointer-events-auto select-none" id="sideNav">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="hero" href="#hero" title="Home">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">About</span>
+<span class="side-nav-label font-mono">Home</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="education" href="#education" title="Education">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="summary" href="#summary" title="About">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Education</span>
+<span class="side-nav-label font-mono">About</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="projects" href="#projects" title="Projects">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="education" href="#education" title="Education">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Projects</span>
+<span class="side-nav-label font-mono">Education</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="certifications" href="#certifications" title="Certifications">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="projects" href="#projects" title="Projects">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Certifications</span>
+<span class="side-nav-label font-mono">Projects</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="hackathons" href="#hackathons" title="Hackathons">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="certifications" href="#certifications" title="Certifications">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Hackathons</span>
+<span class="side-nav-label font-mono">Certifications</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="skills" href="#skills" title="Skills">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="hackathons" href="#hackathons" title="Hackathons">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Skills</span>
+<span class="side-nav-label font-mono">Hackathons</span>
 </a>
-<a class="side-nav-item flex items-center gap-2 group text-xs text-textMuted hover:text-white transition-all" data-section="connect" href="#connect" title="Contact">
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="skills" href="#skills" title="Skills">
 <span class="side-nav-dot"></span>
-<span class="side-nav-label opacity-0 group-hover:opacity-100 transition-opacity font-mono">Contact</span>
+<span class="side-nav-label font-mono">Skills</span>
+</a>
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="github-activity" href="#github-activity" title="Coding Activity">
+<span class="side-nav-dot"></span>
+<span class="side-nav-label font-mono">Activity</span>
+</a>
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="testimonials" href="#testimonials" title="Feedback">
+<span class="side-nav-dot"></span>
+<span class="side-nav-label font-mono">Feedback</span>
+</a>
+<a class="side-nav-item flex items-center gap-2.5 group text-xs text-textMuted hover:text-white transition-all py-0.5" data-section="connect" href="#connect" title="Contact">
+<span class="side-nav-dot"></span>
+<span class="side-nav-label font-mono">Contact</span>
 </a>
 </aside>
 <!-- Profile Modal Overlay -->
@@ -698,7 +722,7 @@
 <!-- Main content wrapper -->
 <div class="relative z-10 pt-14 sm:pt-16">
 <!-- ========== HERO / HEADER ========== -->
-<header class="min-h-screen py-12 sm:py-20 md:py-24 px-4 sm:px-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+<header class="min-h-screen py-12 sm:py-20 md:py-24 px-4 sm:px-6 flex flex-col items-center justify-center text-center relative overflow-hidden" id="hero">
 <!-- Three.js 3D floating shapes background -->
 <canvas id="hero-3d-bg"></canvas>
 <!-- Three.js 3D rotating globe -->
