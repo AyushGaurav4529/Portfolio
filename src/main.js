@@ -1,5 +1,5 @@
 // src/main.js
-// Main Application Entrypoint — Modular Architecture
+// Main Application Entrypoint — Performance-Optimized Modular Architecture
 
 import './css/main.css';
 
@@ -15,12 +15,9 @@ import { initAnimations } from './js/animations.js';
 import { initCardEffects } from './js/cardEffects.js';
 import { initIcard } from './js/icard.js';
 import { initModals } from './js/modals.js';
-import { initTerminal } from './js/terminal.js';
-import { initAiAssistant } from './js/aiAssistant.js';
 import { initCommandPalette } from './js/commandPalette.js';
 import { initProjects } from './js/projects.js';
 import { initSkills } from './js/skills.js';
-import { initPdfViewer } from './js/pdfViewer.js';
 import { initContact } from './js/contact.js';
 import { fetchGitHubStats } from './js/github.js';
 
@@ -31,8 +28,109 @@ function renderLucideIcons() {
 // Global exposure for dynamic markup rendering
 window.lucide = { createIcons: renderLucideIcons };
 
+// ─── Code-Split Dynamic Feature Loaders ───
+
+function initPdfViewerLazy() {
+  let pdfInitialized = false;
+  async function launchPdf() {
+    const { initPdfViewer, openPdfModal } = await import('./js/pdfViewer.js');
+    if (!pdfInitialized) {
+      pdfInitialized = true;
+      initPdfViewer();
+    }
+    openPdfModal();
+  }
+
+  document.querySelectorAll('.btn-open-pdf, #btnNavCv, #btnOpenPdfHero').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      launchPdf();
+    });
+  });
+}
+
+function initTerminalLazy() {
+  let terminalInitialized = false;
+  async function launchTerminal() {
+    if (!terminalInitialized) {
+      terminalInitialized = true;
+      const { initTerminal } = await import('./js/terminal.js');
+      initTerminal();
+    }
+    const modal = document.getElementById('terminalModal');
+    const card = document.getElementById('terminalCard');
+    const input = document.getElementById('terminalInput');
+    if (modal && card) {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+      if (input) setTimeout(() => input.focus(), 60);
+    }
+  }
+
+  const cliBtn = document.getElementById('cliModalBtn');
+  if (cliBtn) {
+    cliBtn.addEventListener('click', launchTerminal);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === '`') {
+      e.preventDefault();
+      launchTerminal();
+    }
+  });
+
+  window.openTerminalCli = launchTerminal;
+}
+
+function initAiAssistantLazy() {
+  let aiInitialized = false;
+  const toggleBtn = document.getElementById('aiChatToggleBtn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', async () => {
+      if (!aiInitialized) {
+        aiInitialized = true;
+        const { initAiAssistant } = await import('./js/aiAssistant.js');
+        initAiAssistant();
+      }
+    }, { once: true });
+  }
+}
+
+function initMermaidLazy() {
+  let mermaidLoaded = false;
+  async function loadAndRunMermaid() {
+    if (mermaidLoaded) return;
+    try {
+      const module = await import('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.esm.min.mjs');
+      const mermaid = module.default || module;
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        securityLevel: 'loose'
+      });
+      await mermaid.run({ querySelector: '.mermaid' });
+      mermaidLoaded = true;
+    } catch (err) {
+      console.warn('Mermaid dynamic load error:', err);
+    }
+  }
+
+  document.querySelectorAll('details').forEach((det) => {
+    if (det.querySelector('.mermaid')) {
+      det.addEventListener('toggle', () => {
+        if (det.open) loadAndRunMermaid();
+      });
+    }
+  });
+}
+
 // Lazy-load Three.js scenes to ensure instant First Contentful Paint (FCP)
 async function load3DScenes() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
   try {
     const [
       { initHeroNeuralNetwork },
@@ -79,9 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Initialize AOS (Animate on Scroll)
   try {
     AOS.init({
-      duration: 750,
+      duration: 600,
       once: true,
-      offset: 40,
+      offset: 30,
       disable: 'mobile'
     });
   } catch (e) {}
@@ -112,34 +210,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // 10. Initialize Modals
   initModals();
 
-  // 11. Initialize Interactive Terminal
-  initTerminal();
-
-  // 12. Initialize AI Assistant
-  initAiAssistant();
-
-  // 13. Initialize Command Palette
+  // 11. Initialize Command Palette
   initCommandPalette();
 
-  // 14. Initialize Projects Filtering & Sandbox
+  // 12. Initialize Projects Filtering & Sandbox
   initProjects();
 
-  // 15. Initialize Skills Tabs & Progress
+  // 13. Initialize Skills Tabs & Progress
   initSkills();
 
-  // 16. Initialize PDF Viewer
-  initPdfViewer();
-
-  // 17. Initialize Contact Form & Clipboard
+  // 14. Initialize Contact Form & Clipboard
   initContact();
 
-  // 18. Fetch Live GitHub Stats
+  // 15. Dynamic Feature Trigger Listeners (Code-Split)
+  initPdfViewerLazy();
+  initTerminalLazy();
+  initAiAssistantLazy();
+  initMermaidLazy();
+
+  // 16. Fetch Live GitHub Stats
   fetchGitHubStats();
 
-  // 19. Asynchronously mount 3D WebGL scenes during browser idle time
+  // 17. Asynchronously mount 3D WebGL scenes during browser idle time
   if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(load3DScenes);
+    window.requestIdleCallback(load3DScenes, { timeout: 2000 });
   } else {
-    setTimeout(load3DScenes, 100);
+    setTimeout(load3DScenes, 200);
   }
 });

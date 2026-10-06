@@ -5,11 +5,18 @@ import * as THREE from 'three';
 
 export function init3DHeroBg(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const header = canvas.closest('header');
   if (!header) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
@@ -19,9 +26,11 @@ export function init3DHeroBg(canvas) {
   function resizeHeroBg() {
     const w = header.offsetWidth;
     const h = header.offsetHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    if (w > 0 && h > 0) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
   }
   resizeHeroBg();
   window.addEventListener('resize', resizeHeroBg, { passive: true });
@@ -35,7 +44,9 @@ export function init3DHeroBg(canvas) {
   const edgeMat = (color) => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.65 });
 
   const shapes = [];
-  const geometries = [
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+
+  const fullGeometries = [
     new THREE.IcosahedronGeometry(0.6, 0),
     new THREE.OctahedronGeometry(0.55, 0),
     new THREE.TetrahedronGeometry(0.5, 0),
@@ -46,7 +57,10 @@ export function init3DHeroBg(canvas) {
     new THREE.OctahedronGeometry(0.5, 0),
     new THREE.IcosahedronGeometry(0.5, 0),
   ];
-  const colors = [neonGreen, neonBright, purple, sky, neonGreen, neonBright, purple, sky, neonGreen];
+  const fullColors = [neonGreen, neonBright, purple, sky, neonGreen, neonBright, purple, sky, neonGreen];
+
+  const geometries = isLowPower ? fullGeometries.slice(0, 4) : fullGeometries;
+  const colors = isLowPower ? fullColors.slice(0, 4) : fullColors;
 
   geometries.forEach((geo, i) => {
     const mesh = new THREE.Mesh(geo, wireMat(colors[i]));
@@ -80,14 +94,43 @@ export function init3DHeroBg(canvas) {
     my = (e.clientY / window.innerHeight - 0.5) * 0.3;
   }, { passive: true });
 
-  let isVisible = true;
+  let isIntersecting = true;
+  let isPageVisible = !document.hidden;
   let heroFrame = null;
+
+  function shouldRun() {
+    return isIntersecting && isPageVisible;
+  }
+
+  function startLoop() {
+    if (shouldRun() && !heroFrame) {
+      heroFrame = requestAnimationFrame(animateHeroBg);
+    }
+  }
+
+  function stopLoop() {
+    if (heroFrame) {
+      cancelAnimationFrame(heroFrame);
+      heroFrame = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !heroFrame) {
-        animateHeroBg(0);
+      isIntersecting = entry.isIntersecting;
+      if (isIntersecting) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     });
   }, { threshold: 0.05 });
@@ -95,7 +138,7 @@ export function init3DHeroBg(canvas) {
   observer.observe(header);
 
   function animateHeroBg(t) {
-    if (!isVisible) {
+    if (!shouldRun()) {
       heroFrame = null;
       return;
     }
@@ -114,5 +157,5 @@ export function init3DHeroBg(canvas) {
     renderer.render(scene, camera);
   }
 
-  animateHeroBg(0);
+  startLoop();
 }

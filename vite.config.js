@@ -5,7 +5,26 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/three')) {
+            return 'vendor-three';
+          }
+          if (id.includes('node_modules/gsap')) {
+            return 'vendor-gsap';
+          }
+          if (id.includes('node_modules/lucide')) {
+            return 'vendor-lucide';
+          }
+          if (id.includes('node_modules/aos')) {
+            return 'vendor-aos';
+          }
+        }
+      }
+    }
   },
   server: {
     port: 3000,

@@ -2,6 +2,11 @@
 // High-Performance 3D Card Tilt, Specular Sheen & Magnetic Hover Buttons
 
 export function initCardEffects() {
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (isTouch || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
   const cards = document.querySelectorAll(
     '.timeline-card, .project-card-trigger, .skill-category-block, .spotlight-card'
   );
@@ -9,7 +14,6 @@ export function initCardEffects() {
   cards.forEach((card) => {
     card.classList.add('spotlight-card', 'project-tilt-card');
 
-    // Ensure specular shine overlay is present
     if (!card.querySelector('.tilt-shine')) {
       const shine = document.createElement('div');
       shine.className = 'tilt-shine';
@@ -28,13 +32,11 @@ export function initCardEffects() {
       const cx = rect.width / 2;
       const cy = rect.height / 2;
 
-      // Subtle and smooth max 6deg tilt
       const rotY = ((x - cx) / cx) * 6;
       const rotX = -((y - cy) / cy) * 6;
 
       card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
 
-      // Specular glare position percentage & pixel vars
       const pctX = ((x / rect.width) * 100).toFixed(1);
       const pctY = ((y / rect.height) * 100).toFixed(1);
       card.style.setProperty('--mx', `${pctX}%`);
@@ -48,7 +50,7 @@ export function initCardEffects() {
     card.addEventListener('mouseenter', () => {
       rect = card.getBoundingClientRect();
       card.style.transition = 'transform 0.1s ease-out, box-shadow 0.3s ease, border-color 0.3s ease';
-    });
+    }, { passive: true });
 
     card.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
@@ -61,11 +63,14 @@ export function initCardEffects() {
     }, { passive: true });
 
     card.addEventListener('mouseleave', () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
       rect = null;
       card.style.transition = 'transform 0.4s ease-out, box-shadow 0.3s ease, border-color 0.3s ease';
       card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-    });
+    }, { passive: true });
   });
 
   // Spring Physics Magnetic Hover Buttons
@@ -79,6 +84,7 @@ export function initCardEffects() {
     let currentX = 0, currentY = 0;
     let isHovered = false;
     let rafId = null;
+    let bRect = null;
 
     function updateSpring() {
       currentX += (targetX - currentX) * 0.2;
@@ -94,8 +100,12 @@ export function initCardEffects() {
       }
     }
 
+    el.addEventListener('mouseenter', () => {
+      bRect = el.getBoundingClientRect();
+    }, { passive: true });
+
     el.addEventListener('mousemove', (e) => {
-      const bRect = el.getBoundingClientRect();
+      if (!bRect) bRect = el.getBoundingClientRect();
       targetX = (e.clientX - bRect.left - bRect.width / 2) * 0.3;
       targetY = (e.clientY - bRect.top - bRect.height / 2) * 0.3;
       if (!isHovered) {
@@ -108,6 +118,7 @@ export function initCardEffects() {
       isHovered = false;
       targetX = 0;
       targetY = 0;
-    });
+      bRect = null;
+    }, { passive: true });
   });
 }

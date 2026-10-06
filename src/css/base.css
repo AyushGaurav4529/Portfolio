@@ -16,12 +16,12 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   scrollbar-width: thin;
-  scrollbar-color: #10b981 #0a0a0a;
+  scrollbar-color: #10B981 #0A0B0D;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #e2e8f0;
+  background-color: var(--bg, #0A0B0D);
+  color: var(--text-primary, #F0F2F5);
   font-family: var(--font-sans);
   position: relative;
   letter-spacing: -0.012em;
@@ -39,35 +39,35 @@ code, kbd, samp, pre, .font-mono {
   letter-spacing: -0.01em;
 }
 
-/* Custom Cyberpunk Scrollbar */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--bg, #0A0B0D);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #10b981;
+  background: #10B981;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00ff87;
+  background: #34D399;  /* emerald-400 — subtle lightening, no neon flash */
 }
 
-/* Background Cyber Grid Pattern */
+/* Subtle dot-grid pattern — very low opacity */
 .bg-grid {
   background-image:
-    linear-gradient(rgba(16, 185, 129, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(16, 185, 129, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.025) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
-/* Gradient Text Shimmer */
+/* Gradient text — white → emerald, no neon-green */
 .gradient-text {
-  background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #00ff87 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #10B981 60%, #34D399 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -75,8 +75,17 @@ code, kbd, samp, pre, .font-mono {
   animation: gradientShift 4s ease infinite;
 }
 
+/* Light mode gradient-text */
+body.light-mode .gradient-text {
+  background: linear-gradient(135deg, #0F172A 0%, #059669 60%, #10B981 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Timeline Connector Line */
 .timeline-line {
-  background: linear-gradient(90deg, #1e1e1e, #10b981, #1e1e1e);
+  background: linear-gradient(90deg, var(--border, #1C1F27), #10B981, var(--border, #1C1F27));
   height: 2px;
 }

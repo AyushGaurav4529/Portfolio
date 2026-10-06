@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export function initScroll3DScene(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x0a0a0a, 0.002);
@@ -14,8 +15,13 @@ export function initScroll3DScene(canvas) {
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 100;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
@@ -29,7 +35,10 @@ export function initScroll3DScene(canvas) {
   dirLight2.position.set(-50, -50, -50);
   scene.add(dirLight2);
 
-  const geometry = new THREE.TorusKnotGeometry(28, 7, 100, 16);
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+  const tubularSegments = isLowPower ? 50 : 100;
+  const radialSegments = isLowPower ? 10 : 16;
+  const geometry = new THREE.TorusKnotGeometry(28, 7, tubularSegments, radialSegments);
 
   const material = new THREE.MeshBasicMaterial({
     color: 0x0f172a,
@@ -93,13 +102,36 @@ export function initScroll3DScene(canvas) {
   }, { passive: true });
 
   let isPageVisible = !document.hidden;
+  let animId = null;
+
+  function startLoop() {
+    if (isPageVisible && !animId) {
+      animId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopLoop() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  }
+
   document.addEventListener('visibilitychange', () => {
     isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
   });
 
   function animate() {
-    requestAnimationFrame(animate);
-    if (!isPageVisible) return;
+    if (!isPageVisible) {
+      animId = null;
+      return;
+    }
+    animId = requestAnimationFrame(animate);
 
     group.rotation.y += 0.0008;
     group.rotation.x += 0.0004;
@@ -107,5 +139,5 @@ export function initScroll3DScene(canvas) {
     renderer.render(scene, camera);
   }
 
-  animate();
+  startLoop();
 }

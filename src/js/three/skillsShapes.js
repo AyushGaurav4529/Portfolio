@@ -5,6 +5,8 @@ import * as THREE from 'three';
 
 export function initSkillsFloatingIcons(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const container = document.getElementById('skills');
   if (!container) return;
 
@@ -13,8 +15,13 @@ export function initSkillsFloatingIcons(canvas) {
   const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
   camera.position.z = 200;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(container.clientWidth, container.clientHeight);
 
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
@@ -44,7 +51,10 @@ export function initSkillsFloatingIcons(canvas) {
     wireframe: true
   });
 
-  for (let i = 0; i < 16; i++) {
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+  const shapeCount = isLowPower ? 6 : 14;
+
+  for (let i = 0; i < shapeCount; i++) {
     const geom = geometries[Math.floor(Math.random() * geometries.length)];
     const mesh = new THREE.Mesh(geom, material);
 
@@ -82,14 +92,43 @@ export function initSkillsFloatingIcons(canvas) {
     renderer.setSize(container.clientWidth, container.clientHeight);
   }, { passive: true });
 
-  let isVisible = true;
+  let isIntersecting = true;
+  let isPageVisible = !document.hidden;
   let animId = null;
+
+  function shouldRun() {
+    return isIntersecting && isPageVisible;
+  }
+
+  function startLoop() {
+    if (shouldRun() && !animId) {
+      animId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopLoop() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !animId) {
-        animate(0);
+      isIntersecting = entry.isIntersecting;
+      if (isIntersecting) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     });
   }, { threshold: 0.05 });
@@ -97,7 +136,7 @@ export function initSkillsFloatingIcons(canvas) {
   observer.observe(container);
 
   function animate(time) {
-    if (!isVisible) {
+    if (!shouldRun()) {
       animId = null;
       return;
     }
@@ -112,5 +151,5 @@ export function initSkillsFloatingIcons(canvas) {
     renderer.render(scene, camera);
   }
 
-  animate(0);
+  startLoop();
 }

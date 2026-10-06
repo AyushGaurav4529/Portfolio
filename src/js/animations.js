@@ -1,7 +1,9 @@
 // src/js/animations.js
-// Hero Dynamic Typing, Scramble Effect, Counter Rollup & Kinetic Reveals
+// Hero Dynamic Typing, Counter Rollup & High-Performance Kinetic Reveals
 
 export function initAnimations() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // 1. Hero Dynamic Role Typing Loop
   const typingTextEl = document.getElementById('hero-typing-text');
   if (typingTextEl) {
@@ -15,8 +17,13 @@ export function initAnimations() {
     let roleIdx = 0;
     let charIdx = 0;
     let isDeleting = false;
+    let typingTimer = null;
 
     function typeLoop() {
+      if (document.hidden) {
+        typingTimer = null;
+        return;
+      }
       const currentRole = roles[roleIdx];
       if (isDeleting) {
         typingTextEl.textContent = currentRole.substring(0, charIdx - 1);
@@ -35,12 +42,25 @@ export function initAnimations() {
         roleIdx = (roleIdx + 1) % roles.length;
         speed = 500; // Pause before typing next word
       }
-      setTimeout(typeLoop, speed);
+      typingTimer = setTimeout(typeLoop, speed);
     }
-    typeLoop();
+
+    if (!prefersReduced) {
+      typeLoop();
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && !typingTimer) {
+          typeLoop();
+        } else if (document.hidden && typingTimer) {
+          clearTimeout(typingTimer);
+          typingTimer = null;
+        }
+      });
+    } else {
+      typingTextEl.textContent = roles[0];
+    }
   }
 
-  // 3. Number Counter Rollup with IntersectionObserver
+  // 2. Number Counter Rollup with IntersectionObserver
   const counters = document.querySelectorAll('.counter-rollup, #github-activity .text-2xl, #github-activity .text-3xl');
   if (counters.length > 0) {
     const counterObserver = new IntersectionObserver((entries) => {
@@ -52,16 +72,20 @@ export function initAnimations() {
           if (match) {
             const targetNum = parseInt(match[0], 10);
             const suffix = text.replace(match[0], '');
-            let current = 0;
-            const step = Math.max(1, Math.floor(targetNum / 25));
-            const timer = setInterval(() => {
-              current += step;
-              if (current >= targetNum) {
-                current = targetNum;
-                clearInterval(timer);
-              }
-              el.textContent = `${current}${suffix}`;
-            }, 35);
+            if (prefersReduced) {
+              el.textContent = `${targetNum}${suffix}`;
+            } else {
+              let current = 0;
+              const step = Math.max(1, Math.floor(targetNum / 25));
+              const timer = setInterval(() => {
+                current += step;
+                if (current >= targetNum) {
+                  current = targetNum;
+                  clearInterval(timer);
+                }
+                el.textContent = `${current}${suffix}`;
+              }, 35);
+            }
           }
           counterObserver.unobserve(el);
         }
@@ -71,7 +95,7 @@ export function initAnimations() {
     counters.forEach((c) => counterObserver.observe(c));
   }
 
-  // 4. Kinetic Heading Split Reveal
+  // 3. Kinetic Heading Split Reveal
   const kineticHeadings = document.querySelectorAll('.section-heading, .section-heading-kinetic, h2');
   if (kineticHeadings.length > 0) {
     kineticHeadings.forEach((h) => h.classList.add('section-heading-kinetic'));
@@ -83,12 +107,12 @@ export function initAnimations() {
           kineticObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.15 });
 
     kineticHeadings.forEach((h) => kineticObserver.observe(h));
   }
 
-  // 5. Scroll Reveals
+  // 4. Scroll Reveals (opacity + translateY 16px, unobserve after first reveal)
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -96,7 +120,7 @@ export function initAnimations() {
         scrollObserver.unobserve(entry.target);
       }
     });
-  }, { rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+  }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
 
   document.querySelectorAll('.animate-on-scroll').forEach((el) => {
     scrollObserver.observe(el);

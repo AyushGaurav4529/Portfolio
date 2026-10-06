@@ -4,23 +4,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#0a0a0a',
-        darkCard: '#111111',
-        darkBorder: '#1e1e1e',
-        neon: '#10b981',
-        neonBright: '#00ff87',
-        textPrimary: '#ffffff',
-        textSecondary: '#94a3b8',
-        textMuted: '#94a3b8',
+        /* ── Dark palette ── */
+        dark:         '#0A0B0D',   /* page background */
+        darkCard:     '#111318',   /* card / panel surface */
+        darkBorder:   '#1C1F27',   /* subtle border */
+        /* ── Accent — emerald only ── */
+        neon:         '#10B981',   /* actions, status, key metrics */
+        neonBright:   '#10B981',   /* alias kept for legacy — same as neon */
+        /* ── Typography ── */
+        textPrimary:  '#F0F2F5',
+        textSecondary:'#8B95A9',
+        textMuted:    '#4D5568',
       },
       fontFamily: {
-        sans: ['Geist', 'Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif'],
+        sans:    ['Geist', 'Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif'],
         display: ['Geist', 'Plus Jakarta Sans', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['Geist Mono', 'JetBrains Mono', 'Fira Code', 'monospace'],
+        mono:    ['Geist Mono', 'JetBrains Mono', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        neon: '0 0 15px rgba(16, 185, 129, 0.3), 0 0 30px rgba(16, 185, 129, 0.1)',
-        neonStrong: '0 0 20px rgba(0, 255, 135, 0.4), 0 0 40px rgba(0, 255, 135, 0.15)',
+        /* Elevation — no colored glow */
+        neon:       '0 2px 12px rgba(16, 185, 129, 0.20)',
+        neonStrong: '0 4px 20px rgba(16, 185, 129, 0.18)',
+        sm:         '0 1px 3px rgba(0,0,0,0.50)',
+        md:         '0 4px 16px rgba(0,0,0,0.50)',
+        lg:         '0 8px 40px rgba(0,0,0,0.60)',
       },
     },
   },

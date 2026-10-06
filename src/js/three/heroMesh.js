@@ -5,6 +5,7 @@ import * as THREE from 'three';
 
 export function initHeroNeuralNetwork(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const header = canvas.closest('header') || document.body;
   const scene = new THREE.Scene();
@@ -12,12 +13,20 @@ export function initHeroNeuralNetwork(canvas) {
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z = 150;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  // Particles
-  const particleCount = 180;
+  // Adaptive particle count for lower-tier hardware & mobile
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+  const particleCount = isLowPower ? 70 : 160;
+  const maxLines = isLowPower ? 500 : 1200;
+
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
   const velocities = [];
@@ -54,7 +63,6 @@ export function initHeroNeuralNetwork(canvas) {
   });
 
   const maxDistance = 42;
-  const maxLines = 1500;
   const linePositions = new Float32Array(maxLines * 6);
   const lineGeo = new THREE.BufferGeometry();
   lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
@@ -62,7 +70,7 @@ export function initHeroNeuralNetwork(canvas) {
   const linesMesh = new THREE.LineSegments(lineGeo, lineMaterial);
   scene.add(linesMesh);
 
-  // Mouse Parallax
+  // Mouse Parallax with rAF throttling
   let mouseX = 0;
   let mouseY = 0;
   let targetX = 0;
@@ -84,15 +92,44 @@ export function initHeroNeuralNetwork(canvas) {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }, { passive: true });
 
-  // IntersectionObserver: Pause when hero is not visible
-  let isVisible = true;
+  // IntersectionObserver & Visibility API to pause work completely when off-screen or tab hidden
+  let isIntersecting = true;
+  let isPageVisible = !document.hidden;
   let animationId = null;
+
+  function shouldRun() {
+    return isIntersecting && isPageVisible;
+  }
+
+  function startLoop() {
+    if (shouldRun() && !animationId) {
+      animationId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopLoop() {
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !animationId) {
-        animate();
+      isIntersecting = entry.isIntersecting;
+      if (isIntersecting) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     });
   }, { threshold: 0.05 });
@@ -102,7 +139,7 @@ export function initHeroNeuralNetwork(canvas) {
   let frameCount = 0;
 
   function animate() {
-    if (!isVisible) {
+    if (!shouldRun()) {
       animationId = null;
       return;
     }
@@ -167,5 +204,5 @@ export function initHeroNeuralNetwork(canvas) {
     renderer.render(scene, camera);
   }
 
-  animate();
+  startLoop();
 }

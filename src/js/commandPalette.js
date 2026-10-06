@@ -3,7 +3,6 @@
 
 import { playChimeSound, playUiSound, toggleSound } from './audio.js';
 import { toggleTheme } from './theme.js';
-import { openPdfModal } from './pdfViewer.js';
 import { showToast } from './contact.js';
 
 export function initCommandPalette() {
@@ -79,7 +78,7 @@ export function initCommandPalette() {
     });
   }
 
-  function executeItem(item) {
+  async function executeItem(item) {
     if (!item) return;
     const action = item.getAttribute('data-action');
     const target = item.getAttribute('data-target');
@@ -88,6 +87,7 @@ export function initCommandPalette() {
     if (action === 'nav' && target) {
       document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' });
     } else if (action === 'cv') {
+      const { openPdfModal } = await import('./pdfViewer.js');
       openPdfModal();
     } else if (action === 'theme') {
       toggleTheme();

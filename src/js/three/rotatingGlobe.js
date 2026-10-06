@@ -5,11 +5,18 @@ import * as THREE from 'three';
 
 export function init3DGlobe(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const wrap = document.getElementById('globe-canvas-wrap');
   if (!wrap) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setClearColor(0x000000, 0);
 
   const SIZE = wrap.offsetWidth || 420;
@@ -25,8 +32,10 @@ export function init3DGlobe(canvas) {
   }
   window.addEventListener('resize', resizeGlobe, { passive: true });
 
-  // Fibonacci sphere particles
-  const PARTICLE_COUNT = 1400;
+  // Adaptive particle count for lower-tier hardware & mobile
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+  const PARTICLE_COUNT = isLowPower ? 600 : 1300;
+
   const positions = new Float32Array(PARTICLE_COUNT * 3);
   const colors = new Float32Array(PARTICLE_COUNT * 3);
   const c1 = new THREE.Color(0x10b981);
@@ -90,14 +99,43 @@ export function init3DGlobe(canvas) {
 
   setTimeout(() => wrap.classList.add('globe-visible'), 800);
 
-  let isVisible = true;
+  let isIntersecting = true;
+  let isPageVisible = !document.hidden;
   let globeFrame = null;
+
+  function shouldRun() {
+    return isIntersecting && isPageVisible;
+  }
+
+  function startLoop() {
+    if (shouldRun() && !globeFrame) {
+      globeFrame = requestAnimationFrame(animateGlobe);
+    }
+  }
+
+  function stopLoop() {
+    if (globeFrame) {
+      cancelAnimationFrame(globeFrame);
+      globeFrame = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !globeFrame) {
-        animateGlobe(0);
+      isIntersecting = entry.isIntersecting;
+      if (isIntersecting) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     });
   }, { threshold: 0.05 });
@@ -105,7 +143,7 @@ export function init3DGlobe(canvas) {
   if (header) observer.observe(header);
 
   function animateGlobe(t) {
-    if (!isVisible) {
+    if (!shouldRun()) {
       globeFrame = null;
       return;
     }
@@ -120,5 +158,5 @@ export function init3DGlobe(canvas) {
     renderer.render(scene, camera);
   }
 
-  animateGlobe(0);
+  startLoop();
 }

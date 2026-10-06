@@ -5,6 +5,8 @@ import * as THREE from 'three';
 
 export function initConnectGlobe(canvas) {
   if (!canvas) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
   const container = document.getElementById('connect');
   if (!container) return;
 
@@ -13,8 +15,13 @@ export function initConnectGlobe(canvas) {
   const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
   camera.position.z = 240;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(container.clientWidth, container.clientHeight);
 
   const globeGeometry = new THREE.SphereGeometry(75, 20, 20);
@@ -30,7 +37,8 @@ export function initConnectGlobe(canvas) {
   scene.add(globe);
 
   // Beacon points
-  const pointCount = 40;
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
+  const pointCount = isLowPower ? 20 : 40;
   const pointPositions = new Float32Array(pointCount * 3);
 
   for (let i = 0; i < pointCount; i++) {
@@ -69,14 +77,43 @@ export function initConnectGlobe(canvas) {
     renderer.setSize(container.clientWidth, container.clientHeight);
   }, { passive: true });
 
-  let isVisible = true;
+  let isIntersecting = true;
+  let isPageVisible = !document.hidden;
   let animId = null;
+
+  function shouldRun() {
+    return isIntersecting && isPageVisible;
+  }
+
+  function startLoop() {
+    if (shouldRun() && !animId) {
+      animId = requestAnimationFrame(animate);
+    }
+  }
+
+  function stopLoop() {
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      startLoop();
+    } else {
+      stopLoop();
+    }
+  });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible && !animId) {
-        animate();
+      isIntersecting = entry.isIntersecting;
+      if (isIntersecting) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     });
   }, { threshold: 0.05 });
@@ -84,7 +121,7 @@ export function initConnectGlobe(canvas) {
   observer.observe(container);
 
   function animate() {
-    if (!isVisible) {
+    if (!shouldRun()) {
       animId = null;
       return;
     }
@@ -96,5 +133,5 @@ export function initConnectGlobe(canvas) {
     renderer.render(scene, camera);
   }
 
-  animate();
+  startLoop();
 }

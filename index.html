@@ -40,13 +40,11 @@
 <!-- Tailwind CSS v3 CDN -->
 
 
-<!-- Google Fonts: Geist, Geist Mono, Plus Jakarta Sans, Inter & JetBrains Mono -->
+<!-- Google Fonts: Geist & Geist Mono (Max 2 families, used weights, display=swap) -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&amp;family=Geist+Mono:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Geist+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/src/css/main.css"/>
-<!-- Mermaid.js for Interactive Node-Based System Architecture Diagrams -->
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js" defer></script>
 </head>
 <body class="bg-grid relative">
 <!-- Scroll-Linked 3D Background Canvas -->
@@ -650,7 +648,7 @@
 <div class="flex flex-col items-center text-center">
 <!-- Avatar Image with Glowing Neon Ring (Clickable to open full image lightbox) -->
 <div class="group relative w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-neon via-neonBright to-neon mb-4 shadow-[0_0_20px_rgba(16,185,129,0.4)] cursor-pointer hover:scale-105 transition-all duration-300" id="profileAvatarContainer" title="Click to view full image">
-<img alt="Ayush Gaurav" class="w-full h-full object-cover rounded-full bg-dark group-hover:brightness-110 transition-all" id="profileAvatarImg" src="avatar.jpg"/>
+<img alt="Ayush Gaurav" class="w-full h-full object-cover rounded-full bg-dark group-hover:brightness-110 transition-all" id="profileAvatarImg" src="/avatar.webp" width="112" height="112" loading="lazy" decoding="async"/>
 <div class="absolute inset-1 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
 <i class="w-6 h-6 text-neonBright drop-shadow-[0_0_8px_#00ff87]" data-lucide="maximize-2"></i>
 </div>
@@ -700,7 +698,7 @@
 <div class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 bg-black/90 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300" id="imageLightboxModal">
 <!-- Top Bar Controls -->
 <div class="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-3 z-10">
-<a class="text-textSecondary hover:text-neon bg-[#111111]/80 hover:bg-[#1e1e1e] p-2.5 sm:p-3 rounded-full border border-neon/30 hover:border-neon transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-2 text-xs sm:text-sm font-medium" download="Ayush_Gaurav_Photo.jpg" href="avatar.jpg" title="Download full-resolution photo">
+<a class="text-textSecondary hover:text-neon bg-[#111111]/80 hover:bg-[#1e1e1e] p-2.5 sm:p-3 rounded-full border border-neon/30 hover:border-neon transition-all cursor-pointer shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-2 text-xs sm:text-sm font-medium" download="Ayush_Gaurav_Photo.webp" href="/avatar.webp" title="Download full-resolution photo">
 <i class="w-4 h-4 sm:w-5 sm:h-5" data-lucide="download"></i>
 <span class="hidden sm:inline">Download</span>
 </a>
@@ -711,7 +709,7 @@
 <!-- Image Content Box -->
 <div class="relative max-w-4xl max-h-[85vh] p-2 sm:p-4 flex flex-col items-center transform scale-95 transition-all duration-300" id="lightboxCard">
 <div class="relative rounded-2xl overflow-hidden border-2 border-neon/60 shadow-[0_0_60px_rgba(16,185,129,0.4)] bg-dark">
-<img alt="Ayush Gaurav" class="max-w-full max-h-[75vh] object-contain rounded-xl select-none" id="lightboxImg" src="avatar.jpg"/>
+<img alt="Ayush Gaurav" class="max-w-full max-h-[75vh] object-contain rounded-xl select-none" id="lightboxImg" src="/avatar.webp" width="800" height="800" loading="lazy" decoding="async"/>
 </div>
 <div class="mt-4 flex items-center gap-2 text-sm font-mono text-neon font-semibold bg-darkCard/90 px-4 py-2 rounded-full border border-neon/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
 <i class="w-4 h-4 text-neonBright" data-lucide="user"></i>
@@ -777,7 +775,7 @@
 </div>
 <!-- Badge Photo Frame -->
 <div class="relative w-22 h-26 sm:w-30 sm:h-34 md:w-32 md:h-36 mx-auto rounded-xl p-0.5 bg-gradient-to-b from-neon/80 via-neonBright/40 to-neon/80 mb-1.5 shadow-[0_0_20px_rgba(16,185,129,0.35)] group-hover:shadow-[0_0_25px_rgba(0,255,135,0.6)] transition-all" id="icardPhotoBox">
-<img alt="Ayush Gaurav" class="w-full h-full object-cover rounded-lg bg-dark group-hover:brightness-105 transition-all" loading="lazy" src="avatar.jpg"/>
+<img alt="Ayush Gaurav" class="w-full h-full object-cover rounded-lg bg-dark group-hover:brightness-105 transition-all" fetchpriority="high" decoding="async" width="160" height="180" src="/avatar.webp"/>
 <div class="absolute inset-0 rounded-lg bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
 <i class="w-5 h-5 text-neonBright drop-shadow-[0_0_10px_#00ff87]" data-lucide="maximize-2"></i>
 </div>
@@ -1600,8 +1598,8 @@
 </a>
 </div>
 <!-- Embedded SVG Heatmap Graphic -->
-<div class="overflow-x-auto pb-2 flex justify-center items-center bg-dark p-4 rounded-xl border border-darkBorder">
-<img alt="Ayush Gaurav GitHub Contribution Chart Heatmap" class="max-w-full min-w-[280px] sm:min-w-[500px] h-auto filter drop-shadow-[0_0_10px_rgba(16,185,129,0.2)]" src="https://ghchart.rshah.org/10b981/AyushGaurav4529"/>
+<div class="overflow-x-auto pb-2 flex justify-center items-center bg-dark p-4 rounded-xl border border-darkBorder min-h-[120px] aspect-[670/110]">
+<img alt="Ayush Gaurav GitHub Contribution Chart Heatmap" class="max-w-full min-w-[280px] sm:min-w-[500px] h-auto filter drop-shadow-[0_0_10px_rgba(16,185,129,0.2)]" src="https://ghchart.rshah.org/10b981/AyushGaurav4529" width="670" height="110" loading="lazy" decoding="async" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-center py-4 font-mono text-xs text-textMuted\'>Live heatmap image unavailable. <a href=\'https://github.com/AyushGaurav4529\' target=\'_blank\' rel=\'noopener\' class=\'text-neon underline\'>View contributions directly on GitHub ↗</a></div>';"/>
 </div>
 <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-textMuted">
 <span>⚡ Live commit activity synced automatically</span>
