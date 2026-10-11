@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ayushgauravportfolio.vercel.app/sitemap.xml

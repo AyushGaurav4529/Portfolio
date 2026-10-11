@@ -3,7 +3,61 @@
 
 import './css/main.css';
 
-import { createIcons, icons } from 'lucide';
+import {
+  createIcons,
+  Activity,
+  ArrowRight,
+  ArrowUp,
+  Award,
+  BadgeCheck,
+  BookOpen,
+  Bot,
+  Brain,
+  Building2,
+  CheckCircle,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  ChevronsDown,
+  Code,
+  Code2,
+  Command,
+  Copy,
+  Cpu,
+  Database,
+  Download,
+  ExternalLink,
+  FileText,
+  FolderGit2,
+  GitCommit,
+  GitFork,
+  Home,
+  Info,
+  Layers,
+  Mail,
+  Maximize2,
+  Menu,
+  Moon,
+  Package,
+  PackageCheck,
+  Phone,
+  Play,
+  Search,
+  Send,
+  ShieldCheck,
+  Sliders,
+  Smartphone,
+  Sparkles,
+  Sun,
+  SunMoon,
+  Terminal,
+  TrendingUp,
+  Trophy,
+  User,
+  Utensils,
+  X,
+  Zap
+} from 'lucide';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -20,6 +74,17 @@ import { initProjects } from './js/projects.js';
 import { initSkills } from './js/skills.js';
 import { initContact } from './js/contact.js';
 import { fetchGitHubStats } from './js/github.js';
+
+// Explicit icon map — only what is used, keeps tree-shaking effective
+const icons = {
+  Activity, ArrowRight, ArrowUp, Award, BadgeCheck, BookOpen, Bot, Brain,
+  Building2, CheckCircle, CheckCircle2, ChevronDown, ChevronRight, ChevronsDown,
+  Code, Code2, Command, Copy, Cpu, Database, Download, ExternalLink, FileText,
+  FolderGit2, GitCommit, GitFork, Home, Info, Layers, Mail, Maximize2, Menu, Moon,
+  Package, PackageCheck, Phone, Play, Search, Send, ShieldCheck, Sliders,
+  Smartphone, Sparkles, Sun, SunMoon, Terminal, TrendingUp, Trophy, User,
+  Utensils, X, Zap
+};
 
 function renderLucideIcons() {
   createIcons({ icons });
@@ -125,48 +190,86 @@ function initMermaidLazy() {
   });
 }
 
-// Lazy-load Three.js scenes to ensure instant First Contentful Paint (FCP)
-async function load3DScenes() {
+// Lazy-load Three.js scenes per section with IntersectionObserver
+function load3DScenes() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return;
   }
 
-  try {
-    const [
-      { initHeroNeuralNetwork },
-      { init3DHeroBg },
-      { init3DGlobe },
-      { initSkillsFloatingIcons },
-      { initConnectGlobe },
-      { initScroll3DScene }
-    ] = await Promise.all([
-      import('./js/three/heroMesh.js'),
-      import('./js/three/heroGeometry.js'),
-      import('./js/three/rotatingGlobe.js'),
-      import('./js/three/skillsShapes.js'),
-      import('./js/three/connectGlobe.js'),
-      import('./js/three/scrollBackground.js')
-    ]);
+  const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
 
-    const scrollCanvas = document.getElementById('scroll-3d-bg');
-    if (scrollCanvas) initScroll3DScene(scrollCanvas);
+  // 1. Hero 3D Scenes (Neural Network Particles)
+  const particlesCanvas = document.getElementById('particles-canvas');
+  if (particlesCanvas) {
+    import('./js/three/heroMesh.js').then(({ initHeroNeuralNetwork }) => {
+      initHeroNeuralNetwork(particlesCanvas);
+    }).catch(() => {});
+  }
 
-    const particlesCanvas = document.getElementById('particles-canvas');
-    if (particlesCanvas) initHeroNeuralNetwork(particlesCanvas);
+  // Only load heavy secondary hero geometry if not low-power / desktop
+  const hero3dCanvas = document.getElementById('hero-3d-bg');
+  if (hero3dCanvas && !isLowPower) {
+    import('./js/three/heroGeometry.js').then(({ init3DHeroBg }) => {
+      init3DHeroBg(hero3dCanvas);
+    }).catch(() => {});
+  }
 
-    const hero3dCanvas = document.getElementById('hero-3d-bg');
-    if (hero3dCanvas) init3DHeroBg(hero3dCanvas);
+  // 2. Full-page scroll background: load only on desktop and only after user starts scrolling
+  const scrollCanvas = document.getElementById('scroll-3d-bg');
+  if (scrollCanvas && !isLowPower) {
+    let scrollLoaded = false;
+    const triggerScrollLoad = () => {
+      if (scrollLoaded) return;
+      scrollLoaded = true;
+      window.removeEventListener('scroll', triggerScrollLoad);
+      import('./js/three/scrollBackground.js').then(({ initScroll3DScene }) => {
+        initScroll3DScene(scrollCanvas);
+      }).catch(() => {});
+    };
+    window.addEventListener('scroll', triggerScrollLoad, { passive: true, once: true });
+  }
 
-    const globeCanvas = document.getElementById('globe-canvas');
-    if (globeCanvas) init3DGlobe(globeCanvas);
+  // 3. Below-the-fold 3D Scenes: Load on-demand as sections approach viewport
+  function lazyLoadOnIntersect(elementId, loader) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        observer.disconnect();
+        loader();
+      }
+    }, { rootMargin: '350px 0px', threshold: 0.01 });
+    observer.observe(el);
+  }
 
-    const skillsCanvas = document.getElementById('skills-canvas');
-    if (skillsCanvas) initSkillsFloatingIcons(skillsCanvas);
+  // Skills floating shapes
+  const skillsCanvas = document.getElementById('skills-canvas');
+  if (skillsCanvas) {
+    lazyLoadOnIntersect('skills', () => {
+      import('./js/three/skillsShapes.js').then(({ initSkillsFloatingIcons }) => {
+        initSkillsFloatingIcons(skillsCanvas);
+      }).catch(() => {});
+    });
+  }
 
-    const connectCanvas = document.getElementById('connect-canvas');
-    if (connectCanvas) initConnectGlobe(connectCanvas);
-  } catch (err) {
-    console.warn('Three.js scene initialization info:', err);
+  // Education rotating globe
+  const globeCanvas = document.getElementById('globe-canvas');
+  if (globeCanvas) {
+    lazyLoadOnIntersect('education', () => {
+      import('./js/three/rotatingGlobe.js').then(({ init3DGlobe }) => {
+        init3DGlobe(globeCanvas);
+      }).catch(() => {});
+    });
+  }
+
+  // Connect globe
+  const connectCanvas = document.getElementById('connect-canvas');
+  if (connectCanvas) {
+    lazyLoadOnIntersect('connect', () => {
+      import('./js/three/connectGlobe.js').then(({ initConnectGlobe }) => {
+        initConnectGlobe(connectCanvas);
+      }).catch(() => {});
+    });
   }
 }
 
@@ -190,6 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Initialize Preloader
   initPreloader(() => {
     renderLucideIcons();
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(load3DScenes, { timeout: 1000 });
+    } else {
+      setTimeout(load3DScenes, 50);
+    }
   });
 
   // 5. Initialize Navigation & ScrollSpy
@@ -230,11 +338,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 16. Fetch Live GitHub Stats
   fetchGitHubStats();
-
-  // 17. Asynchronously mount 3D WebGL scenes during browser idle time
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(load3DScenes, { timeout: 2000 });
-  } else {
-    setTimeout(load3DScenes, 200);
-  }
 });
