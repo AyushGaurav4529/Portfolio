@@ -3,44 +3,95 @@
 
 import { playChimeSound, playUiSound } from './audio.js';
 
+const activeModals = new Set();
+let previousActiveElement = null;
+
+function trapFocus(modalEl, e) {
+  if (e.key !== 'Tab') return;
+  const focusables = modalEl.querySelectorAll(
+    'button:not([disabled]):not([aria-hidden="true"]), [href]:not([aria-hidden="true"]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+  );
+  if (focusables.length === 0) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+
+  if (e.shiftKey) {
+    if (document.activeElement === first) {
+      last.focus();
+      e.preventDefault();
+    }
+  } else {
+    if (document.activeElement === last) {
+      first.focus();
+      e.preventDefault();
+    }
+  }
+}
+
+function showModal(modal, card) {
+  if (!modal || !card) return;
+  if (activeModals.size === 0) {
+    previousActiveElement = document.activeElement;
+    document.body.style.overflow = 'hidden';
+  }
+  activeModals.add(modal);
+  modal.removeAttribute('inert');
+  modal.setAttribute('aria-hidden', 'false');
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+
+  setTimeout(() => {
+    const firstFocusable = modal.querySelector('button, [href], input, [tabindex="0"]');
+    if (firstFocusable) firstFocusable.focus();
+  }, 40);
+
+  playChimeSound();
+}
+
+function closeModal(modal, card) {
+  if (!modal || !card) return;
+  activeModals.delete(modal);
+  if (activeModals.size === 0) {
+    document.body.style.overflow = '';
+  }
+  modal.setAttribute('inert', '');
+  modal.setAttribute('aria-hidden', 'true');
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+
+  if (activeModals.size === 0 && previousActiveElement && typeof previousActiveElement.focus === 'function') {
+    try {
+      previousActiveElement.focus();
+    } catch (e) {}
+  }
+}
+
 // ─── 1. Profile Modal ───
 export function openProfileModal() {
   const modal = document.getElementById('profileModal');
   const card = document.getElementById('profileModalCard');
-  if (!modal || !card) return;
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-95');
-  card.classList.add('scale-100');
-  playChimeSound();
+  showModal(modal, card);
 }
 
 export function hideProfileModal() {
   const modal = document.getElementById('profileModal');
   const card = document.getElementById('profileModalCard');
-  if (!modal || !card) return;
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-100');
-  card.classList.add('scale-95');
+  closeModal(modal, card);
 }
 
 // ─── 2. Image Lightbox Modal ───
 export function openImageLightbox() {
   const modal = document.getElementById('imageLightboxModal');
   const card = document.getElementById('lightboxCard');
-  if (!modal || !card) return;
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-95');
-  card.classList.add('scale-100');
-  playChimeSound();
+  showModal(modal, card);
 }
 
 export function hideImageLightbox() {
   const modal = document.getElementById('imageLightboxModal');
   const card = document.getElementById('lightboxCard');
-  if (!modal || !card) return;
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-100');
-  card.classList.add('scale-95');
+  closeModal(modal, card);
 }
 
 // ─── 3. Project Detail Quick View Modal ───
@@ -124,7 +175,7 @@ export function openProjectModal(projectId) {
 
   if (featList) {
     featList.innerHTML = data.features
-      .map((f) => `<li class="flex items-center gap-2"><span class="text-neon">✓</span> ${f}</li>`)
+      .map((f) => `<li class="flex items-center gap-2"><span class="text-neon font-bold">✓</span> ${f}</li>`)
       .join('');
   }
 
@@ -144,19 +195,13 @@ export function openProjectModal(projectId) {
     };
   }
 
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-95');
-  card.classList.add('scale-100');
-  playChimeSound();
+  showModal(modal, card);
 }
 
 export function hideProjectModal() {
   const modal = document.getElementById('projectDetailModal');
   const card = document.getElementById('projectDetailCard');
-  if (!modal || !card) return;
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-100');
-  card.classList.add('scale-95');
+  closeModal(modal, card);
 }
 
 // ─── 4. Certificate & Credential Verifier Modal ───
@@ -286,23 +331,26 @@ export function openCertModal(certKey) {
     skillsBlock.classList.add('hidden');
   }
 
-  modal.classList.remove('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-95');
-  card.classList.add('scale-100');
-  playChimeSound();
+  showModal(modal, card);
 }
 
 export function hideCertModal() {
   const modal = document.getElementById('certVerifierModal');
   const card = document.getElementById('certModalCard');
-  if (!modal || !card) return;
-  modal.classList.add('opacity-0', 'pointer-events-none');
-  card.classList.remove('scale-100');
-  card.classList.add('scale-95');
+  closeModal(modal, card);
 }
 
 // ─── Initialize All Modal Listeners ───
 export function initModals() {
+  // Set initial inert on closed modals
+  ['profileModal', 'imageLightboxModal', 'projectDetailModal', 'certVerifierModal'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.setAttribute('inert', '');
+      el.setAttribute('aria-hidden', 'true');
+    }
+  });
+
   // Profile
   const brandProfileBtn = document.getElementById('brandProfileBtn');
   const closeProfileBtn = document.getElementById('closeProfileModal');
@@ -383,13 +431,16 @@ export function initModals() {
     });
   });
 
-  // Centralized ESC key listener
+  // Centralized keydown for ESC & Focus Trapping
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' && activeModals.size > 0) {
       hideProfileModal();
       hideImageLightbox();
       hideProjectModal();
       hideCertModal();
+    } else if (e.key === 'Tab' && activeModals.size > 0) {
+      const topModal = Array.from(activeModals).pop();
+      if (topModal) trapFocus(topModal, e);
     }
   });
 }

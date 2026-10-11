@@ -14,7 +14,13 @@ export function initTerminal() {
 
   if (!modal || !card || !input || !output) return;
 
+  modal.setAttribute('inert', '');
+  modal.setAttribute('aria-hidden', 'true');
+
   function showTerminal() {
+    document.body.style.overflow = 'hidden';
+    modal.removeAttribute('inert');
+    modal.setAttribute('aria-hidden', 'false');
     modal.classList.remove('opacity-0', 'pointer-events-none');
     card.classList.remove('scale-95');
     card.classList.add('scale-100');
@@ -23,6 +29,9 @@ export function initTerminal() {
   }
 
   function hideTerminal() {
+    document.body.style.overflow = '';
+    modal.setAttribute('inert', '');
+    modal.setAttribute('aria-hidden', 'true');
     modal.classList.add('opacity-0', 'pointer-events-none');
     card.classList.remove('scale-100');
     card.classList.add('scale-95');

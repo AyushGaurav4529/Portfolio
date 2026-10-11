@@ -54,21 +54,45 @@ export async function loadAndRenderPdf() {
 export function openPdfModal() {
   const modal = document.getElementById('pdfViewerModal');
   const card = document.getElementById('pdfModalCard');
+  const wrapper = document.getElementById('pdfCanvasWrapper');
   if (!modal || !card) return;
+
+  document.body.style.overflow = 'hidden';
+  modal.removeAttribute('inert');
+  modal.setAttribute('aria-hidden', 'false');
   modal.classList.remove('opacity-0', 'pointer-events-none');
   card.classList.remove('scale-95');
   card.classList.add('scale-100');
   playChimeSound();
 
-  if (!isPdfRendered) {
+  if (!isPdfRendered && wrapper) {
+    if (!wrapper.querySelector('iframe')) {
+      wrapper.innerHTML = `
+        <object aria-label="Ayush Gaurav Resume PDF" class="w-full h-full border-0 bg-white" data="Ayush_Gaurav_CV.pdf" title="Ayush Gaurav Resume PDF" type="application/pdf">
+          <iframe class="w-full h-full border-0 bg-white" src="Ayush_Gaurav_CV.pdf#toolbar=0" title="Ayush Gaurav Resume PDF">
+            <div class="p-8 text-center text-white flex flex-col items-center justify-center h-full gap-4">
+              <p class="text-gray-300">Unable to preview PDF directly in your browser.</p>
+              <a href="Ayush_Gaurav_CV.pdf" target="_blank" class="px-5 py-2.5 bg-neon text-dark font-bold rounded-lg shadow-lg">Open PDF in New Tab</a>
+            </div>
+          </iframe>
+        </object>
+      `;
+    }
     loadAndRenderPdf();
   }
+
+  const closeBtn = document.getElementById('closePdfModal');
+  if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
 }
 
 export function hidePdfModal() {
   const modal = document.getElementById('pdfViewerModal');
   const card = document.getElementById('pdfModalCard');
   if (!modal || !card) return;
+
+  document.body.style.overflow = '';
+  modal.setAttribute('inert', '');
+  modal.setAttribute('aria-hidden', 'true');
   modal.classList.add('opacity-0', 'pointer-events-none');
   card.classList.remove('scale-100');
   card.classList.add('scale-95');
@@ -77,6 +101,11 @@ export function hidePdfModal() {
 export function initPdfViewer() {
   const closeBtn = document.getElementById('closePdfModal');
   const modal = document.getElementById('pdfViewerModal');
+
+  if (modal) {
+    modal.setAttribute('inert', '');
+    modal.setAttribute('aria-hidden', 'true');
+  }
 
   document.querySelectorAll('.btn-open-pdf').forEach((btn) => {
     btn.addEventListener('click', (e) => {
@@ -96,3 +125,4 @@ export function initPdfViewer() {
     if (e.key === 'Escape') hidePdfModal();
   });
 }
+

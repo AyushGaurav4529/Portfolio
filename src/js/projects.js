@@ -33,35 +33,15 @@ export function initProjects() {
     });
   });
 
-  // 2. In-Browser Live API Sandbox
+  // 2. In-Browser Live API Sandbox (Code-Split via dynamic import)
   const runBtn = document.getElementById('runApiTestBtn');
   const outputText = document.getElementById('projApiOutputText');
   const endpointText = document.getElementById('projApiEndpointText');
 
   if (runBtn && outputText) {
-    runBtn.addEventListener('click', () => {
-      runBtn.innerHTML = `<span>Testing...</span>`;
-      outputText.textContent = `[HTTP POST] Connecting to endpoint gateway...`;
-      playUiSound(950, 0.05);
-
-      setTimeout(() => {
-        const sampleOutput = {
-          status: 200,
-          statusText: "OK",
-          latency: "18ms",
-          endpoint: endpointText ? endpointText.textContent : "/api/v1/process-request",
-          timestamp: new Date().toISOString(),
-          payload: {
-            success: true,
-            message: "API Pipeline executed successfully",
-            threatLevelDetected: "Low / Normal",
-            activeNodes: 4,
-            serviceStatus: "Operational"
-          }
-        };
-        outputText.textContent = JSON.stringify(sampleOutput, null, 2);
-        runBtn.innerHTML = `<span>Test API</span>`;
-      }, 500);
+    runBtn.addEventListener('click', async () => {
+      const { runApiSandboxTest } = await import('./apiSandbox.js');
+      runApiSandboxTest(runBtn, outputText, endpointText);
     });
   }
 }
