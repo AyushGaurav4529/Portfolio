@@ -14,7 +14,7 @@ export default {
         /* ── Typography ── */
         textPrimary:  '#F0F2F5',
         textSecondary:'#8B95A9',
-        textMuted:    '#4D5568',
+        textMuted:    '#94A3B8',
       },
       fontFamily: {
         sans:    ['Geist', 'Plus Jakarta Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif'],

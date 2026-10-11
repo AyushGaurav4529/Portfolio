@@ -34,6 +34,21 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.03em;
 }
 
+h1 {
+  font-size: clamp(2.25rem, 5vw + 1rem, 4.25rem);
+  line-height: 1.08;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.5vw + 0.5rem, 2.75rem);
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: clamp(1.15rem, 2vw + 0.25rem, 1.5rem);
+  line-height: 1.25;
+}
+
 code, kbd, samp, pre, .font-mono {
   font-family: var(--font-mono);
   letter-spacing: -0.01em;
@@ -82,6 +97,63 @@ body.light-mode .gradient-text {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ── Global Focus-Visible Ring (Keyboard Navigation) ── */
+:focus-visible {
+  outline: 2px solid var(--accent, #10B981);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove outline for mouse users (using :focus-visible instead) */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Minimum Tap Target 44×44px on Mobile (WCAG 2.5.5) ── */
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  .mobile-nav-link,
+  .project-filter-btn,
+  .ai-chip,
+  #themeToggleBtn,
+  #soundToggleBtn,
+  #cmdPaletteBtn,
+  #mobileMenuBtn,
+  #aiChatToggleBtn,
+  #closeMobileMenuBtn,
+  #closeProfileModal,
+  #closeLightboxModal,
+  #closeProjectModal,
+  #closeCertModal,
+  #closePdfModal {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ── Consistent Transition Duration and Easing for Interactive Elements ── */
+button,
+[role="button"],
+.timeline-card,
+.skill-pill,
+.project-filter-btn,
+.cmd-item,
+.mobile-nav-link,
+.ai-chip {
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+button:active,
+[role="button"]:active,
+.project-filter-btn:active,
+.cmd-item:active,
+.mobile-nav-link:active,
+.ai-chip:active {
+  transform: scale(0.98);
 }
 
 /* Timeline Connector Line */

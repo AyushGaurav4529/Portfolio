@@ -51,12 +51,12 @@ export function initNavigation() {
   // 4. ScrollSpy: Real-time active section tracking (RAF Throttled)
   const SECTION_ORDER = [
     'hero',
+    'projects',
+    'skills',
     'summary',
     'education',
-    'projects',
-    'certifications',
     'hackathons',
-    'skills',
+    'certifications',
     'github-activity',
     'testimonials',
     'connect'

@@ -63,10 +63,10 @@ export function initPreloader(onComplete) {
       status.textContent = logMessages[msgIndex];
     }
 
-    if (elapsed >= MIN_DURATION && document.readyState === 'complete') {
+    if (elapsed >= MIN_DURATION) {
       finishPreloader();
     }
-  }, 30);
+  }, 40);
 
   // Hard maximum safeguard
   const hardTimeout = setTimeout(() => {

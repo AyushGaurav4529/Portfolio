@@ -12,7 +12,7 @@
 
   --text-primary:   #F0F2F5;  /* headings, body           */
   --text-secondary: #8B95A9;  /* labels, captions         */
-  --text-muted:     #4D5568;  /* placeholders, disabled   */
+  --text-muted:     #94A3B8;  /* placeholders, labels (meets WCAG AA) */
 
   /* Elevation shadows — no colored glow */
   --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.5);

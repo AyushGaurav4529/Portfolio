@@ -152,12 +152,24 @@
 #testimonials,
 #connect {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 750px;
+  contain-intrinsic-size: 1px 900px;
   scroll-margin-top: 88px;
 }
 
 header, #hero {
   scroll-margin-top: 0;
+}
+
+/* ── Aurora performance containment ── */
+.aurora-container {
+  contain: layout style;
+}
+
+/* Disable costly filter:blur aurora on small screens */
+@media (max-width: 768px) {
+  .aurora-blob {
+    display: none;
+  }
 }
 
 /* ── Disable GPU-heavy backdrop-filter on mobile ── */

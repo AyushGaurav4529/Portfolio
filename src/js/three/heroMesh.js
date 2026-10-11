@@ -24,8 +24,8 @@ export function initHeroNeuralNetwork(canvas) {
 
   // Adaptive particle count for lower-tier hardware & mobile
   const isLowPower = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) || window.innerWidth <= 768;
-  const particleCount = isLowPower ? 70 : 160;
-  const maxLines = isLowPower ? 500 : 1200;
+  const particleCount = isLowPower ? 28 : 100;
+  const maxLines = isLowPower ? 60 : 600;
 
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
@@ -166,9 +166,10 @@ export function initHeroNeuralNetwork(canvas) {
     }
     posAttr.needsUpdate = true;
 
-    // Recalculate lines every 2nd frame to save CPU
+    // Recalculate lines every 2nd frame (4th on low power) to save CPU
     frameCount++;
-    if (frameCount % 2 === 0) {
+    const frameInterval = isLowPower ? 4 : 2;
+    if (frameCount % frameInterval === 0) {
       let lineCount = 0;
       const linePosArray = linesMesh.geometry.attributes.position.array;
       const distSqLimit = maxDistance * maxDistance;
