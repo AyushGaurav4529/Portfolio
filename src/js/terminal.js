@@ -155,9 +155,33 @@ export function initTerminal() {
         input.value = '';
         return;
 
-      default:
-        appendOutput(`<p class="text-red-400">Command not recognized: '${cmd}'. Type <span class="text-neon font-bold">help</span> for commands.</p>`);
+      default: {
+        const queryText = cmd;
+        const tempId = 'term-ai-' + Date.now();
+        appendOutput(`<p id="${tempId}" class="text-neon/80 font-mono animate-pulse"><span class="text-neon font-bold">[AI PROXY]</span> Querying neural model gateway...</p>`);
+
+        fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: queryText, mode: 'terminal' })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const el = document.getElementById(tempId);
+            if (el) el.remove();
+            if (data && data.reply) {
+              appendOutput(`<div class="text-textSecondary font-mono whitespace-pre-wrap border-l-2 border-neon pl-2.5 my-1.5">${data.reply}</div>`);
+            } else {
+              appendOutput(`<p class="text-red-400">Command not recognized: '${queryText}'. Type <span class="text-neon font-bold">help</span> for commands.</p>`);
+            }
+          })
+          .catch(() => {
+            const el = document.getElementById(tempId);
+            if (el) el.remove();
+            appendOutput(`<p class="text-red-400">Command not recognized: '${queryText}'. Type <span class="text-neon font-bold">help</span> for commands.</p>`);
+          });
         break;
+      }
     }
 
     input.value = '';

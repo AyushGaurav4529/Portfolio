@@ -95,6 +95,56 @@ export function hideImageLightbox() {
 }
 
 // ─── 3. Project Detail Quick View Modal ───
+let mermaidModule = null;
+
+async function renderProjectArchitectureMermaid(code, containerEl) {
+  if (!containerEl) return;
+  containerEl.innerHTML = `
+    <div class="text-xs font-mono text-neon flex items-center justify-center gap-2 py-6">
+      <span class="w-2 h-2 rounded-full bg-neon animate-ping inline-block"></span>
+      <span>Generating project architecture pipeline...</span>
+    </div>
+  `;
+
+  try {
+    if (!mermaidModule) {
+      const module = await import('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.esm.min.mjs');
+      mermaidModule = module.default || module;
+      mermaidModule.initialize({
+        startOnLoad: false,
+        theme: 'dark',
+        themeVariables: {
+          darkMode: true,
+          background: '#0a0a0a',
+          mainBkg: '#111111',
+          primaryColor: '#10b981',
+          primaryTextColor: '#ffffff',
+          primaryBorderColor: '#00ff87',
+          lineColor: '#10b981',
+          secondaryColor: '#161616',
+          tertiaryColor: '#1f1f1f',
+          fontFamily: 'Geist Mono, monospace',
+          fontSize: '11px'
+        },
+        securityLevel: 'loose'
+      });
+    }
+
+    const renderId = `mermaid-proj-${Date.now()}`;
+    const { svg } = await mermaidModule.render(renderId, code);
+    containerEl.innerHTML = svg;
+  } catch (err) {
+    console.warn('Dynamic Mermaid architecture rendering error:', err);
+    containerEl.innerHTML = `
+      <div class="p-3 text-left w-full">
+        <span class="text-[10px] font-mono text-neon uppercase block mb-1">Architecture Flow (Text):</span>
+        <pre class="text-xs text-textSecondary font-mono whitespace-pre-wrap">${code}</pre>
+      </div>
+    `;
+  }
+}
+
+// ─── 3. Project Detail Quick View Modal ───
 const projectData = {
   'retail-guard': {
     tag: 'AI & SaaS Inventory',
@@ -108,7 +158,19 @@ const projectData = {
       'Seamless store multi-user role management'
     ],
     stack: ['JavaScript', 'Node.js', 'Firebase', 'Applied AI', 'DBMS', 'Tailwind CSS'],
-    github: 'https://github.com/AyushGaurav4529/Retail-Guard.git'
+    github: 'https://github.com/AyushGaurav4529/Retail-Guard.git',
+    endpoint: '/api/sandbox?projectId=retail-guard',
+    mermaidDiagram: `graph LR
+      Cam[Store Video Feed] -->|RTSP Stream| CV[YOLOv8 Computer Vision]
+      CV -->|Detection & Expiry| Eng[Expiration Tracker Engine]
+      CV -->|Security Alert| Threat[Threat Anomaly Module]
+      Eng --> DB[(Firebase Cloud DB)]
+      Threat --> DB
+      DB --> Dashboard[Store Manager Web UI]
+      DB --> Push[Automated Restock Notice]
+      classDef default fill:#111,stroke:#10b981,stroke-width:1.5px,color:#fff;
+      classDef active fill:#10b981,stroke:#00ff87,color:#0a0a0a,font-weight:bold;
+      class Eng,Threat active;`
   },
   'homeplate': {
     tag: 'Full-Stack & Mobile Platform',
@@ -122,7 +184,19 @@ const projectData = {
       'Real-time order progress tracking'
     ],
     stack: ['Dart', 'Flutter', 'JavaScript', 'Node.js', 'REST APIs', 'Firebase'],
-    github: 'https://github.com/AyushGaurav4529/HomePlate.git'
+    github: 'https://github.com/AyushGaurav4529/HomePlate.git',
+    endpoint: '/api/sandbox?projectId=homeplate',
+    mermaidDiagram: `graph LR
+      App[Flutter Student App] -->|HTTPS REST| API[Node.js API Gateway]
+      Chef[Home Chef Kitchen Portal] -->|Menu & Batch Sync| API
+      API --> Geo[Hyperlocal Geolocation Engine]
+      Geo --> DB[(Firebase Firestore)]
+      API --> Sock[Real-Time Order Sockets]
+      Sock --> App
+      Sock --> Fulfillment[Delivery Logistics]
+      classDef default fill:#111,stroke:#10b981,stroke-width:1.5px,color:#fff;
+      classDef active fill:#10b981,stroke:#00ff87,color:#0a0a0a,font-weight:bold;
+      class Geo,Sock active;`
   },
   'hotel-mgmt': {
     tag: 'Desktop Software',
@@ -136,7 +210,18 @@ const projectData = {
       'Relational database integration with MySQL'
     ],
     stack: ['Python', 'SQL', 'MySQL', 'Tkinter / GUI'],
-    github: 'https://github.com/AyushGaurav4529/Hotel-mangement-system.git'
+    github: 'https://github.com/AyushGaurav4529/Hotel-mangement-system.git',
+    endpoint: '/api/sandbox?projectId=hotel-mgmt',
+    mermaidDiagram: `graph LR
+      GUI[Desktop Tkinter UI] -->|Event Dispatcher| Ctrl[Python Controller Logic]
+      Ctrl --> Matrix[Room Availability Matrix]
+      Ctrl --> Billing[Invoice & Billing Engine]
+      Matrix --> SQL[(MySQL Relational DB)]
+      Billing --> PDF[Automated PDF Invoices]
+      SQL --> Audit[Financial & Guest Audit Logs]
+      classDef default fill:#111,stroke:#10b981,stroke-width:1.5px,color:#fff;
+      classDef active fill:#10b981,stroke:#00ff87,color:#0a0a0a,font-weight:bold;
+      class Matrix,Billing active;`
   },
   'inventory-mgmt': {
     tag: 'Web Application',
@@ -150,7 +235,17 @@ const projectData = {
       'Exportable stock summaries'
     ],
     stack: ['HTML5', 'CSS3', 'JavaScript'],
-    github: 'https://github.com/AyushGaurav4529/Inventory-Management-System.git'
+    github: 'https://github.com/AyushGaurav4529/Inventory-Management-System.git',
+    endpoint: '/api/sandbox?projectId=inventory-mgmt',
+    mermaidDiagram: `graph LR
+      UI[Responsive Dashboard UI] -->|Filter Events| State[JS State & Cache Manager]
+      State --> Filter[Category & Stock Evaluator]
+      Filter --> Alert[Low-Stock Threshold Alert]
+      State --> Store[(Browser Storage / REST)]
+      State --> Export[CSV / Report Exporter]
+      classDef default fill:#111,stroke:#10b981,stroke-width:1.5px,color:#fff;
+      classDef active fill:#10b981,stroke:#00ff87,color:#0a0a0a,font-weight:bold;
+      class Filter,Alert active;`
   }
 };
 
@@ -167,6 +262,9 @@ export function openProjectModal(projectId) {
   const featList = document.getElementById('projDetailFeatures');
   const stackContainer = document.getElementById('projDetailStack');
   const ghBtn = document.getElementById('projDetailGithubBtn');
+  const diagramOutput = document.getElementById('projMermaidOutput');
+  const endpointText = document.getElementById('projApiEndpointText');
+  const runApiBtn = document.getElementById('runApiTestBtn');
 
   if (tagEl) tagEl.textContent = data.tag;
   if (titleEl) titleEl.textContent = data.title;
@@ -185,6 +283,14 @@ export function openProjectModal(projectId) {
       .join('');
   }
 
+  if (endpointText) {
+    endpointText.textContent = data.endpoint || `/api/sandbox?projectId=${projectId}`;
+  }
+
+  if (runApiBtn) {
+    runApiBtn.setAttribute('data-project-id', projectId);
+  }
+
   if (ghBtn) {
     const targetUrl = data.github.replace(/\.git$/, '');
     ghBtn.setAttribute('href', targetUrl);
@@ -193,6 +299,11 @@ export function openProjectModal(projectId) {
       e.stopPropagation();
       window.open(targetUrl, '_blank', 'noopener,noreferrer');
     };
+  }
+
+  // Load and render Mermaid project architecture pipeline strictly on demand
+  if (diagramOutput && data.mermaidDiagram) {
+    renderProjectArchitectureMermaid(data.mermaidDiagram, diagramOutput);
   }
 
   showModal(modal, card);

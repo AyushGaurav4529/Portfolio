@@ -310,6 +310,20 @@
 <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs" id="projDetailStack">
 </div>
 </div>
+<!-- Mermaid System Architecture Pipeline (Loaded On Demand) -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<h3 class="text-xs font-mono text-neon uppercase tracking-wider font-bold flex items-center gap-2">
+<i class="w-4 h-4 text-neonBright" data-lucide="layers"></i> System Architecture Pipeline
+</h3>
+<span class="text-[10px] font-mono text-textMuted bg-darkCard px-2 py-0.5 rounded border border-darkBorder flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-neon inline-block animate-pulse"></span> Mermaid.js
+</span>
+</div>
+<div class="bg-dark/95 p-3 sm:p-4 rounded-xl border border-neon/30 overflow-x-auto min-h-[130px] flex items-center justify-center shadow-inner" id="projArchitectureContainer">
+<div class="w-full flex justify-center text-xs text-textMuted font-mono" id="projMermaidOutput">// Opening project modal will render architecture pipeline...</div>
+</div>
+</div>
 <!-- In-Browser Live API Sandbox Box -->
 <div class="bg-dark p-4 rounded-xl border border-neon/30 font-mono text-xs space-y-3" id="projApiSandboxBox">
 <div class="flex items-center justify-between border-b border-darkBorder pb-2">
@@ -1476,9 +1490,9 @@
 <span>View Profile</span>
 </a>
 </div>
-<!-- Embedded SVG Heatmap Graphic -->
+<!-- Embedded SVG Heatmap Graphic (Cached Serverless Function) -->
 <div class="overflow-x-auto pb-2 flex justify-center items-center bg-dark p-4 rounded-xl border border-darkBorder min-h-[120px] aspect-[670/110]">
-<img alt="Ayush Gaurav GitHub Contribution Chart Heatmap" class="max-w-full min-w-[280px] sm:min-w-[500px] h-auto filter drop-shadow-[0_0_10px_rgba(16,185,129,0.2)]" src="https://ghchart.rshah.org/10b981/AyushGaurav4529" width="670" height="110" loading="lazy" decoding="async" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-center py-4 font-mono text-xs text-textMuted\'>Live heatmap image unavailable. <a href=\'https://github.com/AyushGaurav4529\' target=\'_blank\' rel=\'noopener\' class=\'text-neon underline\'>View contributions directly on GitHub ↗</a></div>';"/>
+<img alt="Ayush Gaurav GitHub Contribution Chart Heatmap" class="max-w-full min-w-[280px] sm:min-w-[500px] h-auto filter drop-shadow-[0_0_10px_rgba(16,185,129,0.2)]" src="/api/github-stats?format=svg" width="670" height="110" loading="lazy" decoding="async" onerror="if (this.src.indexOf('ghchart') === -1) { this.src = 'https://ghchart.rshah.org/10b981/AyushGaurav4529'; } else { this.onerror=null; this.parentElement.innerHTML='<div class=\'text-center py-4 font-mono text-xs text-textMuted\'>Live heatmap image unavailable. <a href=\'https://github.com/AyushGaurav4529\' target=\'_blank\' rel=\'noopener\' class=\'text-neon underline\'>View contributions directly on GitHub ↗</a></div>'; }"/>
 </div>
 <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-textMuted">
 <span>⚡ Live commit activity synced automatically</span>
@@ -1588,6 +1602,9 @@
 <!-- Interactive Contact Form -->
 <div class="lg:col-span-7 bg-darkCard border border-darkBorder rounded-2xl p-6 sm:p-8 animate-on-scroll" data-aos="fade-up">
 <form class="space-y-4" id="contactForm">
+<!-- Anti-Spam Bot Honeypot -->
+<input type="text" name="_gotcha" id="contact-gotcha" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true" />
+<input type="hidden" name="timestamp" id="contact-timestamp" value="" />
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 <div>
 <label class="block text-xs font-mono text-textSecondary uppercase mb-1.5" for="contact-name">Your Name *</label>

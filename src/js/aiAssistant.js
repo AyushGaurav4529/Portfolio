@@ -1,5 +1,5 @@
 // src/js/aiAssistant.js
-// Neural AI Portfolio Assistant Chatbot
+// Neural AI Portfolio Assistant Chatbot (Vercel Serverless Function Consumer with Local Fallback)
 
 import { openProjectModal } from './modals.js';
 import { playUiSound } from './audio.js';
@@ -13,6 +13,8 @@ export function initAiAssistant() {
   const messagesBox = document.getElementById('aiChatMessages');
 
   if (!toggleBtn || !windowBox || !input) return;
+
+  const chatHistory = [];
 
   function toggleChat() {
     const isOpen = !windowBox.classList.contains('opacity-0');
@@ -28,7 +30,8 @@ export function initAiAssistant() {
   toggleBtn.addEventListener('click', toggleChat);
   if (closeBtn) closeBtn.addEventListener('click', toggleChat);
 
-  function generateAiReply(userText) {
+  // Client-side fallback knowledge engine
+  function generateLocalAiReply(userText) {
     const text = userText.toLowerCase().trim();
 
     // 1. Retail Guard Project
@@ -95,15 +98,15 @@ export function initAiAssistant() {
           <div class="space-y-1.5 text-textMuted text-xs">
             <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
               <span class="text-white font-bold block">1. FantomCode Hackathon (RVITM)</span>
-              <span class="text-[11px] block">Built <em>Retail Guard</em> • April 2026</span>
+              <span class="text-[11px] block">Built <em>Retail Guard</em></span>
             </div>
             <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
               <span class="text-white font-bold block">2. NIRMITH Hackathon (NMIT)</span>
-              <span class="text-[11px] block">Built <em>HomePlate (Web)</em> • April 2026</span>
+              <span class="text-[11px] block">Built <em>HomePlate (Web)</em></span>
             </div>
             <div class="p-2 bg-dark/60 rounded-lg border border-darkBorder">
               <span class="text-white font-bold block">3. VIBE-A-THON Hackathon (NMIT)</span>
-              <span class="text-[11px] block">Built <em>HomePlate (Mobile)</em> • April 2026</span>
+              <span class="text-[11px] block">Built <em>HomePlate (Mobile)</em></span>
             </div>
           </div>
           <button data-scroll="#hackathons" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
@@ -120,9 +123,9 @@ export function initAiAssistant() {
           <p>🛠️ <strong>Ayush's Tech Stack:</strong></p>
           <div class="space-y-1 text-textMuted text-[11px]">
             <p><strong>Languages:</strong> Python, C, JavaScript, Dart, SQL, HTML, CSS</p>
-            <p><strong>Frameworks:</strong> Node.js, Express, Flutter, REST APIs</p>
+            <p><strong>Frameworks:</strong> React, Node.js, Express, Flutter, REST APIs</p>
             <p><strong>Databases & Tools:</strong> MySQL, Firebase, Git, VS Code</p>
-            <p><strong>AI / Core CS:</strong> Applied AI, Predictive Analytics, DSA, DBMS, OOP</p>
+            <p><strong>AI / Core CS:</strong> Applied AI, Computer Vision, DSA, DBMS, OOP</p>
           </div>
           <button data-scroll="#skills" class="text-xs font-mono bg-neon/10 hover:bg-neon/20 text-neon border border-neon/30 px-2.5 py-1 rounded-lg transition-all cursor-pointer">
             View Skills & Toolkit ↓
@@ -165,7 +168,7 @@ export function initAiAssistant() {
     `;
   }
 
-  function processQuery(text) {
+  async function processQuery(text) {
     if (!text) return;
 
     // Render User Message
@@ -179,6 +182,8 @@ export function initAiAssistant() {
     messagesBox.appendChild(userMsg);
     input.value = '';
     messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    chatHistory.push({ role: 'user', content: text });
 
     // Render Animated Typing Indicator
     const typingId = 'ai-typing-' + Date.now();
@@ -201,24 +206,55 @@ export function initAiAssistant() {
     messagesBox.appendChild(typingMsg);
     messagesBox.scrollTop = messagesBox.scrollHeight;
 
-    setTimeout(() => {
-      const indicator = document.getElementById(typingId);
-      if (indicator) indicator.remove();
+    let replyHtml = '';
 
-      const replyHtml = generateAiReply(text);
-      const aiMsg = document.createElement('div');
-      aiMsg.className = 'flex gap-2 items-start';
-      aiMsg.innerHTML = `
-        <div class="w-6 h-6 rounded-md bg-neon/10 border border-neon/40 flex items-center justify-center text-neon flex-shrink-0 mt-0.5 text-xs">
-          🤖
-        </div>
-        <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-textSecondary max-w-[85%] text-xs">
-          ${replyHtml}
-        </div>
-      `;
-      messagesBox.appendChild(aiMsg);
-      messagesBox.scrollTop = messagesBox.scrollHeight;
-    }, 400);
+    // Primary: Call Vercel Serverless AI Proxy (/api/chat)
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          message: text,
+          mode: 'chat',
+          history: chatHistory.slice(-6)
+        })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.reply) {
+          replyHtml = data.reply;
+        }
+      }
+    } catch (err) {
+      console.warn('Serverless AI proxy unavailable, switching to local knowledge engine:', err);
+    }
+
+    // Fallback if serverless call failed
+    if (!replyHtml) {
+      replyHtml = generateLocalAiReply(text);
+    }
+
+    chatHistory.push({ role: 'assistant', content: replyHtml });
+
+    const indicator = document.getElementById(typingId);
+    if (indicator) indicator.remove();
+
+    const aiMsg = document.createElement('div');
+    aiMsg.className = 'flex gap-2 items-start';
+    aiMsg.innerHTML = `
+      <div class="w-6 h-6 rounded-md bg-neon/10 border border-neon/40 flex items-center justify-center text-neon flex-shrink-0 mt-0.5 text-xs">
+        🤖
+      </div>
+      <div class="bg-dark p-3 rounded-2xl rounded-tl-none border border-darkBorder text-textSecondary max-w-[85%] text-xs">
+        ${replyHtml}
+      </div>
+    `;
+    messagesBox.appendChild(aiMsg);
+    messagesBox.scrollTop = messagesBox.scrollHeight;
   }
 
   function handleSendMessage() {

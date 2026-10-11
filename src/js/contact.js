@@ -1,5 +1,5 @@
 // src/js/contact.js
-// Contact Form Submission, Toast Notifications & Clipboard Copy Helpers
+// Contact Form Submission (Vercel Serverless Function Consumer with Spam Protection & Fallback)
 
 import { playChimeSound } from './audio.js';
 
@@ -18,7 +18,7 @@ export function showToast(message) {
   toastTimeout = setTimeout(() => {
     toastEl.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
     toastEl.classList.remove('opacity-100', 'translate-y-0');
-  }, 3200);
+  }, 3500);
 }
 
 export function initContact() {
@@ -39,7 +39,14 @@ export function initContact() {
     });
   });
 
-  // 2. Contact Form Handler (FormSubmit API with Mailto Fallback)
+  // Track initial load timestamp for anti-bot speed check
+  const formLoadTime = Date.now();
+  const timestampInput = document.getElementById('contact-timestamp');
+  if (timestampInput) {
+    timestampInput.value = formLoadTime.toString();
+  }
+
+  // 2. Contact Form Handler (Vercel Serverless Function with Fallback)
   const contactForm = document.getElementById('contactForm');
   const submitBtn = document.getElementById('btnSubmitContact');
 
@@ -47,10 +54,11 @@ export function initContact() {
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const name = document.getElementById('contact-name')?.value || '';
-      const email = document.getElementById('contact-email')?.value || '';
-      const subject = document.getElementById('contact-subject')?.value || 'Portfolio Contact Inquiry';
-      const message = document.getElementById('contact-message')?.value || '';
+      const name = document.getElementById('contact-name')?.value?.trim() || '';
+      const email = document.getElementById('contact-email')?.value?.trim() || '';
+      const subject = document.getElementById('contact-subject')?.value?.trim() || 'Portfolio Contact Inquiry';
+      const message = document.getElementById('contact-message')?.value?.trim() || '';
+      const gotcha = document.getElementById('contact-gotcha')?.value || '';
 
       if (!name || !email || !message) {
         showToast('Please fill out all required fields.');
@@ -59,42 +67,86 @@ export function initContact() {
 
       const originalBtnText = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Sending Message...</span>`;
+      submitBtn.innerHTML = `
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-dark animate-ping inline-block"></span>
+          <span>Sending via Serverless Gateway...</span>
+        </span>
+      `;
 
+      let sentSuccessfully = false;
+
+      // Primary Attempt: Vercel Serverless API (/api/contact)
       try {
-        const res = await fetch('https://formsubmit.co/ajax/ayushgaurav4529@gmail.com', {
+        const res = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
           },
           body: JSON.stringify({
-            _subject: `[Portfolio Contact] ${subject} from ${name}`,
-            Name: name,
-            Email: email,
-            Subject: subject,
-            Message: message,
-            _template: 'table',
-            _captcha: 'false'
+            name,
+            email,
+            subject,
+            message,
+            _gotcha: gotcha,
+            timestamp: formLoadTime
           })
         });
 
-        if (res.ok) {
-          showToast(`Thank you ${name}! Your message has been sent to Ayush.`);
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.success) {
+          sentSuccessfully = true;
+          showToast(data.message || `Thank you, ${name}! Your message has been sent to Ayush.`);
           playChimeSound();
           contactForm.reset();
-        } else {
-          throw new Error('Server returned non-200');
+        } else if (res.status === 429) {
+          showToast(data.error || 'Too many submissions. Please wait a few minutes.');
+          sentSuccessfully = true; // Handled
         }
-      } catch (err) {
-        // Fallback to mailto
-        const mailtoUrl = `mailto:ayushgaurav4529@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-        window.location.href = mailtoUrl;
-        showToast('Opening your email client to send the message!');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
+      } catch (apiErr) {
+        console.warn('Serverless contact endpoint unreachable, attempting fallback:', apiErr);
       }
+
+      // Secondary Fallback: Direct FormSubmit if Serverless function is unavailable
+      if (!sentSuccessfully) {
+        try {
+          const fallbackRes = await fetch('https://formsubmit.co/ajax/ayushgaurav4529@gmail.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              _subject: `[Portfolio Contact] ${subject} from ${name}`,
+              Name: name,
+              Email: email,
+              Subject: subject,
+              Message: message,
+              _template: 'table',
+              _captcha: 'false'
+            })
+          });
+
+          if (fallbackRes.ok) {
+            showToast(`Thank you, ${name}! Your message has been sent to Ayush.`);
+            playChimeSound();
+            contactForm.reset();
+            sentSuccessfully = true;
+          } else {
+            throw new Error('Fallback failed');
+          }
+        } catch (fallbackErr) {
+          // Final Fallback: Native Mailto Link
+          const mailtoUrl = `mailto:ayushgaurav4529@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+          window.location.href = mailtoUrl;
+          showToast('Opening your default email client to send message!');
+        }
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
     });
   }
 }
